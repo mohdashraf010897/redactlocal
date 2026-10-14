@@ -21,6 +21,12 @@ Thumbs.db
 target/
 src-tauri/target/
 
+# Native macOS Builds
+build/
+dist/macos/
+*.dmg
+*.app/
+
 # Sensitive Test Dumps & Temporary Files
 **/raw/
 _artifacts/raw/
