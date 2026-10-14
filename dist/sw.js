@@ -1,5 +1,5 @@
 // RedactLocal Product & Leak Checker Service Worker - 100% Offline PWA Cache
-const CACHE_NAME = 'redactlocal-v3-mobile-plans';
+const CACHE_NAME = 'redactlocal-v4-install-dmg-windows';
 const ASSETS = [
   './',
   './index.html',

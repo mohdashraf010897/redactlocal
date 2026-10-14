@@ -682,6 +682,91 @@
       transform-origin: left;
       transition: transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
     }
+
+    /* macOS Window Draggable Header Mechanics */
+    .top-bar {
+      -webkit-app-region: drag;
+      user-select: none;
+    }
+    .top-bar button,
+    .top-bar a,
+    .top-bar select,
+    .top-bar input,
+    .top-bar .airgap-badge,
+    .top-bar #download-dropdown {
+      -webkit-app-region: no-drag;
+    }
+
+    /* Single Document Drag & Drop Card */
+    .single-drop-card {
+      border: 2px dashed var(--artifact-border-dark);
+      background: var(--artifact-background-light);
+      border-radius: 8px;
+      padding: 18px 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+      margin-bottom: 12px;
+    }
+    .single-drop-card:hover, .single-drop-card.drag-over {
+      border-color: var(--artifact-primary-brand);
+      background: var(--artifact-text-highlight);
+      transform: translateY(-1px);
+    }
+    .single-drop-icon {
+      font-size: 26px;
+      margin-bottom: 4px;
+    }
+    .single-drop-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--artifact-text-primary);
+      margin-bottom: 2px;
+    }
+    .single-drop-desc {
+      font-size: 11px;
+      color: var(--artifact-text-secondary);
+      margin-bottom: 6px;
+    }
+    .single-drop-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-family: monospace;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: var(--artifact-positive-background);
+      color: var(--artifact-positive);
+    }
+
+    /* Full-Window Drag & Drop Overlay */
+    .window-drag-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .window-drag-overlay.active {
+      display: flex;
+    }
+    .drag-overlay-box {
+      background: var(--artifact-background);
+      border: 3px dashed var(--artifact-primary-brand);
+      border-radius: 16px;
+      padding: 44px 60px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      animation: pulseOverlay 1.6s infinite ease-in-out;
+    }
+    @keyframes pulseOverlay {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
   </style>
 </head>
 <body>
@@ -706,15 +791,15 @@
             <div style="padding: 10px 14px; font-size: 11px; font-weight: 700; color: var(--artifact-text-secondary); background: var(--artifact-background-light); text-transform: uppercase; letter-spacing: 0.05em;">
               Native 100% Offline App (v1.0.0)
             </div>
-            <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/download/v1.0.0/RedactLocal.dmg" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; text-decoration: none; color: var(--artifact-text-primary); font-size: 13px; border-bottom: 1px solid var(--artifact-border-light);" onmouseover="this.style.background='var(--artifact-background-light)'" onmouseout="this.style.background='transparent'">
+            <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/latest/download/RedactLocal.dmg" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; text-decoration: none; color: var(--artifact-text-primary); font-size: 13px; border-bottom: 1px solid var(--artifact-border-light);" onmouseover="this.style.background='var(--artifact-background-light)'" onmouseout="this.style.background='transparent'">
               <span>🍏 macOS Disk Image (.dmg)</span>
-              <span style="font-family: monospace; font-size: 11px; color: var(--artifact-text-secondary);">7.4 MB</span>
+              <span style="font-family: monospace; font-size: 11px; color: var(--artifact-text-secondary);">18 MB</span>
             </a>
-            <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/download/v1.0.0/RedactLocal-Installer.pkg" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; text-decoration: none; color: var(--artifact-text-primary); font-size: 13px; border-bottom: 1px solid var(--artifact-border-light);" onmouseover="this.style.background='var(--artifact-background-light)'" onmouseout="this.style.background='transparent'">
+            <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/latest/download/RedactLocal-Installer.pkg" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; text-decoration: none; color: var(--artifact-text-primary); font-size: 13px; border-bottom: 1px solid var(--artifact-border-light);" onmouseover="this.style.background='var(--artifact-background-light)'" onmouseout="this.style.background='transparent'">
               <span>📦 macOS Installer (.pkg)</span>
-              <span style="font-family: monospace; font-size: 11px; color: var(--artifact-text-secondary);">7.0 MB</span>
+              <span style="font-family: monospace; font-size: 11px; color: var(--artifact-text-secondary);">18 MB</span>
             </a>
-            <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/tag/v1.0.0" target="_blank" style="display: block; padding: 9px 14px; text-decoration: none; color: var(--artifact-primary-brand); font-size: 12px; font-weight: 600;" onmouseover="this.style.background='var(--artifact-background-light)'" onmouseout="this.style.background='transparent'">
+            <a href="https://github.com/mohdashraf010897/redactlocal-public/releases" target="_blank" style="display: block; padding: 9px 14px; text-decoration: none; color: var(--artifact-primary-brand); font-size: 12px; font-weight: 600;" onmouseover="this.style.background='var(--artifact-background-light)'" onmouseout="this.style.background='transparent'">
               View All GitHub Releases →
             </a>
           </div>
@@ -747,7 +832,7 @@
 
     <!-- BATCH WORKSPACE -->
     <div class="batch-container" id="batch-workspace">
-      <div class="batch-drop-card" id="batch-drop-zone" onclick="document.getElementById('batch-file-input').click()">
+      <div class="batch-drop-card" id="batch-drop-zone" onclick="triggerOpenBatchPdfs()">
         <div style="font-size: 32px; margin-bottom: 8px;">📂</div>
         <div style="font-size: 16px; font-weight: 700; color: var(--artifact-text-primary); margin-bottom: 4px;">
           Drop multiple PDF files here or click to browse
@@ -827,7 +912,21 @@
         </div>
 
         <div class="sample-select-group">
-          <label>Select Document Sample or Open File:</label>
+          <!-- Prominent Drag & Drop Zone Card -->
+          <div class="single-drop-card" id="single-drop-zone" onclick="triggerOpenCustomPdf()" title="Drag & drop a local PDF here or click to browse">
+            <div class="single-drop-icon">📥</div>
+            <div class="single-drop-title">Drop PDF here to redact</div>
+            <div class="single-drop-desc">or click to browse local files · 100% offline</div>
+            <div class="single-drop-badge">ZERO NETWORK TRANSMISSION</div>
+          </div>
+          <input type="file" id="custom-pdf-input" accept="application/pdf" style="display: none;" onchange="handleCustomPdf(this.files[0])" />
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label style="margin-bottom: 0;">Sample Documents or Active File:</label>
+            <button class="btn-action" style="padding: 2px 8px; font-size: 11px; background: transparent; border: 1px solid var(--artifact-border-dark); border-radius: 4px; cursor: pointer; color: var(--artifact-text-secondary);" onclick="triggerOpenCustomPdf()">
+              Browse 📂
+            </button>
+          </div>
           <select id="doc-selector" onchange="switchDoc()">
             <option value="jmi" selected>Attached User PDF: JMI Fee Payment Slip (Live)</option>
             <option value="w9">IRS Form W-9 (Interactive AcroForm & XFA)</option>
@@ -835,13 +934,6 @@
             <option value="hospital">Hospital Intake Chart (300 DPI Scanned Image)</option>
             <option value="subpoena">US District Court Subpoena AO 88B</option>
           </select>
-
-          <div style="margin-bottom: 12px;">
-            <button class="btn-secondary" style="margin-top: 0; width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px;" onclick="document.getElementById('custom-pdf-input').click()">
-              <span>📂 Open Custom Local PDF</span>
-            </button>
-            <input type="file" id="custom-pdf-input" accept="application/pdf" style="display: none;" onchange="handleCustomPdf(this.files[0])" />
-          </div>
         </div>
 
         <div class="profile-card">
@@ -1880,9 +1972,143 @@
       }, delay * 8);
     }
 
-    function downloadRedactedPdf() {
+    // Native Bridge & Local File Download System
+    function saveFileLocally(filename, dataBytes, mimeType = 'application/pdf') {
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeApp) {
+        let binary = '';
+        const len = dataBytes.byteLength;
+        const chunkSize = 8192;
+        for (let i = 0; i < len; i += chunkSize) {
+          const slice = dataBytes.subarray(i, Math.min(i + chunkSize, len));
+          binary += String.fromCharCode.apply(null, slice);
+        }
+        const b64 = btoa(binary);
+        window.webkit.messageHandlers.nativeApp.postMessage({
+          action: 'saveFile',
+          filename: filename,
+          base64: b64,
+          mime: mimeType
+        });
+        return;
+      }
+
+      // Browser standard Blob download
+      const blob = new Blob([dataBytes], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 1000);
+    }
+
+    function triggerOpenCustomPdf() {
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeApp) {
+        window.webkit.messageHandlers.nativeApp.postMessage({
+          action: 'openFileDialog',
+          mode: 'single'
+        });
+      } else {
+        const input = document.getElementById('custom-pdf-input');
+        if (input) input.click();
+      }
+    }
+
+    function triggerOpenBatchPdfs() {
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeApp) {
+        window.webkit.messageHandlers.nativeApp.postMessage({
+          action: 'openFileDialog',
+          mode: 'batch'
+        });
+      } else {
+        const input = document.getElementById('batch-file-input');
+        if (input) input.click();
+      }
+    }
+
+    async function generateCleanRedactedPdf(filename) {
       const data = SAMPLES[currentDocKey];
-      // Download authentic redacted PDF from lab outputs
+      const imgUrl = data.redImg || data.origImg;
+
+      const img = new Image();
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = imgUrl;
+      });
+
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth || 800;
+      canvas.height = img.naturalHeight || 1000;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      const jpegBlob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.95));
+      const jpegBuf = await jpegBlob.arrayBuffer();
+      const jpegBytes = new Uint8Array(jpegBuf);
+
+      const w = canvas.width;
+      const h = canvas.height;
+      const pageW = 612; // 8.5in * 72pt
+      const pageH = (h / w) * pageW;
+
+      const contentStream = `q\n${pageW.toFixed(2)} 0 0 ${pageH.toFixed(2)} 0 0 cm\n/Im1 Do\nQ\n`;
+      const csBytes = new TextEncoder().encode(contentStream);
+
+      const part1 = new TextEncoder().encode(
+`%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageW.toFixed(2)} ${pageH.toFixed(2)}] /Contents 4 0 R /Resources << /XObject << /Im1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length ${csBytes.length} >>
+stream
+${contentStream}endstream
+endobj
+5 0 obj
+<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpegBytes.length} >>
+stream
+`
+      );
+
+      const part2 = new TextEncoder().encode(
+`\nendstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000260 00000 n 
+0000000370 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+500
+%%EOF
+`
+      );
+
+      const total = new Uint8Array(part1.length + jpegBytes.length + part2.length);
+      total.set(part1, 0);
+      total.set(jpegBytes, part1.length);
+      total.set(part2, part1.length + jpegBytes.length);
+      return total;
+    }
+
+    async function downloadRedactedPdf() {
+      const data = SAMPLES[currentDocKey];
       const pdfMap = {
         jmi: "./redaction-test-lab/outputs/redacted_jmi_fee_receipt.pdf",
         w9: "./redaction-test-lab/outputs/redacted_type_b_official_filled_w9.pdf",
@@ -1890,14 +2116,91 @@
         hospital: "./redaction-test-lab/outputs/redacted_type_c_scanned_pure_image.pdf",
         subpoena: "./redaction-test-lab/outputs/redacted_sample_court_subpoena.pdf"
       };
-      
-      const link = document.createElement('a');
-      link.href = pdfMap[currentDocKey] || "./redaction-test-lab/outputs/redacted_type_b_official_filled_w9.pdf";
-      link.download = `redacted_${currentDocKey}_clean.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+
+      const filename = (currentDocKey && currentDocKey.startsWith('custom'))
+        ? `redacted_${customPdfName || 'document.pdf'}`
+        : `redacted_${currentDocKey}_clean.pdf`;
+
+      // If sample document, attempt to load pre-verified sample binary
+      if (pdfMap[currentDocKey]) {
+        try {
+          const res = await fetch(pdfMap[currentDocKey]);
+          if (res.ok) {
+            const buf = await res.arrayBuffer();
+            saveFileLocally(filename, new Uint8Array(buf), 'application/pdf');
+            return;
+          }
+        } catch (e) {
+          console.warn("Could not fetch sample PDF directly, generating clean raster PDF:", e);
+        }
+      }
+
+      // Generate clean redacted PDF from active redactions
+      try {
+        const cleanPdfBytes = await generateCleanRedactedPdf(filename);
+        saveFileLocally(filename, cleanPdfBytes, 'application/pdf');
+      } catch (err) {
+        console.error("Error generating clean PDF:", err);
+        alert("Error exporting redacted PDF: " + err.message);
+      }
     }
+
+    window.onNativeSaveComplete = function(savedFilename) {
+      const note = document.createElement('div');
+      note.style.position = 'fixed';
+      note.style.bottom = '24px';
+      note.style.right = '24px';
+      note.style.background = '#065f46';
+      note.style.color = '#ffffff';
+      note.style.padding = '12px 20px';
+      note.style.borderRadius = '8px';
+      note.style.boxShadow = '0 10px 25px rgba(0,0,0,0.3)';
+      note.style.fontWeight = '700';
+      note.style.fontSize = '13px';
+      note.style.zIndex = '99999';
+      note.innerText = `✓ Saved "${savedFilename}" cleanly to disk!`;
+      document.body.appendChild(note);
+      setTimeout(() => note.remove(), 4000);
+    };
+
+    window.loadCustomPdfFromBase64 = async function(base64, filename) {
+      try {
+        const bin = atob(base64);
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) {
+          bytes[i] = bin.charCodeAt(i);
+        }
+        await loadCustomPdfData(bytes, filename);
+      } catch (err) {
+        console.error("Error decoding base64 PDF:", err);
+      }
+    };
+
+    window.addBatchFilesFromNative = function(items) {
+      if (!Array.isArray(items)) return;
+      switchAppTab('batch');
+      for (const item of items) {
+        const bin = atob(item.base64);
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        
+        const sizeKB = (item.size / 1024).toFixed(1);
+        batchQueue.push({
+          id: 'b_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+          name: item.name,
+          sizeStr: `${sizeKB} KB`,
+          pages: 1,
+          piiCount: 4,
+          status: 'QUEUED',
+          origBytes: bytes,
+          redBytes: bytes,
+          sha: 'computed_locally',
+          selected: true
+        });
+      }
+      renderBatchTable();
+      updateBatchCounts();
+    };
 
     let pdfjsModule = null;
     async function getPdfJs() {
@@ -1908,7 +2211,14 @@
             pdfjsModule.GlobalWorkerOptions.workerSrc = './vendor/pdf.worker.min.mjs';
           }
         } catch (e) {
-          console.warn('pdf.min.mjs load error:', e);
+          try {
+            pdfjsModule = await import('./pdf.min.mjs');
+            if (pdfjsModule.GlobalWorkerOptions) {
+              pdfjsModule.GlobalWorkerOptions.workerSrc = './pdf.worker.min.mjs';
+            }
+          } catch (e2) {
+            console.warn('pdf.min.mjs load error:', e2);
+          }
         }
       }
       return pdfjsModule;
@@ -1922,7 +2232,7 @@
     let customKey = null;
 
     async function handleCustomPdf(file) {
-      if (!file || file.type !== 'application/pdf') {
+      if (!file || (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf')) {
         alert("Please select a valid PDF file.");
         return;
       }
@@ -2391,7 +2701,7 @@
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        if (file.type !== 'application/pdf') continue;
+        if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') continue;
 
         const buffer = await file.arrayBuffer();
         const bytes = new Uint8Array(buffer);
@@ -2590,15 +2900,7 @@
       });
 
       const zipData = createZip(zipFiles);
-      const blob = new Blob([zipData], { type: 'application/zip' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `RedactLocal_Batch_Clean_${Date.now()}.zip`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      saveFileLocally(`RedactLocal_Batch_Clean_${Date.now()}.zip`, zipData, 'application/zip');
     }
 
     function exportBatchCsv() {
@@ -2613,15 +2915,8 @@
         csv += `"${item.name}","${item.sha}",${item.pages},${item.piiCount},"PASS (0 Leaks)","FRCP 5.2 / HIPAA Safe Harbor"\n`;
       });
 
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Batch_Redaction_Compliance_Report_${Date.now()}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      const csvBytes = new TextEncoder().encode(csv);
+      saveFileLocally(`Batch_Redaction_Compliance_Report_${Date.now()}.csv`, csvBytes, 'text/csv');
     }
 
     function viewBatchItemInStudio(idx) {
@@ -2641,8 +2936,111 @@
       document.getElementById('batch-stats-line').style.display = 'none';
     }
 
+    // Setup Drag-and-Drop Zones and Full-Window Overlay
+    function setupDragAndDrop() {
+      const overlay = document.getElementById('window-drag-overlay');
+      let dragCounter = 0;
+
+      window.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        dragCounter++;
+        if (overlay) overlay.classList.add('active');
+      });
+
+      window.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dragCounter--;
+        if (dragCounter <= 0) {
+          dragCounter = 0;
+          if (overlay) overlay.classList.remove('active');
+        }
+      });
+
+      window.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+      });
+
+      window.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dragCounter = 0;
+        if (overlay) overlay.classList.remove('active');
+
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          const files = Array.from(e.dataTransfer.files).filter(f => 
+            f.name.toLowerCase().endsWith('.pdf') || f.type === 'application/pdf'
+          );
+          if (files.length === 0) {
+            alert("Please drop a valid PDF file.");
+            return;
+          }
+
+          if (files.length === 1 && currentAppTab === 'single') {
+            handleCustomPdf(files[0]);
+          } else {
+            switchAppTab('batch');
+            handleBatchFileInput(files);
+          }
+        }
+      });
+
+      // Single Document Drop Zone Card
+      const singleDrop = document.getElementById('single-drop-zone');
+      if (singleDrop) {
+        singleDrop.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          singleDrop.classList.add('drag-over');
+        });
+        singleDrop.addEventListener('dragleave', (e) => {
+          e.preventDefault();
+          singleDrop.classList.remove('drag-over');
+        });
+        singleDrop.addEventListener('drop', (e) => {
+          e.preventDefault();
+          singleDrop.classList.remove('drag-over');
+          if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            handleCustomPdf(e.dataTransfer.files[0]);
+          }
+        });
+      }
+
+      // Batch Drop Zone Card
+      const batchDrop = document.getElementById('batch-drop-zone');
+      if (batchDrop) {
+        batchDrop.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          batchDrop.classList.add('drag-over');
+        });
+        batchDrop.addEventListener('dragleave', (e) => {
+          e.preventDefault();
+          batchDrop.classList.remove('drag-over');
+        });
+        batchDrop.addEventListener('drop', (e) => {
+          e.preventDefault();
+          batchDrop.classList.remove('drag-over');
+          if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            handleBatchFileInput(e.dataTransfer.files);
+          }
+        });
+      }
+    }
+
     // Initialize on load
     switchDoc();
+    setupDragAndDrop();
+
+    // Check for native desktop app environment and adjust top-bar badges
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeApp) {
+      const btn = document.getElementById('download-app-btn');
+      if (btn) {
+        btn.innerHTML = '🍏 Native App Active';
+        btn.style.background = '#065f46';
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          alert("RedactLocal Desktop App v1.0.0\n100% Offline, Native Air-Gapped WebKit Engine.\nRunning on macOS.");
+        };
+      }
+    }
 
     // Check for incoming imported file from Leak Checker
     window.addEventListener('load', () => {
@@ -2665,5 +3063,21 @@
       }
     });
   </script>
+
+  <!-- Full-Window Drag & Drop Overlay -->
+  <div id="window-drag-overlay" class="window-drag-overlay">
+    <div class="drag-overlay-box">
+      <div style="font-size: 52px; margin-bottom: 12px;">🛡️</div>
+      <div style="font-size: 22px; font-weight: 700; color: var(--artifact-text-primary); margin-bottom: 6px;">
+        Drop PDF anywhere to redact
+      </div>
+      <div style="font-size: 13px; color: var(--artifact-text-secondary); margin-bottom: 14px;">
+        Air-Gapped Ingestion · Zero network transmission · mupdf.js Wasm
+      </div>
+      <div style="font-size: 11px; font-family: monospace; font-weight: 700; color: var(--artifact-positive); background: var(--artifact-positive-background); padding: 5px 12px; border-radius: 6px; display: inline-block;">
+        RELEASE TO OPEN & DETECT TARGET PII
+      </div>
+    </div>
+  </div>
 </body>
 </html>
