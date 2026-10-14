@@ -22,10 +22,28 @@
       --artifact-warn: #f59e0b;
     }
 
+    html[data-theme='dark'] {
+      --artifact-background: #0f172a;
+      --artifact-background-light: #020617;
+      --artifact-background-mid: #1e293b;
+      --artifact-border-light: #334155;
+      --artifact-border-dark: #475569;
+      --artifact-primary-brand: #10b981;
+      --artifact-primary-hover: #34d399;
+      --artifact-text-primary: #f8fafc;
+      --artifact-text-secondary: #94a3b8;
+      --artifact-text-highlight: #064e3b;
+      --artifact-positive: #34d399;
+      --artifact-positive-background: #064e3b;
+      --artifact-negative: #f87171;
+      --artifact-warn: #fbbf24;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: var(--artifact-background-light);
       color: var(--artifact-text-primary);
+      transition: background 0.25s ease, color 0.25s ease;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.5;
       padding: 24px 20px;
@@ -173,7 +191,7 @@
       border: 1px solid var(--artifact-border-dark);
       border-radius: 6px;
       font-size: 13px;
-      background: #ffffff;
+      background: var(--artifact-background);
       color: var(--artifact-text-primary);
       margin-bottom: 12px;
       font-weight: 500;
@@ -246,7 +264,7 @@
 
     .btn-secondary {
       width: 100%;
-      background: #ffffff;
+      background: var(--artifact-background);
       border: 1px solid var(--artifact-border-dark);
       color: var(--artifact-text-primary);
       padding: 9px 12px;
@@ -275,7 +293,7 @@
     .mode-toggle-group {
       display: flex;
       gap: 4px;
-      background: #ffffff;
+      background: var(--artifact-background);
       padding: 3px;
       border-radius: 6px;
       border: 1px solid var(--artifact-border-light);
@@ -309,7 +327,7 @@
       align-items: center;
     }
     .sub-toggle-btn {
-      background: #ffffff;
+      background: var(--artifact-background);
       border: 1px solid var(--artifact-border-dark);
       padding: 4px 10px;
       border-radius: 4px;
@@ -569,12 +587,13 @@
     }
     .receipt-modal.active { display: flex; }
     .receipt-card {
-      background: #ffffff;
+      background: var(--artifact-background);
+      border: 1px solid var(--artifact-border-light);
       border-radius: 12px;
       max-width: 660px;
       width: 100%;
       padding: 28px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
       position: relative;
     }
     .receipt-close {
@@ -590,7 +609,7 @@
     /* Batch Processing Queue Styles */
     .batch-container {
       display: none;
-      background: #ffffff;
+      background: var(--artifact-background);
       border: 1px solid var(--artifact-border-light);
       border-radius: 10px;
       padding: 24px;
@@ -743,7 +762,7 @@
       <div class="batch-toolbar">
         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
           <label style="font-size: 12px; font-weight: 700; color: var(--artifact-text-secondary);">Statutory Profile:</label>
-          <select id="batch-profile-select" style="padding: 6px 10px; border-radius: 6px; border: 1px solid var(--artifact-border-dark); font-size: 12px; background: #fff;">
+          <select id="batch-profile-select" style="padding: 6px 10px; border-radius: 6px; border: 1px solid var(--artifact-border-dark); font-size: 12px; background: var(--artifact-background); color: var(--artifact-text-primary);">
             <option value="frcp">FRCP 5.2 Court Standard (SSN, Financial, Minor Names)</option>
             <option value="hipaa">HIPAA Safe Harbor (18 Medical Identifiers)</option>
             <option value="financial">Tax / CPA Standard (TIN, Bank AC, Amounts)</option>
@@ -757,10 +776,10 @@
           <button class="btn-action btn-action-secondary" onclick="downloadBatchZip()" id="btn-batch-zip" style="display: none; background: #0f172a; color: #fff; border: none; padding: 7px 14px; border-radius: 6px; font-weight: 700; cursor: pointer;">
             📦 Download All (ZIP)
           </button>
-          <button class="btn-action btn-action-secondary" onclick="exportBatchCsv()" id="btn-batch-csv" style="display: none; background: #fff; border: 1px solid var(--artifact-border-dark); padding: 7px 14px; border-radius: 6px; font-weight: 600; cursor: pointer;">
+          <button class="btn-action btn-action-secondary" onclick="exportBatchCsv()" id="btn-batch-csv" style="display: none; background: var(--artifact-background); border: 1px solid var(--artifact-border-dark); color: var(--artifact-text-primary); padding: 7px 14px; border-radius: 6px; font-weight: 600; cursor: pointer;">
             📊 Export Audit CSV
           </button>
-          <button class="btn-action btn-action-secondary" onclick="clearBatch()" style="background: #fff; border: 1px solid var(--artifact-border-dark); padding: 7px 12px; border-radius: 6px; color: #ef4444; cursor: pointer;">
+          <button class="btn-action btn-action-secondary" onclick="clearBatch()" style="background: var(--artifact-background); border: 1px solid var(--artifact-border-dark); padding: 7px 12px; border-radius: 6px; color: #ef4444; cursor: pointer;">
             🗑️ Clear
           </button>
         </div>
@@ -1027,7 +1046,7 @@
           <input type="file" id="license-file-input" accept=".rlkey,.json" style="display: none;" onchange="handleLicenseFile(this.files[0])" />
         </div>
 
-        <textarea id="license-text-input" placeholder="Paste your license JSON here..." style="width: 100%; height: 80px; padding: 8px; font-family: monospace; font-size: 11px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; margin-bottom: 16px; resize: vertical; box-sizing: border-box;"></textarea>
+        <textarea id="license-text-input" placeholder="Paste your license JSON here..." style="width: 100%; height: 80px; padding: 8px; font-family: monospace; font-size: 11px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; margin-bottom: 16px; resize: vertical; box-sizing: border-box; background: var(--artifact-background); color: var(--artifact-text-primary);"></textarea>
 
         <div style="display: flex; gap: 10px;">
           <button class="btn-primary" style="margin-top: 0;" onclick="activateLicenseFromText()">
@@ -1113,9 +1132,15 @@
       window.toggleTheme = function(){ try{
         const cur = document.documentElement.getAttribute('data-theme');
         const next = cur === 'dark' ? null : 'dark';
-        if (next) document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme');
+        if (next) {
+          document.documentElement.setAttribute('data-theme','dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+        const btn = document.getElementById('theme-toggle-btn');
+        if (btn) btn.innerText = next === 'dark' ? '☀️ Light' : '🌓 Dark';
         try { localStorage.setItem('redactlocal_theme', next ? 'dark' : 'light'); } catch(e){}
-        showToast('Theme: ' + (next === 'dark' ? 'Dark' : 'Light'), 'success');
+        showToast('Switched to ' + (next === 'dark' ? 'Dark Mode' : 'Light Mode'), 'success');
       }catch(e){console.warn(e);} };
 
       window.toggleDownloadDropdown = function() {
@@ -1133,7 +1158,14 @@
       });
 
       // initialize theme from storage
-      (function(){ try{ const t = localStorage.getItem('redactlocal_theme'); if (t === 'dark') document.documentElement.setAttribute('data-theme','dark'); }catch(e){} })();
+      (function(){ try{
+        const t = localStorage.getItem('redactlocal_theme');
+        if (t === 'dark') {
+          document.documentElement.setAttribute('data-theme','dark');
+          const btn = document.getElementById('theme-toggle-btn');
+          if (btn) btn.innerText = '☀️ Light';
+        }
+      }catch(e){} })();
     })();
   </script>
   <script>
