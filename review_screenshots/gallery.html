@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RedactLocal — End-to-End Customer Simulation Screenshots</title>
+  <style>
+    :root {
+      --artifact-background: #ffffff;
+      --artifact-background-light: #f8fafc;
+      --artifact-background-mid: #f1f5f9;
+      --artifact-border-light: #e2e8f0;
+      --artifact-border-dark: #cbd5e1;
+      --artifact-primary-brand: #2563eb;
+      --artifact-primary-hover: #1d4ed8;
+      --artifact-text-primary: #0f172a;
+      --artifact-text-secondary: #475569;
+      --artifact-positive: #16a34a;
+      --artifact-positive-bg: #f0fdf4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--artifact-background-light);
+      color: var(--artifact-text-primary);
+      padding: 24px;
+      line-height: 1.6;
+    }
+    .header {
+      max-width: 1200px;
+      margin: 0 auto 32px;
+      padding: 24px 28px;
+      background: #fff;
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .eyebrow {
+      font-family: "SF Mono", "Consolas", monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--artifact-primary-brand);
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: block;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--artifact-positive-bg);
+      color: var(--artifact-positive);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: "SF Mono", monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    }
+    .card-head {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--artifact-border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--artifact-background-light);
+    }
+    .step-num {
+      font-family: "SF Mono", monospace;
+      font-weight: 700;
+      color: var(--artifact-primary-brand);
+      margin-right: 10px;
+      font-size: 13px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .card-desc {
+      padding: 14px 24px;
+      font-size: 14px;
+      color: var(--artifact-text-secondary);
+      border-bottom: 1px solid var(--artifact-border-light);
+      background: #fafafa;
+    }
+    .card-img-wrap {
+      padding: 16px;
+      background: #0f172a;
+      text-align: center;
+    }
+    .card-img-wrap img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <h1 style="font-size: 22px; font-weight: 700;">Customer Simulation: Rachel Martinez (Paralegal)</h1>
+      <p style="color: var(--artifact-text-secondary); font-size: 14px; margin-top: 4px;">
+        11 Automated Playwright Verification Checkpoints · Zero Modal Alerts · 100% Client-Side Privacy
+      </p>
+    </div>
+    <div class="badge">✓ ALL 11 STEPS PASSED</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Step 1 -->
+    <div class="card" id="step1">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[01]</span> Landing Page — Free Web Leak Checker PWA</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        Senior paralegal lands on the PWA scanner with direct $39 Founders Pass pre-order CTA and zero-upload air-gapped security badge.
+      </div>
+      <div class="card-img-wrap">
+        <img src="01_landing_page.png" alt="Step 01 Landing Page" />
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="card" id="step2">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[02]</span> Forensic Leak Detection — Real Document Audited</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        Uploaded real university payment document (JMI Online Fee Payment System). Scanner extracted author metadata and 3 PII channels in-memory.
+      </div>
+      <div class="card-img-wrap">
+        <img src="02_leak_detected_report.png" alt="Step 02 Leak Report" />
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="card" id="step3">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[03]</span> RedactLocal Studio Loaded via Memory Bridge</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        Document bytes transferred into the offline RedactLocal Studio sandbox using sessionStorage with zero server uploads.
+      </div>
+      <div class="card-img-wrap">
+        <img src="03_studio_loaded.png" alt="Step 03 Studio Loaded" />
+      </div>
+    </div>
+
+    <!-- Step 3b -->
+    <div class="card" id="step3b">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[03b]</span> High-Contrast Dark Mode Toggle (🌓 Theme)</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        Paralegal activates dark mode for late-night court filing reviews. State persisted in localStorage with non-blocking confirmation toast.
+      </div>
+      <div class="card-img-wrap">
+        <img src="03b_studio_dark_mode.png" alt="Step 03b Dark Mode" />
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="card" id="step4">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[04]</span> Split-Slider Comparison Viewport</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        Interactive drag slider comparing original unredacted text with clean surgical redaction boundaries in real time.
+      </div>
+      <div class="card-img-wrap">
+        <img src="04_split_slider_view.png" alt="Step 04 Split Slider View" />
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="card" id="step5">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[05]</span> Side-by-Side Dual Page Review</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        Dual view displaying the original document and the sanitized preview side-by-side for legal verification.
+      </div>
+      <div class="card-img-wrap">
+        <img src="05_dual_page_view.png" alt="Step 05 Dual Page View" />
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="card" id="step6">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[06]</span> Interactive Manual Box Drawing</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        User drags a custom redaction box across the document canvas; coordinates automatically synchronize into the bounded PII queue.
+      </div>
+      <div class="card-img-wrap">
+        <img src="06_manual_box_drawn.png" alt="Step 06 Manual Box Drawn" />
+      </div>
+    </div>
+
+    <!-- Step 7 -->
+    <div class="card" id="step7">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[07]</span> Surgical Redaction & 7-Oracle Integrity Audit</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        WebAssembly engine removes underlying bytecode streams and burns raster image pixels. All 7 independent verification oracles pass green.
+      </div>
+      <div class="card-img-wrap">
+        <img src="07_redacted_clean_audited.png" alt="Step 07 Redacted Clean" />
+      </div>
+    </div>
+
+    <!-- Step 8 -->
+    <div class="card" id="step8">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[08]</span> Cryptographic Receipt of Redaction</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        Court-ready cryptographic certificate with SHA-256 digests, redacted token counts, and zero-residual compliance stamp.
+      </div>
+      <div class="card-img-wrap">
+        <img src="08_cryptographic_receipt_modal.png" alt="Step 08 Cryptographic Receipt" />
+      </div>
+    </div>
+
+    <!-- Step 9 -->
+    <div class="card" id="step9">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[09]</span> High-Volume Batch Queue Loaded</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        Batch queue ingests 5 legal filings simultaneously for automated, multi-document batch sanitization.
+      </div>
+      <div class="card-img-wrap">
+        <img src="09_batch_queue_loaded.png" alt="Step 09 Batch Queue Loaded" />
+      </div>
+    </div>
+
+    <!-- Step 10 -->
+    <div class="card" id="step10">
+      <div class="card-head">
+        <span class="card-title"><span class="step-num">[10]</span> Batch Completed — 1-Click ZIP Archive & CSV Manifest</span>
+        <span class="badge">PASSED</span>
+      </div>
+      <div class="card-desc">
+        Pure JavaScript in-browser ZIP archiver packages all sanitized PDFs into a single ZIP archive alongside a compliance audit CSV ledger.
+      </div>
+      <div class="card-img-wrap">
+        <img src="10_batch_completed_zip_ready.png" alt="Step 10 Batch Completed" />
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
