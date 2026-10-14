@@ -6,7 +6,7 @@
   "build": {
     "beforeDevCommand": "",
     "beforeBuildCommand": "",
-    "frontendDist": "../"
+    "frontendDist": "../dist"
   },
   "app": {
     "withGlobalTauri": true,
@@ -16,6 +16,7 @@
     "windows": [
       {
         "title": "RedactLocal — 100% Offline PDF Redaction & 7-Oracle Verifier",
+        "url": "studio.html",
         "width": 1280,
         "height": 860,
         "minWidth": 960,
@@ -33,9 +34,27 @@
       "icons/32x32.png",
       "icons/128x128.png",
       "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
+      "icons/icon.ico",
+      "icons/icon.png"
     ],
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": "",
+      "webview2InstallMode": {
+        "type": "downloadBootstrapper"
+      },
+      "nsis": {
+        "installerIcon": "icons/icon.ico",
+        "headerImage": null,
+        "sidebarImage": null,
+        "installMode": "currentUser",
+        "displayLanguageSelector": false
+      },
+      "wix": {
+        "language": "en-US"
+      }
+    },
     "category": "Productivity",
     "shortDescription": "100% Offline, Privacy-First PDF Redaction",
     "longDescription": "Surgical bytecode PDF redaction utility engineered for litigation paralegals, CPAs, and healthcare professionals with fail-closed 7-Oracle verification and air-gapped cryptographic receipts.",
