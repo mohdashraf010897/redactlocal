@@ -1,0 +1,15 @@
+{
+  "timestamp": 1791959425464,
+  "numPages": 50,
+  "totalRedactions": 150,
+  "totalElapsedMs": 79.594958,
+  "avgPageMs": 1.5565741399999984,
+  "p50Ms": 1.2412909999999897,
+  "p95Ms": 1.8619580000000013,
+  "saveMs": 1.1614170000000001,
+  "peakHeapMB": 6.242225646972656,
+  "heapDeltaMB": 0.541656494140625,
+  "heapPass": true,
+  "p95Pass": true,
+  "gateVerdict": "PASSED (WASM ENGINE CLEARED FOR V1)"
+}

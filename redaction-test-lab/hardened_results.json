@@ -1,0 +1,426 @@
+{
+  "timestamp": 1791968889.8523169,
+  "overall_passed": true,
+  "documents_tested": [
+    {
+      "id": "Type-A",
+      "name": "Born-Digital Corporate Merger NDA & Fee Schedule",
+      "passed": true,
+      "timings": {
+        "open_ms": 0.9932080283761024,
+        "engine_process_ms": 12.730291928164661,
+        "metadata_scrub_ms": 2.951917005702853,
+        "save_serialize_ms": 0.819082953967154,
+        "total_ms": 17.49825000297278
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "pypdf": {
+              "status": "PASS",
+              "leaks": []
+            },
+            "pdfjs": {
+              "status": "PASS",
+              "leaks": []
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1,
+          "leaks": []
+        },
+        "O3_structural_audit": {
+          "status": "PASS",
+          "violations": []
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions specified"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "orig_text_len": 1260,
+          "red_text_len": 1228,
+          "delta_chars": 32,
+          "expected_min_delta": 79
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_clean": true
+        }
+      }
+    },
+    {
+      "id": "Type-B",
+      "name": "Official IRS Form W-9 (Interactive AcroForm & XFA Streams)",
+      "passed": true,
+      "timings": {
+        "open_ms": 0.9244579123333097,
+        "engine_process_ms": 126.58258399460465,
+        "metadata_scrub_ms": 47.06387501209974,
+        "save_serialize_ms": 19.78920795954764,
+        "total_ms": 194.37008304521441
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "pypdf": {
+              "status": "PASS",
+              "leaks": []
+            },
+            "pdfjs": {
+              "status": "PASS",
+              "leaks": []
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 28,
+          "leaks": []
+        },
+        "O3_structural_audit": {
+          "status": "PASS",
+          "violations": []
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions specified"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "orig_text_len": 38179,
+          "red_text_len": 38179,
+          "delta_chars": 0,
+          "expected_min_delta": 85
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_clean": true
+        }
+      }
+    },
+    {
+      "id": "Type-C",
+      "name": "Scanned Hospital Intake Record (300 DPI Pure Raster)",
+      "passed": true,
+      "timings": {
+        "open_ms": 0.43529097456485033,
+        "engine_process_ms": 22.40683394484222,
+        "metadata_scrub_ms": 2.018166007474065,
+        "save_serialize_ms": 30.446458025835454,
+        "total_ms": 55.311999982222915
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "pypdf": {
+              "status": "PASS",
+              "leaks": []
+            },
+            "pdfjs": {
+              "status": "PASS",
+              "leaks": []
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 3,
+          "leaks": []
+        },
+        "O3_structural_audit": {
+          "status": "PASS",
+          "violations": []
+        },
+        "O4_raster_burnout": {
+          "status": "PASS",
+          "regions_checked": 2,
+          "details": [
+            {
+              "box": [
+                540,
+                240,
+                1040,
+                296
+              ],
+              "dark_orig": 1087,
+              "dark_red": 0,
+              "burned_out": true
+            },
+            {
+              "box": [
+                540,
+                420,
+                920,
+                476
+              ],
+              "dark_orig": 688,
+              "dark_red": 0,
+              "burned_out": true
+            }
+          ]
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "orig_text_len": 0,
+          "red_text_len": 0,
+          "delta_chars": 0,
+          "expected_min_delta": 0
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_clean": true
+        }
+      }
+    },
+    {
+      "id": "Type-D",
+      "name": "OCR Sandwich Court Deposition (Image + Hidden Text Layer)",
+      "passed": true,
+      "timings": {
+        "open_ms": 1.4477090444415808,
+        "engine_process_ms": 23.213083972223103,
+        "metadata_scrub_ms": 2.8793750097975135,
+        "save_serialize_ms": 30.86125000845641,
+        "total_ms": 58.40762495063245
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "pypdf": {
+              "status": "PASS",
+              "leaks": []
+            },
+            "pdfjs": {
+              "status": "PASS",
+              "leaks": []
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 3,
+          "leaks": []
+        },
+        "O3_structural_audit": {
+          "status": "PASS",
+          "violations": []
+        },
+        "O4_raster_burnout": {
+          "status": "PASS",
+          "regions_checked": 1,
+          "details": [
+            {
+              "box": [
+                90,
+                190,
+                600,
+                240
+              ],
+              "dark_orig": 225,
+              "dark_red": 0,
+              "burned_out": true
+            }
+          ]
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "orig_text_len": 495,
+          "red_text_len": 459,
+          "delta_chars": 36,
+          "expected_min_delta": 32
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_clean": true
+        }
+      }
+    },
+    {
+      "id": "Type-E",
+      "name": "Executive Brief with Revision History & Private XMP",
+      "passed": true,
+      "timings": {
+        "open_ms": 1.1262920452281833,
+        "engine_process_ms": 1.5494170365855098,
+        "metadata_scrub_ms": 1.8464579479768872,
+        "save_serialize_ms": 0.5679590394720435,
+        "total_ms": 5.093249958008528
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "pypdf": {
+              "status": "PASS",
+              "leaks": []
+            },
+            "pdfjs": {
+              "status": "PASS",
+              "leaks": []
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1,
+          "leaks": []
+        },
+        "O3_structural_audit": {
+          "status": "PASS",
+          "violations": []
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions specified"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "orig_text_len": 561,
+          "red_text_len": 561,
+          "delta_chars": 0,
+          "expected_min_delta": 108
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_clean": true
+        }
+      }
+    },
+    {
+      "id": "Real-IRS-1040",
+      "name": "Official IRS Form 1040 (U.S. Individual Income Tax Return)",
+      "passed": true,
+      "timings": {
+        "open_ms": 2.0373750012367964,
+        "engine_process_ms": 77.1591670345515,
+        "metadata_scrub_ms": 94.02850002516061,
+        "save_serialize_ms": 72.26124999579042,
+        "total_ms": 245.49483298324049
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "pypdf": {
+              "status": "PASS",
+              "leaks": []
+            },
+            "pdfjs": {
+              "status": "PASS",
+              "leaks": []
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 17,
+          "leaks": []
+        },
+        "O3_structural_audit": {
+          "status": "PASS",
+          "violations": []
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions specified"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "orig_text_len": 10410,
+          "red_text_len": 10357,
+          "delta_chars": 53,
+          "expected_min_delta": 27
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_clean": true
+        }
+      }
+    },
+    {
+      "id": "Real-Court-Subpoena",
+      "name": "US District Court Subpoena AO 88B (Federal Court Document)",
+      "passed": true,
+      "timings": {
+        "open_ms": 0.8325420785695314,
+        "engine_process_ms": 25.55758401285857,
+        "metadata_scrub_ms": 9.250791976228356,
+        "save_serialize_ms": 5.196040961891413,
+        "total_ms": 40.84154206793755
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "pypdf": {
+              "status": "PASS",
+              "leaks": []
+            },
+            "pdfjs": {
+              "status": "PASS",
+              "leaks": []
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 21,
+          "leaks": []
+        },
+        "O3_structural_audit": {
+          "status": "PASS",
+          "violations": []
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions specified"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "orig_text_len": 9999,
+          "red_text_len": 9982,
+          "delta_chars": 17,
+          "expected_min_delta": 43
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_clean": true
+        }
+      }
+    }
+  ],
+  "oracle_7_planted_audit": {
+    "status": "PASS",
+    "planted_vectors_caught": 4,
+    "details": [
+      {
+        "vector": "V1: Visual Blackout without Stream Eradication",
+        "caught": true,
+        "reason": "Oracle 1B (PDF.js) detected leaks: [{'type': 'textContent', 'target': '999-00-1111'}]"
+      },
+      {
+        "vector": "V2: AcroForm Widget /V Retained",
+        "caught": true,
+        "reason": "Oracle 1B (PDF.js) detected leaks: [{'type': 'annotation_fieldValue', 'page': 1, 'target': '888-77-6666', 'context': '888-77-6666'}]"
+      },
+      {
+        "vector": "V3: Incremental Save Revision History (/Prev)",
+        "caught": true,
+        "reason": "Oracle 1B (PDF.js) detected leaks: [{'type': 'textContent', 'target': '777-66-5555'}]"
+      },
+      {
+        "vector": "V4: Metadata /Author PII Leak",
+        "caught": true,
+        "reason": "Oracle 2 found byte-level leaks: [\"Raw buffer contains ASCII/UTF-8 representation of '123-45-6789'\"]"
+      }
+    ]
+  }
+}

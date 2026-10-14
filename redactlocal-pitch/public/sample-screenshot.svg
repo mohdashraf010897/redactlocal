@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" font-family="sans-serif">
+  <!-- Placeholder "screenshot" for the gallery. Replace with a real PNG in your project. -->
+  <rect width="1600" height="1000" fill="#F7F6F3"/>
+  <rect width="1600" height="72" fill="#2B2A33"/>
+  <text x="40" y="46" fill="#fff" font-size="26" font-weight="700">Service dashboard</text>
+  <rect x="0" y="72" width="280" height="928" fill="#EFEDE8"/>
+  <g fill="#8A8782" font-size="22"><text x="40" y="140">Overview</text><text x="40" y="190">Alerts</text><text x="40" y="240">Deploys</text><text x="40" y="290">Settings</text></g>
+  <text x="340" y="150" fill="#0B0B0B" font-size="40" font-weight="700">checkout-api</text>
+  <text x="340" y="196" fill="#8A8782" font-size="22">owner: payments-team@example.com · region: us-east</text>
+  <g font-size="22" fill="#0B0B0B">
+    <rect x="340" y="240" width="380" height="180" rx="16" fill="#fff"/><text x="370" y="290" fill="#8A8782">Error rate</text><text x="370" y="370" font-size="56" font-weight="700" fill="#E5484D">4.8%</text>
+    <rect x="750" y="240" width="380" height="180" rx="16" fill="#fff"/><text x="780" y="290" fill="#8A8782">p95 latency</text><text x="780" y="370" font-size="56" font-weight="700">812 ms</text>
+    <rect x="1160" y="240" width="380" height="180" rx="16" fill="#fff"/><text x="1190" y="290" fill="#8A8782">Requests / s</text><text x="1190" y="370" font-size="56" font-weight="700">2,140</text>
+  </g>
+  <rect x="340" y="460" width="1200" height="460" rx="16" fill="#fff"/>
+  <polyline fill="none" stroke="#0B0B0B" stroke-width="4" points="380,860 480,840 580,850 680,830 780,845 880,700 940,560 1000,600 1100,580 1200,610 1300,590 1400,600 1500,595"/>
+  <text x="380" y="510" fill="#8A8782" font-size="22">Errors, last 60 minutes</text>
+</svg>

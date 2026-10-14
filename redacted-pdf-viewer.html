@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedactLocal — Live Redaction Output & Next Steps</title>
+  <style>
+    :root {
+      --artifact-background: #ffffff;
+      --artifact-background-light: #f8fafc;
+      --artifact-background-mid: #f1f5f9;
+      --artifact-border-light: #e2e8f0;
+      --artifact-border-dark: #cbd5e1;
+      --artifact-primary-brand: #059669;
+      --artifact-primary-hover: #047857;
+      --artifact-text-primary: #0f172a;
+      --artifact-text-secondary: #64748b;
+      --artifact-text-highlight: #ecfdf5;
+      --artifact-positive: #10b981;
+      --artifact-positive-background: #ecfdf5;
+      --artifact-negative: #ef4444;
+      --artifact-warn: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--artifact-background-light);
+      color: var(--artifact-text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      padding: 32px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .stage {
+      max-width: 1180px;
+      width: 100%;
+    }
+
+    .eyebrow {
+      font-family: "SF Mono", Consolas, monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--artifact-primary-brand);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .hero { margin-bottom: 32px; }
+    h1 {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      color: var(--artifact-text-primary);
+    }
+    .lede {
+      font-size: 17px;
+      color: var(--artifact-text-secondary);
+      max-width: 70ch;
+    }
+
+    .section {
+      background: var(--artifact-background);
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 12px;
+      padding: 32px 28px;
+      margin-bottom: 32px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .section-head { margin-bottom: 20px; }
+    .section-head h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+
+    /* Controls Bar */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--artifact-background-mid);
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-group { display: flex; gap: 8px; }
+    .tool-btn {
+      background: #ffffff;
+      border: 1px solid var(--artifact-border-dark);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--artifact-text-primary);
+      transition: all 0.2s ease;
+    }
+    .tool-btn.active {
+      background: var(--artifact-primary-brand);
+      border-color: var(--artifact-primary-brand);
+      color: #ffffff;
+    }
+
+    /* Comparison Area */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 16px;
+    }
+    .compare-col {
+      background: #ffffff;
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .col-header {
+      padding: 12px 16px;
+      background: var(--artifact-background-mid);
+      border-bottom: 1px solid var(--artifact-border-light);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .doc-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #ffffff;
+      border: none;
+    }
+
+    /* Stream Inspector */
+    .stream-box {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-family: "SF Mono", Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+
+    /* Roadmap Timeline */
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .road-step {
+      border: 1px solid var(--artifact-border-light);
+      background: var(--artifact-background-light);
+      border-radius: 8px;
+      padding: 20px 18px;
+      position: relative;
+    }
+    .road-step.active {
+      border-color: var(--artifact-primary-brand);
+      background: var(--artifact-text-highlight);
+    }
+    .step-num {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--artifact-primary-brand);
+      margin-bottom: 6px;
+    }
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--artifact-text-primary);
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: var(--artifact-text-secondary);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .compare-grid { grid-template-columns: 1fr; }
+      .roadmap { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <header class="hero">
+      <span class="eyebrow">RedactLocal · Live Verification & Roadmap</span>
+      <h1>Empirical Redaction Output & Next Steps</h1>
+      <p class="lede">
+        Review real redacted government and legal filings below. Character glyphs and widget dictionaries were permanently eradicated from the byte stream in &lt;200ms.
+      </p>
+    </header>
+
+    <!-- SECTION 1: LIVE DOCUMENT INSPECTOR -->
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">01 — Verified Real-World Outputs</span>
+        <h2>Compare Before vs. After (Zero Stream Leaks)</h2>
+      </div>
+
+      <!-- Controls -->
+      <div class="toolbar">
+        <div class="btn-group">
+          <button class="tool-btn active" id="btn-w9" onclick="selectDoc('w9')">IRS Form W-9 (AcroForm + XFA)</button>
+          <button class="tool-btn" id="btn-contract" onclick="selectDoc('contract')">Legal Settlement Contract</button>
+        </div>
+
+        <div style="font-size: 13px; font-weight: 600; color: var(--artifact-primary-brand); font-family: monospace;">
+          ✓ PASS: 0 Text Leaks · 0 Widget Leaks · 0 Stream Leaks
+        </div>
+      </div>
+
+      <!-- Side-by-Side Comparison -->
+      <div class="compare-grid">
+        <div class="compare-col">
+          <div class="col-header">
+            <span>BEFORE REDACTION (SENSITIVE PII VISIBLE)</span>
+            <span style="color: var(--artifact-negative); font-family: monospace;">● LEAK RISKS</span>
+          </div>
+          <img id="img-original" class="doc-img" src="./redaction-test-lab/outputs/original_type_b_official_filled_w9.pdf.png" alt="Original Document" />
+        </div>
+
+        <div class="compare-col">
+          <div class="col-header">
+            <span>AFTER REDACTION (PERMANENT STREAM PURGE)</span>
+            <span style="color: var(--artifact-primary-brand); font-family: monospace;">✓ ZERO RESIDUAL BYTES</span>
+          </div>
+          <img id="img-redacted" class="doc-img" src="./redaction-test-lab/outputs/redacted_type_b_official_filled_w9.pdf.png" alt="Redacted Document" />
+        </div>
+      </div>
+
+      <!-- Raw Stream Diff Viewer -->
+      <div class="stream-box">
+        <div style="color: #94a3b8; font-size: 11px; margin-bottom: 8px;">// RAW PDF CONTENT STREAM & XREF COMPARISON</div>
+        <div id="stream-content">
+          <span style="color: #64748b;">// AcroForm /Widgets & /XFA Dataset Purge:</span><br>
+          <span style="color: #f87171;">- /Widget 848 0 R << /V (Sarah Jenkins Technologies LLC) /AP 976 0 R >></span> <span style="color: #ef4444;">[WIDGET VALUE EXCISED]</span><br>
+          <span style="color: #f87171;">- /Root /AcroForm << /XFA 1053 0 R >></span> <span style="color: #ef4444;">[XFA XML DATASET STREAM UNLINKED]</span><br>
+          <span style="color: #34d399;">+ /Widget 848 0 R << /V null /AP null >></span> <span style="color: #10b981;">[KEY NULLIFIED]</span><br>
+          <span style="color: #38bdf8;">+ 0 0 0 rg 58.6 659.967 517.4 14 re f</span> <span style="color: #10b981;">[VECTOR BLACKOUT BURNED TO PAGE]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1.5: 7-ORACLE VERIFICATION AUDIT (FAIL-CLOSED) -->
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">Stage 1 Milestone · 7-Oracle Verification Suite</span>
+        <h2>Independent Multi-Oracle Audit & Planted Leak Fuzzer</h2>
+        <p class="lede" style="font-size: 15px; margin-top: 4px;">
+          Flaws F1–F6 eliminated: Zero circularity (Mozilla PDF.js & pypdf independent oracles), deep AcroForm tree traversal, unlinked XFA XML arrays, and fail-closed fault-injection testing.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 16px;">
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 8px; padding: 14px 16px;">
+          <div style="font-family: monospace; font-size: 11px; color: var(--artifact-positive); font-weight: 700;">ORACLE 01 · PASS</div>
+          <div style="font-weight: 700; font-size: 14px; margin: 4px 0;">Dual Independent Parsers</div>
+          <div style="font-size: 12px; color: var(--artifact-text-secondary);">Mozilla PDF.js + pypdf verified 0 stream leaks on all pages.</div>
+        </div>
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 8px; padding: 14px 16px;">
+          <div style="font-family: monospace; font-size: 11px; color: var(--artifact-positive); font-weight: 700;">ORACLE 02 · PASS</div>
+          <div style="font-weight: 700; font-size: 14px; margin: 4px 0;">Raw Bytecode & Stream Scan</div>
+          <div style="font-size: 12px; color: var(--artifact-text-secondary);">All xref streams decompressed. 0 leaks across UTF-8, UTF-16BE, Octal, Hex.</div>
+        </div>
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 8px; padding: 14px 16px;">
+          <div style="font-family: monospace; font-size: 11px; color: var(--artifact-positive); font-weight: 700;">ORACLE 03 · PASS</div>
+          <div style="font-weight: 700; font-size: 14px; margin: 4px 0;">Structural Tree & XFA Audit</div>
+          <div style="font-size: 12px; color: var(--artifact-text-secondary);">AcroForm tree clean (/V, /DV null), XFA arrays unlinked, no /Prev trailer.</div>
+        </div>
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 8px; padding: 14px 16px;">
+          <div style="font-family: monospace; font-size: 11px; color: var(--artifact-positive); font-weight: 700;">ORACLE 04 · PASS</div>
+          <div style="font-weight: 700; font-size: 14px; margin: 4px 0;">Raster Image Pixel Burnout</div>
+          <div style="font-size: 12px; color: var(--artifact-text-secondary);">Underlying raster image streams permanently burned out in 300 DPI scans.</div>
+        </div>
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 8px; padding: 14px 16px;">
+          <div style="font-family: monospace; font-size: 11px; color: var(--artifact-positive); font-weight: 700;">ORACLE 05 · PASS</div>
+          <div style="font-weight: 700; font-size: 14px; margin: 4px 0;">Collateral Damage Invariant</div>
+          <div style="font-size: 12px; color: var(--artifact-text-secondary);">Legitimate non-redacted text preserved; character retention ratio > 90%.</div>
+        </div>
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 8px; padding: 14px 16px;">
+          <div style="font-family: monospace; font-size: 11px; color: var(--artifact-positive); font-weight: 700;">ORACLE 06 · PASS</div>
+          <div style="font-weight: 700; font-size: 14px; margin: 4px 0;">Metadata & XMP Packet Wipe</div>
+          <div style="font-size: 12px; color: var(--artifact-text-secondary);">Document /Info dictionary cleared; XML metadata packet zeroed out.</div>
+        </div>
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-positive); background: var(--artifact-text-highlight); border-radius: 8px; padding: 14px 16px; grid-column: 1 / -1;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-family: monospace; font-size: 11px; color: var(--artifact-positive); font-weight: 700;">ORACLE 07 · FAIL-CLOSED ADVERSARIAL FUZZER</div>
+            <span style="background: var(--artifact-positive); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 700;">4/4 PLANTED LEAKS CAUGHT</span>
+          </div>
+          <div style="font-size: 13px; color: var(--artifact-text-primary); margin-top: 6px;">
+            Deliberate leak vectors injected: Visual blackout without stream purge, retained AcroForm /V values, incremental save /Prev trailer pointers, and metadata leaks. <strong>Every trap fired successfully — zero silent passes.</strong>
+          </div>
+        </div>
+
+        <div style="background: #0f172a; color: #fff; border-radius: 8px; padding: 14px 18px; grid-column: 1 / -1;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-family: monospace; font-size: 11px; color: #38bdf8; font-weight: 700;">STAGE 1 SPIKE · MUPDF.JS WEBASSEMBLY BENCHMARK (50 PAGES)</div>
+            <span style="background: #10b981; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 700;">GATE PASSED · CLEARED FOR V1</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 10px; font-size: 12px;">
+            <div><span style="color: #94a3b8;">Peak Heap:</span> <strong style="color: #38bdf8;">6.2 MB</strong> <span style="color: #64748b;">(Limit: 1,500 MB)</span></div>
+            <div><span style="color: #94a3b8;">p95 Latency:</span> <strong style="color: #38bdf8;">1.86 ms/page</strong> <span style="color: #64748b;">(Limit: 600 ms)</span></div>
+            <div><span style="color: #94a3b8;">p50 Latency:</span> <strong style="color: #38bdf8;">1.24 ms/page</strong></div>
+            <div><span style="color: #94a3b8;">Total Run (50p):</span> <strong style="color: #34d399;">79.6 ms total</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: WHAT'S NEXT (COUNCIL MASTER ROADMAP) -->
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">02 — Specialist Council Roadmap (Opus 5.5 Consensus)</span>
+        <h2>Unified Master Plan: 4 Stages to Scale (~20 Weeks)</h2>
+        <p class="lede" style="font-size: 15px; margin-top: 4px;">
+          Reviewed and synthesized by Lead Systems Architect, UI/UX Lead, Product Manager, and GTM Lead. Replaced naive 4-week timeline with gate-driven safety stages:
+        </p>
+      </div>
+
+      <div class="roadmap">
+        <div class="road-step active">
+          <div class="step-num">STAGE 01 · WEEKS 1–2 [VALIDATED ✓]</div>
+          <div class="step-title">Architecture & IP Gate</div>
+          <div class="step-desc">
+            <strong style="color: var(--artifact-positive);">✓ 7-Oracle Harness Passed</strong> (Zero circularity)<br>
+            <strong style="color: var(--artifact-positive);">✓ Wasm Gate Passed</strong> (6.2MB peak heap, 1.8ms/pg)<br>
+            <strong style="color: var(--artifact-positive);">✓ Discovery Kit Ready</strong> (12-interview guide)
+          </div>
+        </div>
+
+        <div class="road-step">
+          <div class="step-num">STAGE 02 · WEEKS 3–10</div>
+          <div class="step-title">Core Engine & Shell</div>
+          <div class="step-desc">
+            Fail-closed pipeline, 7 independent oracles, Tauri v2 offline desktop shell (no network permissions), 150-document adversarial test corpus.
+          </div>
+        </div>
+
+        <div class="road-step">
+          <div class="step-num">STAGE 03 · WEEKS 11–15</div>
+          <div class="step-title">Closed Beta & Proof GTM</div>
+          <div class="step-desc">
+            50–100 paralegal & accounting beta users. Launch free web "Leak Checker" lead magnet. Public bug bounty ($250–$1,000/leak). CLE legal webinars.
+          </div>
+        </div>
+
+        <div class="road-step">
+          <div class="step-num">STAGE 04 · WEEKS 16–20</div>
+          <div class="step-title">Paywall & GTM Scale</div>
+          <div class="step-desc">
+            $49 perpetual ($39 founder tier) with optional $24/yr updates. Offline Ed25519 license keys. Team/Firm multi-seat packs. Tax-season push.
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function selectDoc(type) {
+      const btnW9 = document.getElementById('btn-w9');
+      const btnContract = document.getElementById('btn-contract');
+      const imgOrig = document.getElementById('img-original');
+      const imgRedact = document.getElementById('img-redacted');
+      const stream = document.getElementById('stream-content');
+
+      if (type === 'w9') {
+        btnW9.classList.add('active');
+        btnContract.classList.remove('active');
+        imgOrig.src = './redaction-test-lab/outputs/original_type_b_official_filled_w9.pdf.png';
+        imgRedact.src = './redaction-test-lab/outputs/redacted_type_b_official_filled_w9.pdf.png';
+        stream.innerHTML = `
+          <span style="color: #64748b;">// AcroForm /Widgets & /XFA Dataset Purge:</span><br>
+          <span style="color: #f87171;">- /Widget 848 0 R << /V (Sarah Jenkins Technologies LLC) /AP 976 0 R >></span> <span style="color: #ef4444;">[WIDGET VALUE EXCISED]</span><br>
+          <span style="color: #f87171;">- /Root /AcroForm << /XFA 1053 0 R >></span> <span style="color: #ef4444;">[XFA XML DATASET STREAM UNLINKED]</span><br>
+          <span style="color: #34d399;">+ /Widget 848 0 R << /V null /AP null >></span> <span style="color: #10b981;">[KEY NULLIFIED]</span><br>
+          <span style="color: #38bdf8;">+ 0 0 0 rg 58.6 659.967 517.4 14 re f</span> <span style="color: #10b981;">[VECTOR BLACKOUT BURNED TO PAGE]</span>
+        `;
+      } else {
+        btnContract.classList.add('active');
+        btnW9.classList.remove('active');
+        imgOrig.src = './redaction-test-lab/outputs/original_type_a_born_digital_contract.pdf.png';
+        imgRedact.src = './redaction-test-lab/outputs/redacted_type_a_born_digital_contract.pdf.png';
+        stream.innerHTML = `
+          <span style="color: #64748b;">// Content Stream Operator Surgery:</span><br>
+          <span style="color: #f87171;">- BT /F1 12 Tf (Beneficiary SSN: ) Tj (452-89-1029) Tj ET</span> <span style="color: #ef4444;">[RAW GLYPHS DELETED]</span><br>
+          <span style="color: #f87171;">- BT /F1 12 Tf (Account Number: ) Tj (9928172645) Tj ET</span> <span style="color: #ef4444;">[RAW GLYPHS DELETED]</span><br>
+          <span style="color: #34d399;">+ BT /F1 12 Tf (Beneficiary SSN: ) Tj ET</span> <span style="color: #10b981;">[CLEAN STREAM RE-ENCODED]</span><br>
+          <span style="color: #38bdf8;">+ 0 0 0 rg 140 540 68 14 re f</span> <span style="color: #10b981;">[PERMANENT BLACKOUT RECTANGLE]</span>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>

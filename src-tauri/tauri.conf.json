@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "RedactLocal",
+  "version": "1.0.0",
+  "identifier": "com.redactlocal.desktop",
+  "build": {
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "",
+    "frontendDist": "../"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "security": {
+      "csp": "default-src 'self' blob: data:; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; connect-src 'none'; img-src 'self' blob: data:; font-src 'self' data:; object-src 'none';"
+    },
+    "windows": [
+      {
+        "title": "RedactLocal — 100% Offline PDF Redaction & 7-Oracle Verifier",
+        "width": 1280,
+        "height": 860,
+        "minWidth": 960,
+        "minHeight": 640,
+        "center": true,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ]
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Productivity",
+    "shortDescription": "100% Offline, Privacy-First PDF Redaction",
+    "longDescription": "Surgical bytecode PDF redaction utility engineered for litigation paralegals, CPAs, and healthcare professionals with fail-closed 7-Oracle verification and air-gapped cryptographic receipts.",
+    "copyright": "2026 RedactLocal. All rights reserved."
+  }
+}

@@ -1,0 +1,1593 @@
+{
+  "timestamp": 1791969255.7847219,
+  "timestamp_iso": "2026-10-14T09:14:15Z",
+  "suite": "RedactLocal Stage 2 Fail-Closed 7-Oracle Adversarial Corpus Verification",
+  "overall_status": "PASS",
+  "metrics": {
+    "total_documents": 30,
+    "passed_documents": 30,
+    "failed_documents": 0,
+    "pass_rate_pct": 100.0,
+    "total_leaks_detected": 0,
+    "planted_traps_total": 5,
+    "planted_traps_caught": 5,
+    "planted_traps_escaped": 0,
+    "planted_traps_catch_rate_pct": 100.0,
+    "avg_collateral_retention_pct": 93.0,
+    "total_execution_ms": 11889.33,
+    "avg_latency_ms": 396.31
+  },
+  "oracle_coverage": {
+    "O1_independent_text": {
+      "description": "Dual Independent Text Extractors (Mozilla PDF.js + pypdf)",
+      "tested": 25,
+      "passed": 25,
+      "leaks": 0,
+      "status": "PASS"
+    },
+    "O2_raw_bytecode_scan": {
+      "description": "Exhaustive Raw Bytecode & Decompressed Stream Scanner (ASCII, Hex, UTF-16BE, Octal)",
+      "tested": 25,
+      "passed": 25,
+      "streams_scanned": 37,
+      "leaks": 0,
+      "status": "PASS"
+    },
+    "O3_structural_audit": {
+      "description": "Deep Structural & Tree Integrity Audit (AcroForms, XFA nullification, /Prev eradication)",
+      "tested": 25,
+      "passed": 25,
+      "violations": 0,
+      "status": "PASS"
+    },
+    "O4_raster_burnout": {
+      "description": "Raster Sub-Region Pixel Burnout Inside Image XObject Streams",
+      "tested": 5,
+      "passed": 5,
+      "regions_burned": 7,
+      "status": "PASS"
+    },
+    "O5_collateral_damage": {
+      "description": "Collateral Damage Invariant Audit (Preservation of non-target text)",
+      "tested": 25,
+      "passed": 25,
+      "avg_retention_pct": 93.0,
+      "status": "PASS"
+    },
+    "O6_metadata_sanitization": {
+      "description": "Metadata & XMP Packet Sanitization (/Info, /Metadata, /PieceInfo)",
+      "tested": 25,
+      "passed": 25,
+      "leaks": 0,
+      "status": "PASS"
+    },
+    "O7_planted_traps": {
+      "description": "Fail-Closed Fault-Injection Audit (100% of planted traps caught)",
+      "tested": 5,
+      "caught": 5,
+      "escaped": 0,
+      "fail_closed_guarantee": true,
+      "status": "PASS"
+    }
+  },
+  "category_summaries": {
+    "Category 1: Court pleadings & Subpoenas": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "ms": 69.81079187244177
+    },
+    "Category 2: Tax forms": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "ms": 73.27904098201543
+    },
+    "Category 3: Commercial & Merger NDAs": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "ms": 57.34312499407679
+    },
+    "Category 4: Medical Intake & Charts": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "ms": 311.8483341531828
+    },
+    "Category 5: Multi-revision documents": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "ms": 32.96820807736367
+    },
+    "Category 6: Planted Adversarial Traps": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "ms": 1507.8122089616954
+    }
+  },
+  "documents": [
+    {
+      "id": "CAT1-01",
+      "name": "US Federal Court Class Action Complaint (FRCP 5.2)",
+      "category": "Category 1: Court pleadings & Subpoenas",
+      "filename": "cat1_court_01_frcp52_pleading.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.7582910368219018,
+        "engine_process_ms": 15.228333999402821,
+        "metadata_scrub_ms": 2.9372500721365213,
+        "save_serialize_ms": 0.6999169709160924,
+        "total_ms": 20.62808396294713
+      },
+      "file_sizes": {
+        "input_bytes": 2316,
+        "output_bytes": 1951,
+        "delta_bytes": -365
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 96.51457541191381
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT1-02",
+      "name": "Federal Grand Jury Subpoena Duces Tecum (AO 88B)",
+      "category": "Category 1: Court pleadings & Subpoenas",
+      "filename": "cat1_court_02_grand_jury_subpoena.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.6162910722196102,
+        "engine_process_ms": 9.143834002315998,
+        "metadata_scrub_ms": 2.070375019684434,
+        "save_serialize_ms": 0.5867909640073776,
+        "total_ms": 12.42212497163564
+      },
+      "file_sizes": {
+        "input_bytes": 2127,
+        "output_bytes": 1777,
+        "delta_bytes": -350
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 96.26524390243902
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT1-03",
+      "name": "UK High Court Commercial Division Freezing Injunction",
+      "category": "Category 1: Court pleadings & Subpoenas",
+      "filename": "cat1_court_03_uk_high_court_injunction.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.6575830047950149,
+        "engine_process_ms": 9.25870903301984,
+        "metadata_scrub_ms": 1.9963340600952506,
+        "save_serialize_ms": 0.5844580009579659,
+        "total_ms": 12.501082965172827
+      },
+      "file_sizes": {
+        "input_bytes": 2074,
+        "output_bytes": 1736,
+        "delta_bytes": -338
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 94.01244167962675
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT1-04",
+      "name": "Australian Family Court Parenting Decree & Welfare Order",
+      "category": "Category 1: Court pleadings & Subpoenas",
+      "filename": "cat1_court_04_family_custody_minors.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.6618329789489508,
+        "engine_process_ms": 8.875416941009462,
+        "metadata_scrub_ms": 2.028041984885931,
+        "save_serialize_ms": 0.5449999589473009,
+        "total_ms": 12.114375014789402
+      },
+      "file_sizes": {
+        "input_bytes": 2092,
+        "output_bytes": 1755,
+        "delta_bytes": -337
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 93.2319391634981
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT1-05",
+      "name": "Delaware Bankruptcy Court Chapter 11 Creditor Schedule",
+      "category": "Category 1: Court pleadings & Subpoenas",
+      "filename": "cat1_court_05_bankruptcy_creditor_matrix.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.7402090122923255,
+        "engine_process_ms": 8.630833006463945,
+        "metadata_scrub_ms": 2.1169170504435897,
+        "save_serialize_ms": 0.6518330192193389,
+        "total_ms": 12.145124957896769
+      },
+      "file_sizes": {
+        "input_bytes": 2083,
+        "output_bytes": 1754,
+        "delta_bytes": -329
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 96.26926196269262
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT2-01",
+      "name": "IRS Form W-9 with Interactive AcroForm & Embedded XFA",
+      "category": "Category 2: Tax forms",
+      "filename": "cat2_tax_01_irs_w9_acroform_xfa.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.1588330380618572,
+        "engine_process_ms": 10.884291026741266,
+        "metadata_scrub_ms": 2.545124967582524,
+        "save_serialize_ms": 0.512958038598299,
+        "total_ms": 15.10420790873468
+      },
+      "file_sizes": {
+        "input_bytes": 3509,
+        "output_bytes": 1486,
+        "delta_bytes": -2023
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 93.50993377483444
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT2-02",
+      "name": "IRS Form 1040 Individual Income Tax Return",
+      "category": "Category 2: Tax forms",
+      "filename": "cat2_tax_02_irs_1040_individual.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.830375007353723,
+        "engine_process_ms": 12.255084002390504,
+        "metadata_scrub_ms": 2.682209014892578,
+        "save_serialize_ms": 0.6192910950630903,
+        "total_ms": 16.392708057537675
+      },
+      "file_sizes": {
+        "input_bytes": 3070,
+        "output_bytes": 1506,
+        "delta_bytes": -1564
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 94.75032010243278
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT2-03",
+      "name": "IRS Form 1099-MISC Nonemployee Compensation",
+      "category": "Category 2: Tax forms",
+      "filename": "cat2_tax_03_irs_1099_misc_contractor.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.9212080622091889,
+        "engine_process_ms": 9.610041975975037,
+        "metadata_scrub_ms": 2.383667044341564,
+        "save_serialize_ms": 0.6067499052733183,
+        "total_ms": 13.526458060368896
+      },
+      "file_sizes": {
+        "input_bytes": 2587,
+        "output_bytes": 1373,
+        "delta_bytes": -1214
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 89.5330112721417
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT2-04",
+      "name": "IRS Form 1099-INT Depository Interest Statement",
+      "category": "Category 2: Tax forms",
+      "filename": "cat2_tax_04_irs_1099_int_banking.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.9307920699939132,
+        "engine_process_ms": 12.408833019435406,
+        "metadata_scrub_ms": 2.4524159962311387,
+        "save_serialize_ms": 0.6614999147132039,
+        "total_ms": 16.47087500896305
+      },
+      "file_sizes": {
+        "input_bytes": 2510,
+        "output_bytes": 1378,
+        "delta_bytes": -1132
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 93.62017804154303
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT2-05",
+      "name": "UK HMRC End of Year Certificate P60",
+      "category": "Category 2: Tax forms",
+      "filename": "cat2_tax_05_hmrc_p60_uk_tax.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.278833020478487,
+        "engine_process_ms": 7.837416022084653,
+        "metadata_scrub_ms": 2.124457969330251,
+        "save_serialize_ms": 0.540834036655724,
+        "total_ms": 11.784791946411133
+      },
+      "file_sizes": {
+        "input_bytes": 2109,
+        "output_bytes": 1454,
+        "delta_bytes": -655
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 94.39775910364145
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT3-01",
+      "name": "Delaware Corporate Merger NDA & Escrow Fee Schedule",
+      "category": "Category 3: Commercial & Merger NDAs",
+      "filename": "cat3_nda_01_delaware_merger_fee.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.6930839736014605,
+        "engine_process_ms": 10.693666990846395,
+        "metadata_scrub_ms": 2.0424999529495835,
+        "save_serialize_ms": 0.6283329566940665,
+        "total_ms": 14.0613749390468
+      },
+      "file_sizes": {
+        "input_bytes": 2072,
+        "output_bytes": 1782,
+        "delta_bytes": -290
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 95.73991031390135
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT3-02",
+      "name": "Transatlantic Joint Venture & Licensing Agreement (Germany/US)",
+      "category": "Category 3: Commercial & Merger NDAs",
+      "filename": "cat3_nda_02_cross_border_jv_germany.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.2586250668391585,
+        "engine_process_ms": 7.3394159553572536,
+        "metadata_scrub_ms": 1.9111658912152052,
+        "save_serialize_ms": 0.6198339397087693,
+        "total_ms": 11.133166030049324
+      },
+      "file_sizes": {
+        "input_bytes": 1913,
+        "output_bytes": 1637,
+        "delta_bytes": -276
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 96.0
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT3-03",
+      "name": "Silicon Valley Series B Preferred Investment Term Sheet",
+      "category": "Category 3: Commercial & Merger NDAs",
+      "filename": "cat3_nda_03_venture_capital_term_sheet.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.3039580080658197,
+        "engine_process_ms": 6.7989579401910305,
+        "metadata_scrub_ms": 1.9505830714479089,
+        "save_serialize_ms": 0.5576249677687883,
+        "total_ms": 10.614749975502491
+      },
+      "file_sizes": {
+        "input_bytes": 1684,
+        "output_bytes": 1482,
+        "delta_bytes": -202
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 95.1048951048951
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT3-04",
+      "name": "Global Enterprise SaaS Master Services Agreement & Security DPA",
+      "category": "Category 3: Commercial & Merger NDAs",
+      "filename": "cat3_nda_04_saas_enterprise_msa_security.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.5670830141752958,
+        "engine_process_ms": 7.730917073786259,
+        "metadata_scrub_ms": 1.9623750122264028,
+        "save_serialize_ms": 0.5869580199941993,
+        "total_ms": 10.851167025975883
+      },
+      "file_sizes": {
+        "input_bytes": 1876,
+        "output_bytes": 1598,
+        "delta_bytes": -278
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 91.35446685878964
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT3-05",
+      "name": "Australia / APAC Cross-Border Asset Purchase NDA",
+      "category": "Category 3: Commercial & Merger NDAs",
+      "filename": "cat3_nda_05_australia_apac_mna.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.801792019046843,
+        "engine_process_ms": 7.314708083868027,
+        "metadata_scrub_ms": 1.9838330335915089,
+        "save_serialize_ms": 0.5785420071333647,
+        "total_ms": 10.68266702350229
+      },
+      "file_sizes": {
+        "input_bytes": 1800,
+        "output_bytes": 1607,
+        "delta_bytes": -193
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 95.96541786743515
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT4-01",
+      "name": "Scanned Emergency Intake Sheet (300 DPI Pure Raster)",
+      "category": "Category 4: Medical Intake & Charts",
+      "filename": "cat4_medical_01_hospital_intake_300dpi.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.417041989043355,
+        "engine_process_ms": 22.74683292489499,
+        "metadata_scrub_ms": 2.0461250096559525,
+        "save_serialize_ms": 28.96695805247873,
+        "total_ms": 55.181208066642284
+      },
+      "file_sizes": {
+        "input_bytes": 71805,
+        "output_bytes": 67493,
+        "delta_bytes": -4312
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 3
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "PASS",
+          "regions": 2
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 100.0
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT4-02",
+      "name": "Searchable OCR Sandwich Chart (Image + Hidden Text Layer)",
+      "category": "Category 4: Medical Intake & Charts",
+      "filename": "cat4_medical_02_ocr_sandwich_chart.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.8529170881956816,
+        "engine_process_ms": 24.587166029959917,
+        "metadata_scrub_ms": 2.6727080112323165,
+        "save_serialize_ms": 27.660542051307857,
+        "total_ms": 55.776334018446505
+      },
+      "file_sizes": {
+        "input_bytes": 52558,
+        "output_bytes": 45256,
+        "delta_bytes": -7302
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 3
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "PASS",
+          "regions": 1
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 79.56521739130434
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT4-03",
+      "name": "Diagnostic Radiology & Pathology Scanned Chart (300 DPI)",
+      "category": "Category 4: Medical Intake & Charts",
+      "filename": "cat4_medical_03_radiology_lab_report.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.3096670154482126,
+        "engine_process_ms": 20.412249956279993,
+        "metadata_scrub_ms": 2.0287910010665655,
+        "save_serialize_ms": 27.143875020556152,
+        "total_ms": 50.89741700794548
+      },
+      "file_sizes": {
+        "input_bytes": 47069,
+        "output_bytes": 42595,
+        "delta_bytes": -4474
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 3
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "PASS",
+          "regions": 1
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 100.0
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT4-04",
+      "name": "Controlled Substance DEA Electronic Prescription Record (OCR)",
+      "category": "Category 4: Medical Intake & Charts",
+      "filename": "cat4_medical_04_prescription_order_scan.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.5717080095782876,
+        "engine_process_ms": 25.15966701321304,
+        "metadata_scrub_ms": 2.6671671075746417,
+        "save_serialize_ms": 26.725708041340113,
+        "total_ms": 56.12670897971839
+      },
+      "file_sizes": {
+        "input_bytes": 43456,
+        "output_bytes": 34201,
+        "delta_bytes": -9255
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 3
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "PASS",
+          "regions": 1
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 55.3030303030303
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT4-05",
+      "name": "Multi-Page Scanned HIPAA PHI Intake & Guarantor Form",
+      "category": "Category 4: Medical Intake & Charts",
+      "filename": "cat4_medical_05_hipaa_phi_multipage_scan.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.2763330014422536,
+        "engine_process_ms": 40.286833071149886,
+        "metadata_scrub_ms": 2.38491699565202,
+        "save_serialize_ms": 49.91637507919222,
+        "total_ms": 93.86666608043015
+      },
+      "file_sizes": {
+        "input_bytes": 43845,
+        "output_bytes": 39294,
+        "delta_bytes": -4551
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 5
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "PASS",
+          "regions": 2
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 100.0
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT5-01",
+      "name": "Multi-Revision Settlement Draft with Incremental /Prev Pointer",
+      "category": "Category 5: Multi-revision documents",
+      "filename": "cat5_revision_01_incremental_save_settlement.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.192667055875063,
+        "engine_process_ms": 3.4540409687906504,
+        "metadata_scrub_ms": 1.8245000392198563,
+        "save_serialize_ms": 0.5574580281972885,
+        "total_ms": 7.030416047200561
+      },
+      "file_sizes": {
+        "input_bytes": 1834,
+        "output_bytes": 1250,
+        "delta_bytes": -584
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 96.06003752345215
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT5-02",
+      "name": "Executive Brief with Sensitive Sticky Notes & Annotations",
+      "category": "Category 5: Multi-revision documents",
+      "filename": "cat5_revision_02_annotated_executive_brief.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.4351659920066595,
+        "engine_process_ms": 1.8439580453559756,
+        "metadata_scrub_ms": 2.39462498575449,
+        "save_serialize_ms": 4.3620829237625,
+        "total_ms": 10.043667047284544
+      },
+      "file_sizes": {
+        "input_bytes": 2368,
+        "output_bytes": 1071,
+        "delta_bytes": -1297
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 100.0
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT5-03",
+      "name": "Three-Generation Incremental Price Renegotiation Contract",
+      "category": "Category 5: Multi-revision documents",
+      "filename": "cat5_revision_03_incremental_price_renegotiation.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.3233339414000511,
+        "engine_process_ms": 2.846042043529451,
+        "metadata_scrub_ms": 1.8233340233564377,
+        "save_serialize_ms": 0.5059579852968454,
+        "total_ms": 6.502041942439973
+      },
+      "file_sizes": {
+        "input_bytes": 2077,
+        "output_bytes": 1058,
+        "delta_bytes": -1019
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 88.23529411764706
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT5-04",
+      "name": "Valuation Memo with Injected Metadata & Private XMP PII",
+      "category": "Category 5: Multi-revision documents",
+      "filename": "cat5_revision_04_metadata_pieceinfo_appended.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 0.7296670228242874,
+        "engine_process_ms": 1.0412499541416764,
+        "metadata_scrub_ms": 1.6739170532673597,
+        "save_serialize_ms": 0.484999967738986,
+        "total_ms": 3.9337080670520663
+      },
+      "file_sizes": {
+        "input_bytes": 2035,
+        "output_bytes": 985,
+        "delta_bytes": -1050
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 100.0
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT5-05",
+      "name": "Flawed Incremental Redaction Bypass Document",
+      "category": "Category 5: Multi-revision documents",
+      "filename": "cat5_revision_05_incremental_redaction_bypass.pdf",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "open_ms": 1.3133330503478646,
+        "engine_process_ms": 2.003457979299128,
+        "metadata_scrub_ms": 1.7122080316767097,
+        "save_serialize_ms": 0.4259169800207019,
+        "total_ms": 5.458374973386526
+      },
+      "file_sizes": {
+        "input_bytes": 1375,
+        "output_bytes": 931,
+        "delta_bytes": -444
+      },
+      "oracles": {
+        "O1_independent_text": {
+          "status": "PASS",
+          "details": {
+            "status": "PASS",
+            "details": {
+              "pypdf": {
+                "status": "PASS",
+                "leaks": []
+              },
+              "pdfjs": {
+                "status": "PASS",
+                "leaks": []
+              }
+            }
+          }
+        },
+        "O2_raw_bytecode_scan": {
+          "status": "PASS",
+          "streams_checked": 1
+        },
+        "O3_structural_audit": {
+          "status": "PASS"
+        },
+        "O4_raster_burnout": {
+          "status": "SKIPPED",
+          "reason": "No image regions"
+        },
+        "O5_collateral_damage": {
+          "status": "PASS",
+          "retention_pct": 89.52380952380953
+        },
+        "O6_metadata_sanitization": {
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "id": "CAT6-01",
+      "name": "Planted Content Stream Visual Blackout Trap",
+      "category": "Category 6: Planted Adversarial Traps",
+      "filename": "cat6_trap_01_visual_blackout_leak.pdf",
+      "is_planted_trap": true,
+      "trap_vector": "Visual Blackout without Stream Eradication",
+      "expected_oracle": "O1/O2",
+      "trap_caught": true,
+      "trap_trigger": "Oracle 1B (PDF.js) detected leaks: [{'type': 'textContent', 'target': '111-99-8888'}]",
+      "remediation_status": "PASS",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "trap_audit_ms": 292.22779197152704,
+        "remediation_ms": 5.128749995492399
+      },
+      "file_sizes": {
+        "input_bytes": 996,
+        "output_bytes": 863
+      }
+    },
+    {
+      "id": "CAT6-02",
+      "name": "Planted AcroForm Widget /V Field Value Trap",
+      "category": "Category 6: Planted Adversarial Traps",
+      "filename": "cat6_trap_02_acroform_v_retained_leak.pdf",
+      "is_planted_trap": true,
+      "trap_vector": "AcroForm /V Retained in Xref Table",
+      "expected_oracle": "O3/O2",
+      "trap_caught": true,
+      "trap_trigger": "Oracle 1B (PDF.js) detected leaks: [{'type': 'annotation_fieldValue', 'page': 1, 'target': '222-88-7777', 'context': 'Planted Secret Field 222-88-7777'}]",
+      "remediation_status": "PASS",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "trap_audit_ms": 287.2379169566557,
+        "remediation_ms": 5.813000025227666
+      },
+      "file_sizes": {
+        "input_bytes": 1315,
+        "output_bytes": 688
+      }
+    },
+    {
+      "id": "CAT6-03",
+      "name": "Planted Incremental Save /Prev Trailer Pointer Trap",
+      "category": "Category 6: Planted Adversarial Traps",
+      "filename": "cat6_trap_03_incremental_prev_leak.pdf",
+      "is_planted_trap": true,
+      "trap_vector": "Incremental /Prev Trailer Pointer Leak",
+      "expected_oracle": "O3/O2",
+      "trap_caught": true,
+      "trap_trigger": "Oracle 1B (PDF.js) detected leaks: [{'type': 'textContent', 'target': '333-77-6666'}]",
+      "remediation_status": "PASS",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "trap_audit_ms": 304.70374994911253,
+        "remediation_ms": 5.043541081249714
+      },
+      "file_sizes": {
+        "input_bytes": 1304,
+        "output_bytes": 862
+      }
+    },
+    {
+      "id": "CAT6-04",
+      "name": "Planted Metadata /Author & XMP Packet Trap",
+      "category": "Category 6: Planted Adversarial Traps",
+      "filename": "cat6_trap_04_xmp_author_metadata_leak.pdf",
+      "is_planted_trap": true,
+      "trap_vector": "Metadata /Author PII Leak",
+      "expected_oracle": "O6",
+      "trap_caught": true,
+      "trap_trigger": "Oracle 2 found byte-level leaks: [\"Raw buffer contains ASCII/UTF-8 representation of '444-66-5555'\"]",
+      "remediation_status": "PASS",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "trap_audit_ms": 307.2693750727922,
+        "remediation_ms": 3.407459007576108
+      },
+      "file_sizes": {
+        "input_bytes": 1011,
+        "output_bytes": 791
+      }
+    },
+    {
+      "id": "CAT6-05",
+      "name": "Planted Compressed Stream UTF-16BE Bytecode Trap",
+      "category": "Category 6: Planted Adversarial Traps",
+      "filename": "cat6_trap_05_compressed_stream_unicode_leak.pdf",
+      "is_planted_trap": true,
+      "trap_vector": "Compressed Stream UTF-16BE Encoded Leak",
+      "expected_oracle": "O2",
+      "trap_caught": true,
+      "trap_trigger": "Oracle 2 found byte-level leaks: [\"Decompressed stream xref=7 contains UTF-16BE-RAW representation of '555-44-3333'\"]",
+      "remediation_status": "PASS",
+      "overall_status": "PASS",
+      "timings_ms": {
+        "trap_audit_ms": 316.373375011608,
+        "remediation_ms": 3.385875024832785
+      },
+      "file_sizes": {
+        "input_bytes": 1027,
+        "output_bytes": 787
+      }
+    }
+  ]
+}

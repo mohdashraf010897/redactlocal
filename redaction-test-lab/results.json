@@ -1,0 +1,470 @@
+{
+  "engine": "RedactLocal Core Prototype",
+  "mupdf_version": "1.28.0",
+  "timestamp": "2026-10-14T05:17:13Z",
+  "overall_verdict": "PASS",
+  "tests_total": 7,
+  "tests_passed": 7,
+  "tests_failed": 0,
+  "results": [
+    {
+      "id": "Type-A",
+      "name": "Born-Digital Legal Settlement Contract",
+      "filename": "type_a_born_digital_contract.pdf",
+      "passed": true,
+      "timings": {
+        "open_ms": 5.17337501514703,
+        "engine_process_ms": 22.80408306978643,
+        "metadata_scrub_ms": 2.3835839238017797,
+        "save_serialize_ms": 1.1019170051440597,
+        "total_ms": 31.466000014916062
+      },
+      "assertions": {
+        "test_6_file_integrity": {
+          "status": "PASS",
+          "doc_pages": 1,
+          "is_repaired": false,
+          "notes": [],
+          "time_ms": 3.532917005941272
+        },
+        "test_1_text_stream_eradication": {
+          "status": "PASS",
+          "targets_checked": 7,
+          "leaks": []
+        },
+        "test_2_raw_stream_inspection": {
+          "status": "PASS",
+          "decompressed_streams_checked": 1,
+          "leaks": []
+        },
+        "test_3_image_pixel_burnout": {
+          "status": "SKIPPED",
+          "reason": "Vector-only document (no raster images)"
+        },
+        "test_4_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_after": {
+            "format": "PDF 1.7",
+            "title": "",
+            "author": "",
+            "subject": "",
+            "keywords": "",
+            "creator": "",
+            "producer": "",
+            "creationDate": "",
+            "modDate": "",
+            "trapped": "",
+            "encryption": null
+          },
+          "xmp_cleared": true,
+          "notes": []
+        },
+        "test_5_acroform_field_purging": {
+          "status": "SKIPPED",
+          "reason": "No AcroForm widgets in target document"
+        }
+      }
+    },
+    {
+      "id": "Type-B",
+      "name": "Official IRS Form W-9 with Interactive AcroForm Fields",
+      "filename": "type_b_official_filled_w9.pdf",
+      "passed": true,
+      "timings": {
+        "open_ms": 0.7872090209275484,
+        "engine_process_ms": 156.52325004339218,
+        "metadata_scrub_ms": 36.131792003288865,
+        "save_serialize_ms": 15.099125099368393,
+        "total_ms": 208.54595897253603
+      },
+      "assertions": {
+        "test_6_file_integrity": {
+          "status": "PASS",
+          "doc_pages": 6,
+          "is_repaired": false,
+          "notes": [],
+          "time_ms": 19.562624976970255
+        },
+        "test_1_text_stream_eradication": {
+          "status": "PASS",
+          "targets_checked": 6,
+          "leaks": []
+        },
+        "test_2_raw_stream_inspection": {
+          "status": "PASS",
+          "decompressed_streams_checked": 6,
+          "leaks": []
+        },
+        "test_3_image_pixel_burnout": {
+          "status": "SKIPPED",
+          "reason": "Vector-only document (no raster images)"
+        },
+        "test_4_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_after": {
+            "format": "PDF 1.7",
+            "title": "",
+            "author": "",
+            "subject": "",
+            "keywords": "",
+            "creator": "",
+            "producer": "",
+            "creationDate": "",
+            "modDate": "",
+            "trapped": "",
+            "encryption": null
+          },
+          "xmp_cleared": true,
+          "notes": []
+        },
+        "test_5_acroform_field_purging": {
+          "status": "PASS",
+          "widgets_remaining_on_p0": 17,
+          "notes": []
+        }
+      }
+    },
+    {
+      "id": "Type-C",
+      "name": "Scanned Hospital Emergency Intake (Pure Raster Bitmap)",
+      "filename": "type_c_scanned_pure_image.pdf",
+      "passed": true,
+      "timings": {
+        "open_ms": 0.7410839898511767,
+        "engine_process_ms": 17.882041982375085,
+        "metadata_scrub_ms": 1.6163339605554938,
+        "save_serialize_ms": 24.6601669350639,
+        "total_ms": 44.90458301734179
+      },
+      "assertions": {
+        "test_6_file_integrity": {
+          "status": "PASS",
+          "doc_pages": 1,
+          "is_repaired": false,
+          "notes": [],
+          "time_ms": 12.933332938700914
+        },
+        "test_1_text_stream_eradication": {
+          "status": "PASS",
+          "targets_checked": 0,
+          "leaks": []
+        },
+        "test_2_raw_stream_inspection": {
+          "status": "PASS",
+          "decompressed_streams_checked": 1,
+          "leaks": []
+        },
+        "test_3_image_pixel_burnout": {
+          "status": "PASS",
+          "regions_inspected": 2,
+          "details": [
+            {
+              "label": "Patient Name (EVELYN R. VANCE)",
+              "box": [
+                540,
+                240,
+                1040,
+                296
+              ],
+              "orig_dark_pixels": 1087,
+              "redacted_dark_pixels": 0,
+              "burnout_success": true
+            },
+            {
+              "label": "SSN (982-11-4091)",
+              "box": [
+                540,
+                420,
+                920,
+                476
+              ],
+              "orig_dark_pixels": 688,
+              "redacted_dark_pixels": 0,
+              "burnout_success": true
+            }
+          ]
+        },
+        "test_4_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_after": {
+            "format": "PDF 1.7",
+            "title": "",
+            "author": "",
+            "subject": "",
+            "keywords": "",
+            "creator": "",
+            "producer": "",
+            "creationDate": "",
+            "modDate": "",
+            "trapped": "",
+            "encryption": null
+          },
+          "xmp_cleared": true,
+          "notes": []
+        },
+        "test_5_acroform_field_purging": {
+          "status": "SKIPPED",
+          "reason": "No AcroForm widgets in target document"
+        }
+      }
+    },
+    {
+      "id": "Type-D",
+      "name": "Searchable OCR Sandwich PDF (Bitmap Scan + Invisible Text Layer)",
+      "filename": "type_d_searchable_ocr_sandwich.pdf",
+      "passed": true,
+      "timings": {
+        "open_ms": 0.8099579717963934,
+        "engine_process_ms": 21.408083965070546,
+        "metadata_scrub_ms": 2.257042098790407,
+        "save_serialize_ms": 23.505792021751404,
+        "total_ms": 47.983958036638796
+      },
+      "assertions": {
+        "test_6_file_integrity": {
+          "status": "PASS",
+          "doc_pages": 1,
+          "is_repaired": false,
+          "notes": [],
+          "time_ms": 13.581292005255818
+        },
+        "test_1_text_stream_eradication": {
+          "status": "PASS",
+          "targets_checked": 4,
+          "leaks": []
+        },
+        "test_2_raw_stream_inspection": {
+          "status": "PASS",
+          "decompressed_streams_checked": 1,
+          "leaks": []
+        },
+        "test_3_image_pixel_burnout": {
+          "status": "PASS",
+          "regions_inspected": 2,
+          "details": [
+            {
+              "label": "OCR Underlying Image - Patient Name",
+              "box": [
+                560,
+                250,
+                850,
+                280
+              ],
+              "orig_dark_pixels": 1087,
+              "redacted_dark_pixels": 0,
+              "burnout_success": true
+            },
+            {
+              "label": "OCR Underlying Image - SSN",
+              "box": [
+                560,
+                430,
+                780,
+                460
+              ],
+              "orig_dark_pixels": 688,
+              "redacted_dark_pixels": 0,
+              "burnout_success": true
+            }
+          ]
+        },
+        "test_4_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_after": {
+            "format": "PDF 1.7",
+            "title": "",
+            "author": "",
+            "subject": "",
+            "keywords": "",
+            "creator": "",
+            "producer": "",
+            "creationDate": "",
+            "modDate": "",
+            "trapped": "",
+            "encryption": null
+          },
+          "xmp_cleared": true,
+          "notes": []
+        },
+        "test_5_acroform_field_purging": {
+          "status": "SKIPPED",
+          "reason": "No AcroForm widgets in target document"
+        }
+      }
+    },
+    {
+      "id": "Type-E",
+      "name": "M&A Deal Memo with Sensitive XMP Metadata & Sticky Note Revisions",
+      "filename": "type_e_metadata_revision_history.pdf",
+      "passed": true,
+      "timings": {
+        "open_ms": 0.49633404705673456,
+        "engine_process_ms": 2.853708923794329,
+        "metadata_scrub_ms": 1.496999990195036,
+        "save_serialize_ms": 0.6368750473484397,
+        "total_ms": 5.485458066686988
+      },
+      "assertions": {
+        "test_6_file_integrity": {
+          "status": "PASS",
+          "doc_pages": 1,
+          "is_repaired": false,
+          "notes": [],
+          "time_ms": 1.8846659222617745
+        },
+        "test_1_text_stream_eradication": {
+          "status": "PASS",
+          "targets_checked": 2,
+          "leaks": []
+        },
+        "test_2_raw_stream_inspection": {
+          "status": "PASS",
+          "decompressed_streams_checked": 1,
+          "leaks": []
+        },
+        "test_3_image_pixel_burnout": {
+          "status": "SKIPPED",
+          "reason": "Vector-only document (no raster images)"
+        },
+        "test_4_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_after": {
+            "format": "PDF 1.7",
+            "title": "",
+            "author": "",
+            "subject": "",
+            "keywords": "",
+            "creator": "",
+            "producer": "",
+            "creationDate": "",
+            "modDate": "",
+            "trapped": "",
+            "encryption": null
+          },
+          "xmp_cleared": true,
+          "notes": []
+        },
+        "test_5_acroform_field_purging": {
+          "status": "SKIPPED",
+          "reason": "No AcroForm widgets in target document"
+        }
+      }
+    },
+    {
+      "id": "Type-A (Authentic Court AO-88)",
+      "name": "Authentic Federal Court Subpoena (AO 88)",
+      "filename": "sample_court_subpoena.pdf",
+      "passed": true,
+      "timings": {
+        "open_ms": 0.7272919174283743,
+        "engine_process_ms": 34.898666897788644,
+        "metadata_scrub_ms": 8.05175001733005,
+        "save_serialize_ms": 4.103832994587719,
+        "total_ms": 47.78441693633795
+      },
+      "assertions": {
+        "test_6_file_integrity": {
+          "status": "PASS",
+          "doc_pages": 3,
+          "is_repaired": false,
+          "notes": [],
+          "time_ms": 10.580459027551115
+        },
+        "test_1_text_stream_eradication": {
+          "status": "PASS",
+          "targets_checked": 2,
+          "leaks": []
+        },
+        "test_2_raw_stream_inspection": {
+          "status": "PASS",
+          "decompressed_streams_checked": 3,
+          "leaks": []
+        },
+        "test_3_image_pixel_burnout": {
+          "status": "SKIPPED",
+          "reason": "Vector-only document (no raster images)"
+        },
+        "test_4_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_after": {
+            "format": "PDF 1.6",
+            "title": "",
+            "author": "",
+            "subject": "",
+            "keywords": "",
+            "creator": "",
+            "producer": "",
+            "creationDate": "",
+            "modDate": "",
+            "trapped": "",
+            "encryption": null
+          },
+          "xmp_cleared": true,
+          "notes": []
+        },
+        "test_5_acroform_field_purging": {
+          "status": "SKIPPED",
+          "reason": "No AcroForm widgets in target document"
+        }
+      }
+    },
+    {
+      "id": "Type-B (Authentic IRS 1040)",
+      "name": "Authentic Official IRS Form 1040 (2025)",
+      "filename": "sample_irs_1040.pdf",
+      "passed": true,
+      "timings": {
+        "open_ms": 1.6756660770624876,
+        "engine_process_ms": 34.537874977104366,
+        "metadata_scrub_ms": 71.75862498115748,
+        "save_serialize_ms": 53.07791708037257,
+        "total_ms": 161.05658293236047
+      },
+      "assertions": {
+        "test_6_file_integrity": {
+          "status": "PASS",
+          "doc_pages": 2,
+          "is_repaired": false,
+          "notes": [],
+          "time_ms": 20.468665985390544
+        },
+        "test_1_text_stream_eradication": {
+          "status": "PASS",
+          "targets_checked": 1,
+          "leaks": []
+        },
+        "test_2_raw_stream_inspection": {
+          "status": "PASS",
+          "decompressed_streams_checked": 2,
+          "leaks": []
+        },
+        "test_3_image_pixel_burnout": {
+          "status": "SKIPPED",
+          "reason": "Vector-only document (no raster images)"
+        },
+        "test_4_metadata_sanitization": {
+          "status": "PASS",
+          "metadata_after": {
+            "format": "PDF 1.7",
+            "title": "",
+            "author": "",
+            "subject": "",
+            "keywords": "",
+            "creator": "",
+            "producer": "",
+            "creationDate": "",
+            "modDate": "",
+            "trapped": "",
+            "encryption": null
+          },
+          "xmp_cleared": true,
+          "notes": []
+        },
+        "test_5_acroform_field_purging": {
+          "status": "SKIPPED",
+          "reason": "No AcroForm widgets in target document"
+        }
+      }
+    }
+  ]
+}

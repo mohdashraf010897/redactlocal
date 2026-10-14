@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+**/node_modules/
+venv/
+**/venv/
+__pycache__/
+*.pyc
+
+# Cryptographic Private Keys (SECURITY CRITICAL: NEVER COMMIT PRIVATE KEYS)
+keys/*_private.key
+*.private.key
+*.pem
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Rust & Tauri Builds
+target/
+src-tauri/target/
+
+# Sensitive Test Dumps & Temporary Files
+**/raw/
+_artifacts/raw/
+*.log
+.env
+.env.*

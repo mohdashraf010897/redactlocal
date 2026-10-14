@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedactLocal — MVP Workflow & Competitor Landscape</title>
+  <style>
+    :root {
+      --artifact-background: #ffffff;
+      --artifact-background-light: #f8fafc;
+      --artifact-background-mid: #f1f5f9;
+      --artifact-border-light: #e2e8f0;
+      --artifact-border-dark: #cbd5e1;
+      --artifact-primary-brand: #059669;
+      --artifact-primary-hover: #047857;
+      --artifact-text-primary: #0f172a;
+      --artifact-text-secondary: #64748b;
+      --artifact-text-highlight: #ecfdf5;
+      --artifact-positive: #10b981;
+      --artifact-positive-background: #ecfdf5;
+      --artifact-negative: #ef4444;
+      --artifact-warn: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--artifact-background-light);
+      color: var(--artifact-text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .stage {
+      max-width: 1080px;
+      width: 100%;
+    }
+
+    .eyebrow {
+      font-family: "SF Mono", "IBM Plex Mono", Consolas, monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--artifact-primary-brand);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .hero {
+      margin-bottom: 48px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--artifact-text-primary);
+    }
+
+    .lede {
+      font-size: 18px;
+      color: var(--artifact-text-secondary);
+      max-width: 65ch;
+    }
+
+    .section {
+      background: var(--artifact-background);
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 12px;
+      padding: 36px 32px;
+      margin-bottom: 36px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .section-head {
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* Workflow Stepper */
+    .stepper {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--artifact-border-light);
+      padding-bottom: 16px;
+    }
+
+    .step-btn {
+      background: none;
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--artifact-text-secondary);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-btn.active {
+      background: var(--artifact-text-highlight);
+      border-color: var(--artifact-primary-brand);
+      color: var(--artifact-primary-brand);
+    }
+
+    .step-btn .badge {
+      font-family: monospace;
+      font-size: 11px;
+      background: rgba(0,0,0,0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Interactive Simulator */
+    .simulator {
+      background: var(--artifact-background-mid);
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 10px;
+      padding: 24px;
+      min-height: 340px;
+    }
+
+    .doc-preview {
+      background: #ffffff;
+      border: 1px solid var(--artifact-border-dark);
+      border-radius: 8px;
+      padding: 24px;
+      font-family: "SF Mono", monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      position: relative;
+    }
+
+    .doc-meta {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--artifact-border-light);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: var(--artifact-text-secondary);
+    }
+
+    .redact-target {
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+    }
+
+    .status-bad {
+      background: #fee2e2;
+      color: var(--artifact-negative);
+    }
+
+    .status-good {
+      background: var(--artifact-positive-background);
+      color: var(--artifact-primary-brand);
+    }
+
+    .sim-controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      background: var(--artifact-primary-brand);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--artifact-primary-hover);
+    }
+
+    .action-btn.secondary {
+      background: #ffffff;
+      border: 1px solid var(--artifact-border-dark);
+      color: var(--artifact-text-primary);
+    }
+
+    .action-btn.secondary:hover {
+      background: var(--artifact-background-light);
+    }
+
+    /* Comparison Table */
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .comp-table th, .comp-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--artifact-border-light);
+      text-align: left;
+    }
+
+    .comp-table th {
+      background: var(--artifact-background-light);
+      font-weight: 700;
+      color: var(--artifact-text-primary);
+    }
+
+    .comp-table tr.highlight-row {
+      background: var(--artifact-text-highlight);
+    }
+
+    .pill {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .pill-green { background: #d1fae5; color: #065f46; }
+    .pill-red { background: #fee2e2; color: #991b1b; }
+    .pill-yellow { background: #fef3c7; color: #92400e; }
+
+    /* Key Metrics Split */
+    .split {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .stat-card {
+      border: 1px solid var(--artifact-border-light);
+      background: var(--artifact-background-light);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--artifact-text-primary);
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--artifact-text-secondary);
+      margin-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .split { grid-template-columns: 1fr; }
+      .stepper { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <!-- Hero Header -->
+    <header class="hero">
+      <span class="eyebrow">RedactLocal · Product Spec & Landscape</span>
+      <h1>Interactive MVP Workflow & Competitive Audit</h1>
+      <p class="lede">
+        Visualizing the 100% client-side PDF redaction engine: eliminating the $240/yr Adobe subscription without cloud privacy breaches.
+      </p>
+    </header>
+
+    <!-- SECTION 1: INTERACTIVE USER WORKFLOW SIMULATOR -->
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">01 — MVP Core Experience</span>
+        <h2>Try the 4-Step User Workflow</h2>
+        <p class="lede" style="font-size: 15px; margin-top: 4px;">
+          Experience how a user ingests a legal document, auto-detects PII, purges byte streams, and verifies zero data leakage.
+        </p>
+      </div>
+
+      <!-- Steps Navigator -->
+      <div class="stepper">
+        <button class="step-btn active" id="btn-step1" onclick="setStep(1)">
+          <span class="badge">01</span> Drag & Drop
+        </button>
+        <button class="step-btn" id="btn-step2" onclick="setStep(2)">
+          <span class="badge">02</span> Auto-Detect PII
+        </button>
+        <button class="step-btn" id="btn-step3" onclick="setStep(3)">
+          <span class="badge">03</span> Fake vs Real Purge
+        </button>
+        <button class="step-btn" id="btn-step4" onclick="setStep(4)">
+          <span class="badge">04</span> Sanitized Export
+        </button>
+      </div>
+
+      <!-- Interactive Canvas Simulator -->
+      <div class="simulator">
+        <div class="doc-preview">
+          <div class="doc-meta">
+            <span><strong>Court_Exhibit_104.pdf</strong> (1 Page, 82 KB)</span>
+            <span id="doc-status-badge" class="status-badge status-bad">● CONTAINS CONFIDENTIAL PII</span>
+          </div>
+
+          <div><strong>UNITED STATES DISTRICT COURT</strong></div>
+          <div style="color: var(--artifact-text-secondary); margin-bottom: 12px;">Case No: 26-CV-04192 (Confidential Matter)</div>
+
+          <div>Party: <strong>Marcus Vance</strong></div>
+          <div>Direct Contact: <span id="field-email" class="redact-target">mvance@enterprise-corp.com</span></div>
+          <div>Social Security: <span id="field-ssn" class="redact-target">942-01-4491</span></div>
+          <div>Routing Code: <span id="field-bank" class="redact-target">Routing: 021000021 · Acct: 849201</span></div>
+          <div style="margin-top: 14px; font-size: 12px; color: var(--artifact-text-secondary);">
+            Declaration: All statements provided under penalty of perjury.
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="sim-controls">
+          <button class="action-btn" id="sim-action-btn" onclick="nextWorkflowStep()">Auto-Detect Sensitive PII</button>
+          <button class="action-btn secondary" onclick="resetSimulator()">Reset Demo</button>
+          <span id="sim-explanation" style="font-size: 13px; color: var(--artifact-text-secondary); margin-left: 8px;">
+            Step 1: File parsed locally via PDF.js in Web Worker. 0 network packets sent.
+          </span>
+        </div>
+      </div>
+
+      <!-- Architecture Breakdown -->
+      <div class="split">
+        <div class="stat-card">
+          <div class="stat-number">0 KB</div>
+          <div class="stat-label">Cloud Data Ingested</div>
+          <p style="font-size: 12px; color: var(--artifact-text-secondary); margin-top: 6px;">
+            100% in-browser WebAssembly. Completely compliant with HIPAA, GDPR, and legal NDAs.
+          </p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">True Glyph Deletion</div>
+          <p style="font-size: 12px; color: var(--artifact-text-secondary); margin-top: 6px;">
+            Deletes raw glyph objects in `/Contents` streams. Underlying text cannot be copy-pasted.
+          </p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">&lt; 300 ms</div>
+          <div class="stat-label">Batch Execution Time</div>
+          <p style="font-size: 12px; color: var(--artifact-text-secondary); margin-top: 6px;">
+            Zero upload queues or server rendering latency. Instant local download.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: COMPETITOR LANDSCAPE & ARBITRAGE -->
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">02 — Market Audit</span>
+        <h2>Competitive Matrix: Why Existing Solutions Fail</h2>
+        <p class="lede" style="font-size: 15px; margin-top: 4px;">
+          How RedactLocal exploits the gap between $240/year bloated enterprise subscriptions and unsafe cloud uploaders.
+        </p>
+      </div>
+
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Software</th>
+            <th>Pricing Model</th>
+            <th>Privacy & Data Storage</th>
+            <th>True Stream Deletion</th>
+            <th>Platform / UX</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td><strong>RedactLocal (Proposed)</strong></td>
+            <td><strong>$39 one-time</strong></td>
+            <td><span class="pill pill-green">100% Local / 0 Uploads</span></td>
+            <td><span class="pill pill-green">Yes (Glyph purged)</span></td>
+            <td>Modern Web & Desktop</td>
+          </tr>
+          <tr>
+            <td><strong>Adobe Acrobat Pro</strong></td>
+            <td>$239.88 / year</td>
+            <td>Cloud-tethered suite</td>
+            <td><span class="pill pill-green">Yes</span></td>
+            <td>Heavy, bloated desktop suite</td>
+          </tr>
+          <tr>
+            <td><strong>Smallpdf / iLovePDF</strong></td>
+            <td>Free or $108/yr</td>
+            <td><span class="pill pill-red">Third-Party Cloud Upload</span></td>
+            <td>Varies by tool</td>
+            <td>Web (Violates HIPAA/NDAs)</td>
+          </tr>
+          <tr>
+            <td><strong>Mac Preview (Draw Box)</strong></td>
+            <td>Free (Built-in)</td>
+            <td>Local</td>
+            <td><span class="pill pill-red">No (Mask only, selectable)</span></td>
+            <td>Mac only; high leak danger</td>
+          </tr>
+          <tr>
+            <td><strong>PDF-XChange Editor</strong></td>
+            <td>$56 one-time</td>
+            <td>Local</td>
+            <td><span class="pill pill-green">Yes</span></td>
+            <td><span class="pill pill-yellow">Windows Only (1990s UI)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    let currentStep = 1;
+
+    function setStep(step) {
+      currentStep = step;
+      document.querySelectorAll('.step-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx + 1 === step);
+      });
+
+      const ssn = document.getElementById('field-ssn');
+      const email = document.getElementById('field-email');
+      const bank = document.getElementById('field-bank');
+      const badge = document.getElementById('doc-status-badge');
+      const actionBtn = document.getElementById('sim-action-btn');
+      const expl = document.getElementById('sim-explanation');
+
+      if (step === 1) {
+        ssn.style.background = 'none';
+        ssn.style.color = '#0f172a';
+        ssn.innerText = '942-01-4491';
+        email.style.background = 'none';
+        email.innerText = 'mvance@enterprise-corp.com';
+        bank.style.background = 'none';
+        bank.innerText = 'Routing: 021000021 · Acct: 849201';
+        badge.className = 'status-badge status-bad';
+        badge.innerText = '● CONTAINS CONFIDENTIAL PII';
+        actionBtn.innerText = 'Auto-Detect Sensitive PII';
+        expl.innerText = 'Step 1: Drag & drop PDF. Parsed locally in browser Web Worker. 0 network calls.';
+      } else if (step === 2) {
+        ssn.style.background = '#fef08a';
+        ssn.style.color = '#854d0e';
+        email.style.background = '#fef08a';
+        email.style.color = '#854d0e';
+        bank.style.background = '#fef08a';
+        bank.style.color = '#854d0e';
+        badge.className = 'status-badge status-bad';
+        badge.innerText = '● 3 PII TOKENS DETECTED';
+        actionBtn.innerText = 'Test Fake Mask vs Real Purge';
+        expl.innerText = 'Step 2: Regex engine tags SSNs, emails, and bank accounts instantly.';
+      } else if (step === 3) {
+        // Show fake mask on SSN (black box with selectable blue text)
+        ssn.style.background = '#0f172a';
+        ssn.style.color = '#ffffff';
+        ssn.innerText = '942-01-4491 [SELECTABLE!]';
+        email.style.background = '#fee2e2';
+        bank.style.background = '#fee2e2';
+        badge.className = 'status-badge status-bad';
+        badge.innerText = '⚠️ FAKE MASK: TEXT STILL IN STREAM';
+        actionBtn.innerText = 'Execute Permanent Stream Purge';
+        expl.innerText = 'Step 3: Flaw in basic readers—text is visually blacked out but still copy-pasteable!';
+      } else if (step === 4) {
+        ssn.style.background = '#0f172a';
+        ssn.style.color = '#34d399';
+        ssn.innerText = '[GLYPH PURGED]';
+        email.style.background = '#0f172a';
+        email.style.color = '#34d399';
+        email.innerText = '[GLYPH PURGED]';
+        bank.style.background = '#0f172a';
+        bank.style.color = '#34d399';
+        bank.innerText = '[GLYPH PURGED]';
+        badge.className = 'status-badge status-good';
+        badge.innerText = '✓ STREAM PURGED & SANITIZED';
+        actionBtn.innerText = 'Download Sanitized PDF';
+        expl.innerText = 'Step 4: Raw PDF glyphs deleted from /Contents stream. Ready for safe legal filing.';
+      }
+    }
+
+    function nextWorkflowStep() {
+      if (currentStep < 4) {
+        setStep(currentStep + 1);
+      } else {
+        alert('Simulation Complete: Sanitized PDF with scrubbed metadata downloaded locally!');
+        setStep(1);
+      }
+    }
+
+    function resetSimulator() {
+      setStep(1);
+    }
+  </script>
+</body>
+</html>

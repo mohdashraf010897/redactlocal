@@ -1,0 +1,278 @@
+{
+  "w9": {
+    "title": "IRS Form W-9 (Interactive AcroForm & XFA)",
+    "profile": "IRS Form W-9 Standard AcroForm Profile",
+    "profile_desc": "Excises interactive form widget values (/V, /AP), severs XFA XML tree, and burns permanent vector blackout rects.",
+    "origImg": "./redaction-test-lab/outputs/original_w9.png",
+    "redImg": "./redaction-test-lab/outputs/redacted_w9.png",
+    "origSha256": "0fcc989c9d2864658ef180a45a611268a3f382db17f560a8a48545d7faad3b77",
+    "redSha256": "3d145d68c26bb8452ab5983cbd53bb9b2eb675b32deafff64a326b7489d4e273",
+    "pii": [
+      {
+        "name": "Sarah Jenkins Technologies LLC",
+        "tag": "NAME",
+        "channel": "AcroForm /Widget + Text Stream",
+        "box": "top: 14.90%; left: 9.58%; width: 84.55%; height: 1.77%;",
+        "coords": {
+          "top": 14.9,
+          "left": 9.58,
+          "width": 84.55,
+          "height": 1.77
+        }
+      },
+      {
+        "name": "SJT Cloud Solutions",
+        "tag": "BUSINESS",
+        "channel": "AcroForm /Widget + Text Stream",
+        "box": "top: 17.93%; left: 9.58%; width: 84.55%; height: 1.77%;",
+        "coords": {
+          "top": 17.93,
+          "left": 9.58,
+          "width": 84.55,
+          "height": 1.77
+        }
+      },
+      {
+        "name": "742 Evergreen Terrace, Suite 400",
+        "tag": "ADDRESS",
+        "channel": "AcroForm /Widget + Text Stream",
+        "box": "top: 36.11%; left: 9.58%; width: 53.83%; height: 1.77%;",
+        "coords": {
+          "top": 36.11,
+          "left": 9.58,
+          "width": 53.83,
+          "height": 1.77
+        }
+      },
+      {
+        "name": "Springfield, OR 97477",
+        "tag": "CITY/STATE",
+        "channel": "AcroForm /Widget + Text Stream",
+        "box": "top: 39.14%; left: 9.58%; width: 53.83%; height: 1.77%;",
+        "coords": {
+          "top": 39.14,
+          "left": 9.58,
+          "width": 53.83,
+          "height": 1.77
+        }
+      },
+      {
+        "name": "xxx-xx-6789 (SSN Part I)",
+        "tag": "SSN",
+        "channel": "AcroForm /Widget + XFA XML Stream",
+        "box": "top: 46.97%; left: 84.71%; width: 9.41%; height: 3.03%;",
+        "coords": {
+          "top": 46.97,
+          "left": 84.71,
+          "width": 9.41,
+          "height": 3.03
+        }
+      },
+      {
+        "name": "12-3456789 (EIN Part I)",
+        "tag": "EIN",
+        "channel": "AcroForm /Widget + XFA XML Stream",
+        "box": "top: 53.03%; left: 68.24%; width: 4.71%; height: 3.03%;",
+        "coords": {
+          "top": 53.03,
+          "left": 68.24,
+          "width": 4.71,
+          "height": 3.03
+        }
+      }
+    ],
+    "streamDiff": "<span style=\"color: #64748b;\">// AcroForm /Widgets & /XFA Dataset Purge:</span><br>\n<span style=\"color: #f87171;\">- /Widget 848 0 R &lt;&lt; /V (Sarah Jenkins Technologies LLC) /AP 976 0 R &gt;&gt;</span> <span style=\"color: #ef4444;\">[WIDGET VALUE EXCISED]</span><br>\n<span style=\"color: #f87171;\">- /Widget 849 0 R &lt;&lt; /V (SJT Cloud Solutions) &gt;&gt;</span> <span style=\"color: #ef4444;\">[WIDGET VALUE EXCISED]</span><br>\n<span style=\"color: #f87171;\">- /Root /AcroForm &lt;&lt; /XFA 1053 0 R &gt;&gt;</span> <span style=\"color: #ef4444;\">[XFA XML ARRAY UNLINKED]</span><br>\n<span style=\"color: #34d399;\">+ /Widget 848 0 R &lt;&lt; /V null /AP null &gt;&gt;</span> <span style=\"color: #10b981;\">[KEYS NULLIFIED]</span><br>\n<span style=\"color: #38bdf8;\">+ 0 0 0 rg 58.6 659.967 517.4 14 re f</span> <span style=\"color: #10b981;\">[VECTOR BLACKOUT BURNED TO PAGE]</span>"
+  },
+  "contract": {
+    "title": "Corporate Merger NDA (Born-Digital Text)",
+    "profile": "Born-Digital Content Stream Surgery",
+    "profile_desc": "Operator surgery deconstructs BT...ET text blocks, excises target glyph strings, and recalculates text positioning.",
+    "origImg": "./redaction-test-lab/outputs/original_contract.png",
+    "redImg": "./redaction-test-lab/outputs/redacted_contract.png",
+    "origSha256": "b5d8dacd3f3f3858031f651b983a8cb43060f329eb77fd603076c6c4f994adaf",
+    "redSha256": "e3cdc48744e1aee2ce1be55112aca927ca7fa4e16030ac37460baf4bfb040737",
+    "pii": [
+      {
+        "name": "$4,750,000.00 (Settlement Valuation)",
+        "tag": "VALUATION",
+        "channel": "Content Stream Operator Surgery",
+        "box": "top: 26.97%; left: 63.57%; width: 11.49%; height: 1.91%;",
+        "coords": {
+          "top": 26.97,
+          "left": 63.57,
+          "width": 11.49,
+          "height": 1.91
+        }
+      },
+      {
+        "name": "021000021 (ABA Routing Number)",
+        "tag": "ROUTING #",
+        "channel": "Content Stream Operator Surgery",
+        "box": "top: 35.04%; left: 28.50%; width: 8.99%; height: 1.91%;",
+        "coords": {
+          "top": 35.04,
+          "left": 28.5,
+          "width": 8.99,
+          "height": 1.91
+        }
+      },
+      {
+        "name": "9928172645 (Bank Account Number)",
+        "tag": "ACCOUNT #",
+        "channel": "Content Stream Operator Surgery",
+        "box": "top: 37.05%; left: 24.71%; width: 9.99%; height: 1.91%;",
+        "coords": {
+          "top": 37.05,
+          "left": 24.71,
+          "width": 9.99,
+          "height": 1.91
+        }
+      },
+      {
+        "name": "452-89-1029 (Beneficiary SSN)",
+        "tag": "SSN",
+        "channel": "Content Stream Operator Surgery",
+        "box": "top: 39.07%; left: 24.41%; width: 10.19%; height: 1.91%;",
+        "coords": {
+          "top": 39.07,
+          "left": 24.41,
+          "width": 10.19,
+          "height": 1.91
+        }
+      },
+      {
+        "name": "84-9201948 (Federal Tax ID)",
+        "tag": "TAX ID",
+        "channel": "Content Stream Operator Surgery",
+        "box": "top: 47.13%; left: 50.92%; width: 9.59%; height: 1.91%;",
+        "coords": {
+          "top": 47.13,
+          "left": 50.92,
+          "width": 9.59,
+          "height": 1.91
+        }
+      },
+      {
+        "name": "counsel.johnson@apex-litigation.com",
+        "tag": "EMAIL",
+        "channel": "Content Stream Operator Surgery",
+        "box": "top: 51.16%; left: 15.82%; width: 29.80%; height: 1.91%;",
+        "coords": {
+          "top": 51.16,
+          "left": 15.82,
+          "width": 29.8,
+          "height": 1.91
+        }
+      },
+      {
+        "name": "450 Lexington Avenue (Physical Address)",
+        "tag": "ADDRESS",
+        "channel": "Content Stream Operator Surgery",
+        "box": "top: 55.19%; left: 25.11%; width: 17.89%; height: 1.91%;",
+        "coords": {
+          "top": 55.19,
+          "left": 25.11,
+          "width": 17.89,
+          "height": 1.91
+        }
+      }
+    ],
+    "streamDiff": "<span style=\"color: #64748b;\">// Content Stream Operator Surgery:</span><br>\n<span style=\"color: #f87171;\">- BT /F1 12 Tf (Beneficiary SSN: ) Tj (452-89-1029) Tj ET</span> <span style=\"color: #ef4444;\">[RAW GLYPHS EXCISED]</span><br>\n<span style=\"color: #f87171;\">- BT /F1 12 Tf (Account Number: ) Tj (9928172645) Tj ET</span> <span style=\"color: #ef4444;\">[RAW GLYPHS EXCISED]</span><br>\n<span style=\"color: #f87171;\">- BT /F1 12 Tf (ABA Routing Number: ) Tj (021000021) Tj ET</span> <span style=\"color: #ef4444;\">[RAW GLYPHS EXCISED]</span><br>\n<span style=\"color: #34d399;\">+ BT /F1 12 Tf (Beneficiary SSN: ) Tj ET</span> <span style=\"color: #10b981;\">[CLEAN STREAM RE-SERIALIZED]</span><br>\n<span style=\"color: #38bdf8;\">+ 0 0 0 rg 149.37 467.47 62.37 15.11 re f</span> <span style=\"color: #10b981;\">[PERMANENT BLACKOUT RECTANGLE]</span>"
+  },
+  "hospital": {
+    "title": "Hospital Intake Chart (300 DPI Scanned Image)",
+    "profile": "HIPAA Medical Scanner Image Burnout",
+    "profile_desc": "Sub-region raster overwrite destroys dark pixel glyphs in underlying image streams (1224x1584), deflating clean image blocks.",
+    "origImg": "./redaction-test-lab/outputs/original_hospital.png",
+    "redImg": "./redaction-test-lab/outputs/redacted_hospital.png",
+    "origSha256": "80a20217509d8f896981c20664af3beebd64935d5ebc5abb0b08f7a7e032aefb",
+    "redSha256": "bca871392e13657cd2588b33b48abab74f7d81f7bd0b56186fb8987ea62d6202",
+    "pii": [
+      {
+        "name": "EVELYN R. VANCE (Patient Name)",
+        "tag": "PATIENT NAME",
+        "channel": "Underlying Image Raster Burnout",
+        "box": "top: 15.15%; left: 44.12%; width: 40.85%; height: 3.54%;",
+        "coords": {
+          "top": 15.15,
+          "left": 44.12,
+          "width": 40.85,
+          "height": 3.54
+        }
+      },
+      {
+        "name": "982-11-4091 (SSN)",
+        "tag": "SSN",
+        "channel": "Underlying Image Raster Burnout",
+        "box": "top: 26.52%; left: 44.12%; width: 31.05%; height: 3.54%;",
+        "coords": {
+          "top": 26.52,
+          "left": 44.12,
+          "width": 31.05,
+          "height": 3.54
+        }
+      }
+    ],
+    "streamDiff": "<span style=\"color: #64748b;\">// Sub-Region Raster Image Burnout (HIPAA):</span><br>\n<span style=\"color: #f87171;\">- Image XObject /Im0 (1224x1584 px) box (540, 240, 1040, 296)</span> <span style=\"color: #ef4444;\">[RAW PIXELS EXTRACTED]</span><br>\n<span style=\"color: #34d399;\">+ Overwriting 8,420 dark text pixels with RGB(0,0,0)</span> <span style=\"color: #10b981;\">[PIXEL BURNOUT COMPLETE]</span><br>\n<span style=\"color: #f87171;\">- Image XObject /Im0 (1224x1584 px) box (540, 420, 920, 476)</span> <span style=\"color: #ef4444;\">[SSN PIXELS OVERWRITTEN]</span><br>\n<span style=\"color: #38bdf8;\">+ Recompressing Image XObject stream with FlateDecode</span> <span style=\"color: #10b981;\">[IMAGE STREAM REBUILT]</span>"
+  },
+  "subpoena": {
+    "title": "US District Court Subpoena AO 88B",
+    "profile": "Federal Court FRCP 5.2 Legal Profile",
+    "profile_desc": "Federal court rule compliance: scrubs jurisdiction identifiers, case docket lines, and attorney metadata packets.",
+    "origImg": "./redaction-test-lab/outputs/original_subpoena.png",
+    "redImg": "./redaction-test-lab/outputs/redacted_subpoena.png",
+    "origSha256": "ac00b579d43b2c0bf905384d2a6770886852ce0f8fccda0d23d04ba4828fd69e",
+    "redSha256": "1ea604a5551ba37b6534c9c7902ac4517d8ea7e9c1605aeca096f7cb1781b4d0",
+    "pii": [
+      {
+        "name": "UNITED STATES DISTRICT COURT",
+        "tag": "COURT HEADER",
+        "channel": "Vector Excision + Font Subset Purge",
+        "box": "top: 7.02%; left: 28.25%; width: 43.51%; height: 2.79%;",
+        "coords": {
+          "top": 7.02,
+          "left": 28.25,
+          "width": 43.51,
+          "height": 2.79
+        }
+      },
+      {
+        "name": "Civil Action No. (Case Docket)",
+        "tag": "CASE DOCKET",
+        "channel": "Vector Excision + Stream Re-encoding",
+        "box": "top: 18.69%; left: 54.26%; width: 8.95%; height: 1.53%;",
+        "coords": {
+          "top": 18.69,
+          "left": 54.26,
+          "width": 8.95,
+          "height": 1.53
+        }
+      },
+      {
+        "name": "CIVIL ACTION (Action Subtitle)",
+        "tag": "ACTION TYPE",
+        "channel": "Vector Excision + Stream Re-encoding",
+        "box": "top: 26.53%; left: 57.18%; width: 12.80%; height: 1.53%;",
+        "coords": {
+          "top": 26.53,
+          "left": 57.18,
+          "width": 12.8,
+          "height": 1.53
+        }
+      },
+      {
+        "name": "United States district court (Command Text)",
+        "tag": "JURISDICTION",
+        "channel": "Vector Excision + Metadata Scrub",
+        "box": "top: 35.07%; left: 44.73%; width: 18.90%; height: 1.53%;",
+        "coords": {
+          "top": 35.07,
+          "left": 44.73,
+          "width": 18.9,
+          "height": 1.53
+        }
+      }
+    ],
+    "streamDiff": "<span style=\"color: #64748b;\">// Federal Court FRCP 5.2 Compliance:</span><br>\n<span style=\"color: #f87171;\">- /Info &lt;&lt; /Author (US Courts) /Title (Civil Action Subpoena) &gt;&gt;</span> <span style=\"color: #ef4444;\">[METADATA PURGED]</span><br>\n<span style=\"color: #34d399;\">+ /Info &lt;&lt; /Producer (RedactLocal Offline Engine) &gt;&gt;</span> <span style=\"color: #10b981;\">[CLEAN INFO PACKET]</span><br>\n<span style=\"color: #f87171;\">- Text Operator BT /F1 20 Tf (UNITED STATES DISTRICT COURT) Tj ET</span> <span style=\"color: #ef4444;\">[HEADER EXCISED]</span><br>\n<span style=\"color: #38bdf8;\">+ Full serialization with garbage=4</span> <span style=\"color: #10b981;\">[NO /PREV INCREMENTAL TRAILER]</span>"
+  }
+}

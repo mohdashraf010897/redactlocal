@@ -1,0 +1,19 @@
+{
+  "v": 1,
+  "app": "RedactLocal",
+  "order_id": "ORD-FIRM-1002",
+  "licensee": "Oakland Forensic Accounting LLC",
+  "email": "licenses@oakland-accounting.com",
+  "tier": "team_10",
+  "seats": 10,
+  "issued_at": "2026-10-14T08:52:36.655Z",
+  "expires_at": null,
+  "features": {
+    "max_pages_per_doc": 999999,
+    "batch_processing": true,
+    "court_receipts": true,
+    "custom_regex_presets": true,
+    "air_gap_enforced": true
+  },
+  "sig": "n689rtR2qc2lfDGlgkDTLEyY2tYmvckmsYt/m9c3+klQD9TFB2w9pGI8g4mxeZhUOFXo4gl/nZrXoAOkUMUIBg=="
+}

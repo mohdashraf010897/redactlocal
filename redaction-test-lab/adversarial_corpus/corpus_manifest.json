@@ -1,0 +1,781 @@
+[
+  {
+    "id": "CAT1-01",
+    "category": "Category 1: Court pleadings & Subpoenas",
+    "name": "US Federal Court Class Action Complaint (FRCP 5.2)",
+    "filename": "cat1_court_01_frcp52_pleading.pdf",
+    "jurisdiction": "US-Federal",
+    "text_targets": [
+      "412-88-9921",
+      "Alexander Montgomery",
+      "04/18/2014",
+      "8839-1029-4820"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT1-02",
+    "category": "Category 1: Court pleadings & Subpoenas",
+    "name": "Federal Grand Jury Subpoena Duces Tecum (AO 88B)",
+    "filename": "cat1_court_02_grand_jury_subpoena.pdf",
+    "jurisdiction": "US-Federal",
+    "text_targets": [
+      "523-99-1048",
+      "9928172645",
+      "4532-8891-0294-8821",
+      "021000089"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT1-03",
+    "category": "Category 1: Court pleadings & Subpoenas",
+    "name": "UK High Court Commercial Division Freezing Injunction",
+    "filename": "cat1_court_03_uk_high_court_injunction.pdf",
+    "jurisdiction": "UK-EnglandWales",
+    "text_targets": [
+      "20-04-15",
+      "83920184",
+      "QQ123456C",
+      "Flat 4B, 18 Kensington Gardens Square, London W2 4BH"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT1-04",
+    "category": "Category 1: Court pleadings & Subpoenas",
+    "name": "Australian Family Court Parenting Decree & Welfare Order",
+    "filename": "cat1_court_04_family_custody_minors.pdf",
+    "jurisdiction": "Australia-Commonwealth",
+    "text_targets": [
+      "Charlotte Elizabeth Harrison",
+      "Liam James Harrison",
+      "74 Banksia Way, Toorak VIC 3142",
+      "987 654 321"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT1-05",
+    "category": "Category 1: Court pleadings & Subpoenas",
+    "name": "Delaware Bankruptcy Court Chapter 11 Creditor Schedule",
+    "filename": "cat1_court_05_bankruptcy_creditor_matrix.pdf",
+    "jurisdiction": "US-Federal",
+    "text_targets": [
+      "634-11-9082",
+      "9018273645",
+      "88371920491",
+      "$18,750,000.00"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT2-01",
+    "category": "Category 2: Tax forms",
+    "name": "IRS Form W-9 with Interactive AcroForm & Embedded XFA",
+    "filename": "cat2_tax_01_irs_w9_acroform_xfa.pdf",
+    "jurisdiction": "US-Federal-Tax",
+    "text_targets": [
+      "Apex Technology Ventures Inc",
+      "444-55-6666",
+      "12-3456789"
+    ],
+    "rect_targets": {},
+    "widget_targets": [
+      "Apex Technology Ventures Inc",
+      "444-55-6666",
+      "12-3456789"
+    ],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": true,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT2-02",
+    "category": "Category 2: Tax forms",
+    "name": "IRS Form 1040 Individual Income Tax Return",
+    "filename": "cat2_tax_02_irs_1040_individual.pdf",
+    "jurisdiction": "US-Federal-Tax",
+    "text_targets": [
+      "555-66-7777",
+      "666-77-8888",
+      "011000015",
+      "7739102938"
+    ],
+    "rect_targets": {},
+    "widget_targets": [
+      "555-66-7777",
+      "666-77-8888",
+      "7739102938"
+    ],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": true,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT2-03",
+    "category": "Category 2: Tax forms",
+    "name": "IRS Form 1099-MISC Nonemployee Compensation",
+    "filename": "cat2_tax_03_irs_1099_misc_contractor.pdf",
+    "jurisdiction": "US-Federal-Tax",
+    "text_targets": [
+      "777-88-9999",
+      "Elena Rostova Consulting LLC",
+      "ACCT-2026-9912",
+      "$145,000.00"
+    ],
+    "rect_targets": {},
+    "widget_targets": [
+      "777-88-9999",
+      "Elena Rostova Consulting LLC"
+    ],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": true,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT2-04",
+    "category": "Category 2: Tax forms",
+    "name": "IRS Form 1099-INT Depository Interest Statement",
+    "filename": "cat2_tax_04_irs_1099_int_banking.pdf",
+    "jurisdiction": "US-Federal-Tax",
+    "text_targets": [
+      "888-99-0000",
+      "121000358",
+      "SAV-883920194",
+      "$32,450.18"
+    ],
+    "rect_targets": {},
+    "widget_targets": [
+      "888-99-0000",
+      "SAV-883920194"
+    ],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": true,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT2-05",
+    "category": "Category 2: Tax forms",
+    "name": "UK HMRC End of Year Certificate P60",
+    "filename": "cat2_tax_05_hmrc_p60_uk_tax.pdf",
+    "jurisdiction": "UK-HMRC-Tax",
+    "text_targets": [
+      "AB123456D",
+      "961/AZ88492",
+      "EMP-883921",
+      "\u00a342,850.40"
+    ],
+    "rect_targets": {},
+    "widget_targets": [
+      "AB123456D"
+    ],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": true,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT3-01",
+    "category": "Category 3: Commercial & Merger NDAs",
+    "name": "Delaware Corporate Merger NDA & Escrow Fee Schedule",
+    "filename": "cat3_nda_01_delaware_merger_fee.pdf",
+    "jurisdiction": "US-Delaware-Commercial",
+    "text_targets": [
+      "021000021",
+      "9928172645",
+      "$47,500,000.00",
+      "452-89-1029",
+      "198.51.100.42"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT3-02",
+    "category": "Category 3: Commercial & Merger NDAs",
+    "name": "Transatlantic Joint Venture & Licensing Agreement (Germany/US)",
+    "filename": "cat3_nda_02_cross_border_jv_germany.pdf",
+    "jurisdiction": "EU-Germany-CrossBorder",
+    "text_targets": [
+      "DE89370400440532013000",
+      "DBEUMM21XXX",
+      "14/234/56789",
+      "\u20ac85,000,000.00"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT3-03",
+    "category": "Category 3: Commercial & Merger NDAs",
+    "name": "Silicon Valley Series B Preferred Investment Term Sheet",
+    "filename": "cat3_nda_03_venture_capital_term_sheet.pdf",
+    "jurisdiction": "US-California-VC",
+    "text_targets": [
+      "456-78-9012",
+      "121140399",
+      "3349102938",
+      "$120,000,000"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT3-04",
+    "category": "Category 3: Commercial & Merger NDAs",
+    "name": "Global Enterprise SaaS Master Services Agreement & Security DPA",
+    "filename": "cat3_nda_04_saas_enterprise_msa_security.pdf",
+    "jurisdiction": "US-International",
+    "text_targets": [
+      "FED-TENANT-8839-SECRET",
+      "10.240.12.88",
+      "5540192837",
+      "dpo-confidential-exec@enterprise-saas.internal"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT3-05",
+    "category": "Category 3: Commercial & Merger NDAs",
+    "name": "Australia / APAC Cross-Border Asset Purchase NDA",
+    "filename": "cat3_nda_05_australia_apac_mna.pdf",
+    "jurisdiction": "Australia-Corporate",
+    "text_targets": [
+      "082-001",
+      "948201948",
+      "123 456 789",
+      "AUD $34,200,000"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT4-01",
+    "category": "Category 4: Medical Intake & Charts",
+    "name": "Scanned Emergency Intake Sheet (300 DPI Pure Raster)",
+    "filename": "cat4_medical_01_hospital_intake_300dpi.pdf",
+    "jurisdiction": "US-HIPAA-Medical",
+    "text_targets": [],
+    "rect_targets": {
+      "0": [
+        [
+          270,
+          120,
+          520,
+          148
+        ],
+        [
+          270,
+          180,
+          480,
+          208
+        ],
+        [
+          270,
+          210,
+          480,
+          238
+        ]
+      ]
+    },
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [
+      {
+        "page": 0,
+        "box": [
+          540,
+          240,
+          1040,
+          296
+        ],
+        "label": "patient_name_beatrice_thorne"
+      },
+      {
+        "page": 0,
+        "box": [
+          540,
+          360,
+          960,
+          416
+        ],
+        "label": "ssn_987_65_4321"
+      }
+    ],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT4-02",
+    "category": "Category 4: Medical Intake & Charts",
+    "name": "Searchable OCR Sandwich Chart (Image + Hidden Text Layer)",
+    "filename": "cat4_medical_02_ocr_sandwich_chart.pdf",
+    "jurisdiction": "US-HIPAA-Medical",
+    "text_targets": [
+      "345-67-8901",
+      "Morphine Sulfate 15mg IV",
+      "BM1948201"
+    ],
+    "rect_targets": {
+      "0": [
+        [
+          270,
+          150,
+          480,
+          178
+        ],
+        [
+          270,
+          180,
+          520,
+          208
+        ],
+        [
+          270,
+          210,
+          450,
+          238
+        ]
+      ]
+    },
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [
+      {
+        "page": 0,
+        "box": [
+          540,
+          300,
+          960,
+          356
+        ],
+        "label": "ssn_burnout"
+      }
+    ],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT4-03",
+    "category": "Category 4: Medical Intake & Charts",
+    "name": "Diagnostic Radiology & Pathology Scanned Chart (300 DPI)",
+    "filename": "cat4_medical_03_radiology_lab_report.pdf",
+    "jurisdiction": "US-HIPAA-Medical",
+    "text_targets": [],
+    "rect_targets": {
+      "0": [
+        [
+          270,
+          120,
+          520,
+          148
+        ],
+        [
+          270,
+          150,
+          450,
+          178
+        ],
+        [
+          270,
+          180,
+          500,
+          208
+        ]
+      ]
+    },
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [
+      {
+        "page": 0,
+        "box": [
+          540,
+          240,
+          1040,
+          296
+        ],
+        "label": "patient_name_alistair"
+      }
+    ],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT4-04",
+    "category": "Category 4: Medical Intake & Charts",
+    "name": "Controlled Substance DEA Electronic Prescription Record (OCR)",
+    "filename": "cat4_medical_04_prescription_order_scan.pdf",
+    "jurisdiction": "US-DEA-ControlledSubstance",
+    "text_targets": [
+      "567-89-0123",
+      "FP8839201",
+      "RX-2026-881923",
+      "Oxycodone 20mg Tablet"
+    ],
+    "rect_targets": {
+      "0": [
+        [
+          270,
+          120,
+          480,
+          148
+        ],
+        [
+          270,
+          150,
+          450,
+          178
+        ],
+        [
+          270,
+          180,
+          480,
+          208
+        ],
+        [
+          270,
+          210,
+          520,
+          238
+        ]
+      ]
+    },
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [
+      {
+        "page": 0,
+        "box": [
+          540,
+          240,
+          960,
+          296
+        ],
+        "label": "dea_ssn_burnout"
+      }
+    ],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT4-05",
+    "category": "Category 4: Medical Intake & Charts",
+    "name": "Multi-Page Scanned HIPAA PHI Intake & Guarantor Form",
+    "filename": "cat4_medical_05_hipaa_phi_multipage_scan.pdf",
+    "jurisdiction": "US-HIPAA-Medical",
+    "text_targets": [],
+    "rect_targets": {
+      "0": [
+        [
+          270,
+          120,
+          480,
+          148
+        ],
+        [
+          270,
+          150,
+          480,
+          178
+        ]
+      ],
+      "1": [
+        [
+          270,
+          120,
+          480,
+          148
+        ]
+      ]
+    },
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [
+      {
+        "page": 0,
+        "box": [
+          540,
+          240,
+          960,
+          296
+        ],
+        "label": "page1_patient_ssn"
+      },
+      {
+        "page": 1,
+        "box": [
+          540,
+          240,
+          960,
+          296
+        ],
+        "label": "page2_guarantor_ssn"
+      }
+    ],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT5-01",
+    "category": "Category 5: Multi-revision documents",
+    "name": "Multi-Revision Settlement Draft with Incremental /Prev Pointer",
+    "filename": "cat5_revision_01_incremental_save_settlement.pdf",
+    "jurisdiction": "Multi-Revision-Legal",
+    "text_targets": [
+      "$12,500,000",
+      "$4,000,000"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT5-02",
+    "category": "Category 5: Multi-revision documents",
+    "name": "Executive Brief with Sensitive Sticky Notes & Annotations",
+    "filename": "cat5_revision_02_annotated_executive_brief.pdf",
+    "jurisdiction": "Corporate-Governance",
+    "text_targets": [
+      "$1,850,000",
+      "789-01-2345"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": true,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT5-03",
+    "category": "Category 5: Multi-revision documents",
+    "name": "Three-Generation Incremental Price Renegotiation Contract",
+    "filename": "cat5_revision_03_incremental_price_renegotiation.pdf",
+    "jurisdiction": "Commercial-Contract",
+    "text_targets": [
+      "1100223344",
+      "5566778899"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT5-04",
+    "category": "Category 5: Multi-revision documents",
+    "name": "Valuation Memo with Injected Metadata & Private XMP PII",
+    "filename": "cat5_revision_04_metadata_pieceinfo_appended.pdf",
+    "jurisdiction": "Corporate-M&A",
+    "text_targets": [
+      "Project Phoenix Secret Code 99281"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [
+      "Marcus Holloway (Corporate Partner)",
+      "$95,000,000",
+      "Project Phoenix Secret Code 99281"
+    ],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT5-05",
+    "category": "Category 5: Multi-revision documents",
+    "name": "Flawed Incremental Redaction Bypass Document",
+    "filename": "cat5_revision_05_incremental_redaction_bypass.pdf",
+    "jurisdiction": "Adversarial-Revision",
+    "text_targets": [
+      "890-12-3456"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": false
+  },
+  {
+    "id": "CAT6-01",
+    "category": "Category 6: Planted Adversarial Traps",
+    "name": "Planted Content Stream Visual Blackout Trap",
+    "filename": "cat6_trap_01_visual_blackout_leak.pdf",
+    "jurisdiction": "Adversarial-Fuzzer",
+    "text_targets": [
+      "111-99-8888"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": true,
+    "trap_vector": "Visual Blackout without Stream Eradication",
+    "expected_trap_oracle": "O1/O2"
+  },
+  {
+    "id": "CAT6-02",
+    "category": "Category 6: Planted Adversarial Traps",
+    "name": "Planted AcroForm Widget /V Field Value Trap",
+    "filename": "cat6_trap_02_acroform_v_retained_leak.pdf",
+    "jurisdiction": "Adversarial-Fuzzer",
+    "text_targets": [
+      "222-88-7777"
+    ],
+    "rect_targets": {},
+    "widget_targets": [
+      "222-88-7777"
+    ],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": true,
+    "trap_vector": "AcroForm /V Retained in Xref Table",
+    "expected_trap_oracle": "O3/O2"
+  },
+  {
+    "id": "CAT6-03",
+    "category": "Category 6: Planted Adversarial Traps",
+    "name": "Planted Incremental Save /Prev Trailer Pointer Trap",
+    "filename": "cat6_trap_03_incremental_prev_leak.pdf",
+    "jurisdiction": "Adversarial-Fuzzer",
+    "text_targets": [
+      "333-77-6666"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": true,
+    "trap_vector": "Incremental /Prev Trailer Pointer Leak",
+    "expected_trap_oracle": "O3/O2"
+  },
+  {
+    "id": "CAT6-04",
+    "category": "Category 6: Planted Adversarial Traps",
+    "name": "Planted Metadata /Author & XMP Packet Trap",
+    "filename": "cat6_trap_04_xmp_author_metadata_leak.pdf",
+    "jurisdiction": "Adversarial-Fuzzer",
+    "text_targets": [
+      "444-66-5555"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [
+      "444-66-5555"
+    ],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": true,
+    "trap_vector": "Metadata /Author PII Leak",
+    "expected_trap_oracle": "O6"
+  },
+  {
+    "id": "CAT6-05",
+    "category": "Category 6: Planted Adversarial Traps",
+    "name": "Planted Compressed Stream UTF-16BE Bytecode Trap",
+    "filename": "cat6_trap_05_compressed_stream_unicode_leak.pdf",
+    "jurisdiction": "Adversarial-Fuzzer",
+    "text_targets": [
+      "555-44-3333"
+    ],
+    "rect_targets": {},
+    "widget_targets": [],
+    "metadata_pii": [],
+    "image_check_regions": [],
+    "purge_annots": false,
+    "purge_widgets": false,
+    "is_planted_trap": true,
+    "trap_vector": "Compressed Stream UTF-16BE Encoded Leak",
+    "expected_trap_oracle": "O2"
+  }
+]
