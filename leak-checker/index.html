@@ -354,11 +354,17 @@
       <p class="lede">
         Most PDF tools only draw black rectangles on top of text, leaving Social Security Numbers, bank accounts, and form entries hidden inside the raw document streams. Audit your document now.
       </p>
-      <div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;">
         <div class="privacy-badge">
           <div class="pulse-dot"></div>
           <span>100% PRIVATE · AUDITED IN YOUR BROWSER · ZERO UPLOADS</span>
         </div>
+        <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/download/v1.0.0/RedactLocal.dmg" class="btn-action btn-action-secondary" style="display: inline-flex; align-items: center; font-size: 12px; padding: 6px 14px; border-radius: 9999px; text-decoration: none; font-weight: 600;">
+          🍏 Download .dmg (7.4 MB)
+        </a>
+        <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/download/v1.0.0/RedactLocal-Installer.pkg" class="btn-action btn-action-secondary" style="display: inline-flex; align-items: center; font-size: 12px; padding: 6px 14px; border-radius: 9999px; text-decoration: none; font-weight: 600;">
+          📦 Download .pkg (7.0 MB)
+        </a>
         <button type="button" class="btn-action btn-action-secondary" onclick="openWaitlistModal()" style="display: inline-flex; align-items: center; font-size: 12px; padding: 6px 14px; cursor: pointer; border-radius: 9999px;">
           🏷️ Pre-Order $39 Founders Pass
         </button>
@@ -398,7 +404,7 @@
       <!-- Quick Action Toolbar -->
       <div class="audit-action-bar">
         <button class="btn-action btn-action-primary" onclick="fixInRedactLocal()">
-          ⚡ Clean & Redact in RedactLocal Studio
+          ⚡ Clean with RedactLocal Desktop
         </button>
         <button class="btn-action btn-action-secondary" onclick="exportAuditCertificate()">
           📜 Download Audit Certificate (JSON)
@@ -429,10 +435,16 @@
             RedactLocal surgically excises underlying character operators, nullifies AcroForm field values, and burns out underlying image pixels—100% offline with zero cloud telemetry.
           </p>
         </div>
-        <div>
-          <a href="../redactlocal-app.html" class="btn-cta">
-            Get RedactLocal for Mac & PC · $49 Lifetime
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/download/v1.0.0/RedactLocal.dmg" class="btn-cta" style="text-decoration: none;">
+            🍏 Download .dmg
           </a>
+          <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/download/v1.0.0/RedactLocal-Installer.pkg" class="btn-cta" style="text-decoration: none; background: #0f172a; border: 1px solid rgba(255,255,255,0.2);">
+            📦 Download .pkg Installer
+          </a>
+          <button type="button" onclick="openWaitlistModal()" class="btn-cta" style="background: transparent; border: 1px solid rgba(255,255,255,0.4);">
+            Claim $39 Founders Pass
+          </button>
         </div>
       </div>
 
@@ -499,6 +511,7 @@
       window.alert = function(m){ try{ showToast(String(m),'info'); }catch(e){ console.warn('toast failed', e);} };
     })();
   </script>
+
   <script>
     const SAMPLES = {
       jmi_receipt: {
@@ -882,24 +895,7 @@
     let currentFileName = null;
 
     function fixInRedactLocal() {
-      if (currentFileBytes) {
-        try {
-          let binary = '';
-          const len = currentFileBytes.byteLength;
-          // Process in chunks to prevent stack overflow on large buffers
-          const chunk = 8192;
-          for (let i = 0; i < len; i += chunk) {
-            const sub = currentFileBytes.subarray(i, Math.min(i + chunk, len));
-            binary += String.fromCharCode.apply(null, sub);
-          }
-          const b64 = btoa(binary);
-          sessionStorage.setItem('redactlocal_import_name', currentFileName || 'document.pdf');
-          sessionStorage.setItem('redactlocal_import_b64', b64);
-        } catch (e) {
-          console.warn("Storage quota exceeded or error:", e);
-        }
-      }
-      window.location.href = '../redactlocal-app.html?src=leakchecker';
+      openWaitlistModal();
     }
 
     function exportAuditCertificate() {
@@ -952,7 +948,7 @@
       setTimeout(() => {
         closeWaitlistModal();
         document.getElementById('waitlist-success').style.display = 'none';
-        alert(`Thank you ${name}! You are confirmed for the $39 Founders Lifetime tier.`);
+        showToast(`Thank you ${name}! You are confirmed for the $39 Founders Lifetime tier.`, 'success');
       }, 1200);
     }
 

@@ -1,5 +1,6 @@
 import Cocoa
 import WebKit
+import UniformTypeIdentifiers
 
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var window: NSWindow!
@@ -125,7 +126,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
         panel.allowsMultipleSelection = true
-        panel.allowedFileTypes = ["pdf"]
+        if #available(macOS 11.0, *) {
+            panel.allowedContentTypes = [UTType.pdf]
+        } else {
+            panel.allowedFileTypes = ["pdf"]
+        }
 
         panel.begin { [weak self] (result) in
             if result == .OK, let urls = panel.urls as [URL]? {
