@@ -104,4 +104,4 @@ The application embeds the public key directly and uses the native **Web Crypto 
 
 ## Author & Maintainer
 Created and maintained by **Mohd Ashraf**.
-Obsidian Learning Vault documentation available at `/Users/mashraf/vaults/redactlocal/`.
+Project documentation and architecture design records maintained in the RedactLocal knowledge base.
