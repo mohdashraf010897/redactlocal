@@ -657,9 +657,11 @@
     }
     .progress-bar-fill {
       height: 100%;
-      width: 0%;
+      width: 100%;
       background: var(--artifact-primary-brand);
-      transition: width 0.2s ease;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
     }
   </style>
 </head>
@@ -676,6 +678,28 @@
         </div>
       </div>
       <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <!-- Download Native App Dropdown -->
+        <div style="position: relative; display: inline-block;">
+          <button id="download-app-btn" class="btn-primary" style="padding: 8px 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; font-size: 13px;" onclick="toggleDownloadDropdown()">
+            🍏 Get Desktop App ▾
+          </button>
+          <div id="download-dropdown" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 6px; background: #fff; border: 1px solid var(--artifact-border-light); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); min-width: 250px; z-index: 1000; overflow: hidden; text-align: left;">
+            <div style="padding: 10px 14px; font-size: 11px; font-weight: 700; color: var(--artifact-text-secondary); background: var(--artifact-background-light); text-transform: uppercase; letter-spacing: 0.05em;">
+              Native 100% Offline App (v1.0.0)
+            </div>
+            <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/download/v1.0.0/RedactLocal.dmg" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; text-decoration: none; color: var(--artifact-text-primary); font-size: 13px; border-bottom: 1px solid var(--artifact-border-light);" onmouseover="this.style.background='var(--artifact-background-light)'" onmouseout="this.style.background='transparent'">
+              <span>🍏 macOS Disk Image (.dmg)</span>
+              <span style="font-family: monospace; font-size: 11px; color: var(--artifact-text-secondary);">7.4 MB</span>
+            </a>
+            <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/download/v1.0.0/RedactLocal-Installer.pkg" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; text-decoration: none; color: var(--artifact-text-primary); font-size: 13px; border-bottom: 1px solid var(--artifact-border-light);" onmouseover="this.style.background='var(--artifact-background-light)'" onmouseout="this.style.background='transparent'">
+              <span>📦 macOS Installer (.pkg)</span>
+              <span style="font-family: monospace; font-size: 11px; color: var(--artifact-text-secondary);">7.0 MB</span>
+            </a>
+            <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/tag/v1.0.0" target="_blank" style="display: block; padding: 9px 14px; text-decoration: none; color: var(--artifact-primary-brand); font-size: 12px; font-weight: 600;" onmouseover="this.style.background='var(--artifact-background-light)'" onmouseout="this.style.background='transparent'">
+              View All GitHub Releases →
+            </a>
+          </div>
+        </div>
         <div class="airgap-badge" id="license-badge" style="cursor: pointer; background: #f1f5f9; border-color: #cbd5e1; color: #334155;" onclick="openLicenseModal()" title="Click to manage license key">
           <span>🔑 </span><span id="license-status-text">FREE TIER (≤3 PGS)</span>
         </div>
@@ -1093,6 +1117,20 @@
         try { localStorage.setItem('redactlocal_theme', next ? 'dark' : 'light'); } catch(e){}
         showToast('Theme: ' + (next === 'dark' ? 'Dark' : 'Light'), 'success');
       }catch(e){console.warn(e);} };
+
+      window.toggleDownloadDropdown = function() {
+        const dd = document.getElementById('download-dropdown');
+        if (dd) {
+          dd.style.display = (dd.style.display === 'none' || !dd.style.display) ? 'block' : 'none';
+        }
+      };
+      document.addEventListener('click', function(e) {
+        const btn = document.getElementById('download-app-btn');
+        const dd = document.getElementById('download-dropdown');
+        if (btn && dd && !btn.contains(e.target) && !dd.contains(e.target)) {
+          dd.style.display = 'none';
+        }
+      });
 
       // initialize theme from storage
       (function(){ try{ const t = localStorage.getItem('redactlocal_theme'); if (t === 'dark') document.documentElement.setAttribute('data-theme','dark'); }catch(e){} })();
@@ -2468,7 +2506,7 @@
         completed++;
 
         const pct = Math.round((completed / selectedItems.length) * 100);
-        pFill.style.width = pct + '%';
+        pFill.style.transform = `scaleX(${pct / 100})`;
         const elapsed = (performance.now() - startT).toFixed(0);
         statLine.innerText = `// Processed ${completed}/${selectedItems.length} files (${pct}%) in ${elapsed}ms · Air-Gapped MuPDF.js Wasm · 0 Leaks`;
         renderBatchTable();
