@@ -105,6 +105,15 @@
       border-radius: 4px;
       color: #cbd5e1;
     }
+
+    @media (max-width: 640px) {
+      body { padding: 12px 10px; }
+      .player-card { border-radius: 12px; }
+      .player-header { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 16px; }
+      .player-footer { flex-direction: column; align-items: flex-start; gap: 12px; padding: 14px 16px; }
+      .scenes-timeline { width: 100%; gap: 6px; }
+      .scene-pill { font-size: 10px; padding: 3px 6px; }
+    }
   </style>
 </head>
 <body>
