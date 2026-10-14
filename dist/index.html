@@ -354,11 +354,14 @@
       <p class="lede">
         Most PDF tools only draw black rectangles on top of text, leaving Social Security Numbers, bank accounts, and form entries hidden inside the raw document streams. Audit your document now.
       </p>
-      <div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;">
         <div class="privacy-badge">
           <div class="pulse-dot"></div>
           <span>100% PRIVATE · AUDITED IN YOUR BROWSER · ZERO UPLOADS</span>
         </div>
+        <button type="button" class="btn-action btn-action-secondary" onclick="openWaitlistModal()" style="display: inline-flex; align-items: center; font-size: 12px; padding: 6px 14px; cursor: pointer; border-radius: 9999px;">
+          🏷️ Pre-Order $39 Founders Pass
+        </button>
       </div>
     </header>
 
@@ -465,6 +468,37 @@
     </div>
   </div>
 
+  <!-- Toast container for non-blocking messages -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true" style="position: fixed; right: 18px; top: 18px; display: flex; flex-direction: column; gap: 10px; z-index: 99999; pointer-events: none;"></div>
+  <style>
+    #toast-container { position: fixed; right: 18px; top: 18px; display: flex; flex-direction: column; gap: 10px; z-index: 99999; pointer-events: none; }
+    .toast { pointer-events: auto; min-width: 200px; max-width: 420px; background: rgba(15,23,42,0.95); color: #fff; padding: 10px 14px; border-radius: 8px; box-shadow: 0 8px 28px rgba(2,6,23,0.6); transform: translateX(120%); opacity: 0; transition: transform .35s cubic-bezier(.2,.7,.2,1), opacity .25s ease; display: flex; align-items: center; gap: 10px; font-size: 13px; }
+    .toast.revealed { transform: translateX(0); opacity: 1; }
+    .toast .t-icon { width: 28px; text-align: center; font-weight: 700; }
+    .toast.info { background: #0f172a; color: #f8fafc; }
+    .toast.success { background: var(--artifact-positive); color: #fff; }
+    .toast.error { background: var(--artifact-negative); color: #fff; }
+    .toast.warn { background: var(--artifact-warn); color: #fff; }
+    @media (prefers-reduced-motion: reduce) { .toast { transition: none; transform: none; } }
+  </style>
+  <script>
+    (function(){
+      function createToast(message, type='info'){
+        let container = document.getElementById('toast-container');
+        if(!container){ container = document.createElement('div'); container.id='toast-container'; container.setAttribute('aria-live','polite'); container.setAttribute('aria-atomic','true'); document.body.appendChild(container); }
+        const toast = document.createElement('div'); toast.className = 'toast ' + (type||'info');
+        const icon = type === 'success' ? '✓' : (type === 'error' ? '⚠' : (type === 'warn' ? '!' : 'ℹ'));
+        toast.innerHTML = '<span class="t-icon">'+icon+'</span><div class="t-body">' + String(message) + '</div>';
+        container.appendChild(toast);
+        requestAnimationFrame(()=> toast.classList.add('revealed'));
+        const t = setTimeout(()=> { toast.classList.remove('revealed'); setTimeout(()=> toast.remove(), 350); }, 3000);
+        toast.addEventListener('click', ()=> { clearTimeout(t); toast.classList.remove('revealed'); setTimeout(()=> toast.remove(),250); });
+        return toast;
+      }
+      window.showToast = function(message, type='info'){ createToast(message,type); };
+      window.alert = function(m){ try{ showToast(String(m),'info'); }catch(e){ console.warn('toast failed', e);} };
+    })();
+  </script>
   <script>
     const SAMPLES = {
       jmi_receipt: {

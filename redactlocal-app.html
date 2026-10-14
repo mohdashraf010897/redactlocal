@@ -683,6 +683,7 @@
           <div class="pulse-dot"></div>
           <span>100% OFFLINE · AIR-GAPPED VERIFIED</span>
         </div>
+        <button id="theme-toggle-btn" class="btn-secondary" style="margin-left:8px; padding: 8px 12px; font-weight:700;" onclick="toggleTheme()" title="Toggle theme">🌓 Theme</button>
       </div>
     </header>
 
@@ -1044,6 +1045,59 @@
 
   </div>
 
+  <!-- Toast container + theme helper -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true" style="position: fixed; right: 20px; top: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 99999; pointer-events: none;"></div>
+  <style>
+    /* Toast styles */
+    #toast-container { position: fixed; right: 20px; top: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 99999; pointer-events: none; }
+    .toast { pointer-events: auto; min-width: 220px; max-width: 420px; background: rgba(15,23,42,0.95); color: #fff; padding: 10px 14px; border-radius: 8px; box-shadow: 0 8px 28px rgba(2,6,23,0.6); transform: translateX(120%); opacity: 0; transition: transform .35s cubic-bezier(.2,.7,.2,1), opacity .25s ease; display: flex; align-items: center; gap: 10px; font-size: 13px; }
+    .toast.revealed { transform: translateX(0); opacity: 1; }
+    .toast .t-icon { width: 28px; text-align: center; font-weight: 700; }
+    .toast.info { background: #0f172a; color: #f8fafc; }
+    .toast.success { background: var(--artifact-positive); color: #fff; }
+    .toast.error { background: var(--artifact-negative); color: #fff; }
+    .toast.warn { background: var(--artifact-warn); color: #fff; }
+    @media (prefers-reduced-motion: reduce) { .toast { transition: none; transform: none; } }
+    /* PII queue fix */
+    #pii-queue { max-height: 280px; overflow-y: auto; padding-right: 6px; margin-top: 8px; }
+  </style>
+  <script>
+    (function(){
+      function createToast(message, type='info') {
+        let container = document.getElementById('toast-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'toast-container';
+          container.setAttribute('aria-live', 'polite');
+          container.setAttribute('aria-atomic', 'true');
+          document.body.appendChild(container);
+        }
+        const toast = document.createElement('div');
+        toast.className = 'toast ' + (type || 'info');
+        const icon = type === 'success' ? '✓' : (type === 'error' ? '⚠' : (type === 'warn' ? '!' : 'ℹ'));
+        toast.innerHTML = '<span class="t-icon">' + icon + '</span><div class="t-body">' + String(message) + '</div>';
+        container.appendChild(toast);
+        requestAnimationFrame(() => toast.classList.add('revealed'));
+        const timer = setTimeout(() => { toast.classList.remove('revealed'); setTimeout(() => toast.remove(), 350); }, 3000);
+        toast.addEventListener('click', () => { clearTimeout(timer); toast.classList.remove('revealed'); setTimeout(() => toast.remove(), 250); });
+        return toast;
+      }
+      window.showToast = function(message, type='info') { createToast(message, type); };
+      // Non-blocking replacement for window.alert used across the app
+      window.alert = function(msg){ try { showToast(String(msg), 'info'); } catch(e){ console.warn('toast failed', e); } };
+
+      window.toggleTheme = function(){ try{
+        const cur = document.documentElement.getAttribute('data-theme');
+        const next = cur === 'dark' ? null : 'dark';
+        if (next) document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme');
+        try { localStorage.setItem('redactlocal_theme', next ? 'dark' : 'light'); } catch(e){}
+        showToast('Theme: ' + (next === 'dark' ? 'Dark' : 'Light'), 'success');
+      }catch(e){console.warn(e);} };
+
+      // initialize theme from storage
+      (function(){ try{ const t = localStorage.getItem('redactlocal_theme'); if (t === 'dark') document.documentElement.setAttribute('data-theme','dark'); }catch(e){} })();
+    })();
+  </script>
   <script>
     const SAMPLES = {
     "jmi": {
