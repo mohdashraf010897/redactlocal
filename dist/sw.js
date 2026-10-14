@@ -1,5 +1,5 @@
-// RedactLocal Leak Checker Service Worker - 100% Offline PWA Cache
-const CACHE_NAME = 'redactlocal-leakchecker-v1';
+// RedactLocal Product & Leak Checker Service Worker - 100% Offline PWA Cache
+const CACHE_NAME = 'redactlocal-v2-stable';
 const ASSETS = [
   './',
   './index.html',
@@ -29,7 +29,22 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
+// Network-first for HTML pages so releases update immediately; cache fallback for offline
 self.addEventListener('fetch', (e) => {
+  if (e.request.mode === 'navigate' || e.request.destination === 'document') {
+    e.respondWith(
+      fetch(e.request)
+        .then((networkResponse) => {
+          return caches.open(CACHE_NAME).then((cache) => {
+            cache.put(e.request, networkResponse.clone());
+            return networkResponse;
+          });
+        })
+        .catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       return cachedResponse || fetch(e.request);
