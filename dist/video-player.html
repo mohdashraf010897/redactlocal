@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedactLocal — 38s Motion Deck Demo Video</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0b0f19;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .player-card {
+      max-width: 960px;
+      width: 100%;
+      background: #161e2e;
+      border: 1px solid #2a364f;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .player-header {
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #2a364f;
+      background: #0f172a;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .badge-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .title-group h1 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .title-group p {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .tag {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 0.05em;
+    }
+    .video-container {
+      width: 100%;
+      background: #000;
+      position: relative;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 75vh;
+    }
+    .player-footer {
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #0f172a;
+      border-top: 1px solid #2a364f;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+    .scenes-timeline {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .scene-pill {
+      font-size: 11px;
+      font-family: monospace;
+      background: #1e293b;
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="player-card">
+    <div class="player-header">
+      <div class="brand">
+        <div class="badge-icon">RL</div>
+        <div class="title-group">
+          <h1>RedactLocal · Product Demo & Explainer</h1>
+          <p>100% Offline PDF Surgical Redaction & 7-Oracle Verifier</p>
+        </div>
+      </div>
+      <div class="tag">✓ 38.3s · 1080p 30fps</div>
+    </div>
+
+    <div class="video-container">
+      <video controls autoplay muted playsinline poster="./assets/demo-poster.png">
+        <source src="./assets/redactlocal-demo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="player-footer">
+      <div class="scenes-timeline">
+        <span class="scene-pill">00s Title</span>
+        <span class="scene-pill">05s The Trap</span>
+        <span class="scene-pill">13s Wasm Engine</span>
+        <span class="scene-pill">21s 7-Oracles</span>
+        <span class="scene-pill">30s Download & CTA</span>
+      </div>
+      <div>
+        <a href="https://github.com/mohdashraf010897/redactlocal-public/releases/download/v1.0.0/RedactLocal.dmg" style="color: #38bdf8; text-decoration: none; font-weight: 600; margin-left: 12px;">
+          🍏 Download .dmg
+        </a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
