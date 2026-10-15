@@ -55,6 +55,6 @@ hdiutil convert build/temp.dmg -format UDZO -imagekey zlib-level=9 -o dist/macos
 rm -f build/temp.dmg
 
 # 7. Sign DMG
-codesign --force --sign "Apple Development: Mohd Ashraf (5CHUK9GBG3)" dist/macos/RedactLocal.dmg || codesign --force --sign - dist/macos/RedactLocal.dmg
+codesign --force --sign - dist/macos/RedactLocal.dmg
 
 echo "✓ Beautiful DMG created at dist/macos/RedactLocal.dmg"

@@ -94,9 +94,15 @@ find "${APP_BUNDLE}" -name ".DS_Store" -delete
 xattr -cr "${APP_BUNDLE}"
 
 SIGNING_IDENTITY="Apple Development: Mohd Ashraf (5CHUK9GBG3)"
-if security find-identity -v -p codesigning | grep -q "${SIGNING_IDENTITY}"; then
+if [ "${USE_ADHOC:-0}" = "1" ]; then
+  echo "  ✓ Signing bundle with ad-hoc signature"
+  codesign --force --deep --sign - "${APP_BUNDLE}"
+elif security find-identity -v -p codesigning | grep -q "${SIGNING_IDENTITY}"; then
   echo "  ✓ Signing bundle with identity: ${SIGNING_IDENTITY}"
-  codesign --force --deep --options runtime --sign "${SIGNING_IDENTITY}" "${APP_BUNDLE}"
+  if ! codesign --force --deep --options runtime --sign "${SIGNING_IDENTITY}" "${APP_BUNDLE}" 2>/dev/null; then
+    echo "  ⚠ Identity access prompted or failed; falling back to ad-hoc signature"
+    codesign --force --deep --sign - "${APP_BUNDLE}"
+  fi
 else
   echo "  ✓ Signing bundle with ad-hoc signature"
   codesign --force --deep --sign - "${APP_BUNDLE}"
