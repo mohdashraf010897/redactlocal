@@ -570,6 +570,18 @@
       box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35);
       z-index: 20;
     }
+    .redact-highlight-box.box-disabled {
+      background: rgba(148, 163, 184, 0.12) !important;
+      border: 1.5px dashed #94a3b8 !important;
+      opacity: 0.65;
+    }
+    .redact-highlight-box.box-disabled:hover {
+      background: rgba(148, 163, 184, 0.24) !important;
+      border-color: #64748b !important;
+    }
+    .redact-highlight-box.box-disabled .highlight-tag {
+      background: #64748b !important;
+    }
     .highlight-tag {
       position: absolute;
       top: -15px;
@@ -1117,7 +1129,13 @@
           </div>
         </div>
 
-        <label>Detected PII Fields (<span id="detected-count">0</span>):</label>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; margin-bottom: 4px;">
+          <label style="margin: 0; font-size: 13px; font-weight: 700;">Target Fields (<span id="detected-count">0</span>):</label>
+          <div style="display: flex; gap: 6px;">
+            <button class="sub-toggle-btn" style="padding: 2px 7px; font-size: 10px; font-weight: 600;" onclick="toggleAllPii(true)" title="Include all fields in redaction">Select All</button>
+            <button class="sub-toggle-btn" style="padding: 2px 7px; font-size: 10px; font-weight: 600;" onclick="toggleAllPii(false)" title="Exclude all fields (keep visible in document)">Deselect All</button>
+          </div>
+        </div>
         <div id="pii-queue">
           <div style="text-align: center; padding: 24px 14px; background: var(--artifact-background-light); border: 1px dashed var(--artifact-border-dark); border-radius: 8px; color: var(--artifact-text-secondary);">
             <div style="font-size: 24px; margin-bottom: 4px;">📥</div>
@@ -1809,6 +1827,26 @@
     let currentCompareSubMode = "slider"; // "slider", "dual"
     let sliderPercent = 50;
 
+    function togglePiiItemEnabled(idx, enabled) {
+      const data = currentDocKey ? SAMPLES[currentDocKey] : null;
+      if (!data || !data.pii || !data.pii[idx]) return;
+      data.pii[idx].enabled = enabled;
+      renderQueue();
+      if (customPdfDoc) {
+        updateCustomRedactedCanvas();
+      }
+    }
+
+    function toggleAllPii(enabled) {
+      const data = currentDocKey ? SAMPLES[currentDocKey] : null;
+      if (!data || !data.pii) return;
+      data.pii.forEach(p => p.enabled = enabled);
+      renderQueue();
+      if (customPdfDoc) {
+        updateCustomRedactedCanvas();
+      }
+    }
+
     function renderOverlaysInto(containerEl, highlightOnly = true) {
       if (!containerEl) return;
       const data = currentDocKey ? SAMPLES[currentDocKey] : null;
@@ -1816,16 +1854,21 @@
         containerEl.innerHTML = "";
         return;
       }
-      containerEl.innerHTML = data.pii.map((item, idx) => `
-        <div class="redact-highlight-box" 
+      containerEl.innerHTML = data.pii.map((item, idx) => {
+        const isExcluded = item.enabled === false;
+        return `
+        <div class="redact-highlight-box ${isExcluded ? 'box-disabled' : ''}" 
              id="box-${containerEl.id}-${idx}" 
              style="${item.box}" 
              data-index="${idx}"
+             onclick="event.stopPropagation(); togglePiiItemEnabled(${idx}, ${isExcluded})"
              onmouseenter="highlightQueueItem(${idx}, true)"
-             onmouseleave="highlightQueueItem(${idx}, false)">
-          <span class="highlight-tag">${item.tag}</span>
+             onmouseleave="highlightQueueItem(${idx}, false)"
+             title="${isExcluded ? 'Click to Include in Redaction' : 'Click to Exclude from Redaction (Keep Visible)'}">
+          <span class="highlight-tag">${isExcluded ? 'KEEP' : item.tag}</span>
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
 
     function renderQueue() {
@@ -1855,6 +1898,7 @@
       queueEl.innerHTML = data.pii.map((item, idx) => {
         const isL2 = item.provenance?.includes('local_ner');
         const isL3 = item.provenance?.includes('user_box');
+        const isExcluded = item.enabled === false;
         const badgeLabel = isL2 ? 'L2 Semantic' : (isL3 ? 'L3 Manual' : 'L1 Statutory');
         const badgeStyle = isL2 
           ? 'background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe;' 
@@ -1862,24 +1906,33 @@
 
         return `
         <div class="queue-item" id="q-item-${idx}" 
+             style="${isExcluded ? 'opacity: 0.55; background: var(--artifact-background-light);' : ''}"
              onmouseenter="focusOverlayBox(${idx}, true)" 
              onmouseleave="focusOverlayBox(${idx}, false)">
-          <div class="queue-meta">
-            <span class="queue-target">${item.name}</span>
-            <span class="queue-channel">
-              <span style="font-size: 9.5px; font-weight: 700; padding: 1px 6px; border-radius: 4px; font-family: monospace; ${badgeStyle}">
-                ${badgeLabel}
+          <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0;">
+            <input type="checkbox" ${!isExcluded ? 'checked' : ''} 
+                   ${isRedacted ? 'disabled' : ''}
+                   onchange="event.stopPropagation(); togglePiiItemEnabled(${idx}, this.checked)" 
+                   title="${!isExcluded ? 'Checked: will be redacted' : 'Unchecked: will remain visible in document'}" 
+                   style="cursor: pointer; width: 16px; height: 16px; accent-color: var(--artifact-primary-brand); flex-shrink: 0;" />
+            <div class="queue-meta" style="flex: 1; min-width: 0;">
+              <span class="queue-target" style="${isExcluded ? 'text-decoration: line-through; color: var(--artifact-text-secondary);' : ''}">${item.name}</span>
+              <span class="queue-channel">
+                <span style="font-size: 9.5px; font-weight: 700; padding: 1px 6px; border-radius: 4px; font-family: monospace; ${badgeStyle}">
+                  ${badgeLabel}
+                </span>
+                ${item.channel || 'Content Stream Surgery'}
               </span>
-              ${item.channel || 'Content Stream Surgery'}
-            </span>
+            </div>
           </div>
           <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="queue-status ${isRedacted ? 'status-excised' : 'status-queued'}">
-              ${isRedacted ? '✓ EXCISED' : 'QUEUED'}
+            <span class="queue-status ${isRedacted ? (isExcluded ? 'status-queued' : 'status-excised') : (isExcluded ? '' : 'status-queued')}" 
+                  style="${isExcluded ? 'background: #f1f5f9; color: #64748b; font-size: 10px;' : ''}">
+              ${isRedacted ? (isExcluded ? 'KEPT' : '✓ EXCISED') : (isExcluded ? 'EXCLUDED' : 'QUEUED')}
             </span>
             ${!isRedacted ? `
               <button onclick="event.stopPropagation(); removePiiItem(${idx})" 
-                      title="Remove target from redaction queue"
+                      title="Remove target from queue"
                       style="background: none; border: none; color: #94a3b8; font-size: 13px; cursor: pointer; padding: 2px 5px; border-radius: 4px; line-height: 1;"
                       onmouseover="this.style.color='#ef4444'; this.style.background='#fee2e2'"
                       onmouseout="this.style.color='#94a3b8'; this.style.background='none'">✕</button>
@@ -2139,9 +2192,12 @@
           data.pii.push({
             name: `Manual Area Selection #${manualCount}`,
             tag: "MANUAL",
-            channel: "Interactive User Selection",
+            category: "Manual Bounding Box",
+            channel: "User Visual Redaction [L3 Manual]",
             box: `top: ${topPct.toFixed(2)}%; left: ${leftPct.toFixed(2)}%; width: ${widthPct.toFixed(2)}%; height: ${heightPct.toFixed(2)}%;`,
-            coords: { top: topPct, left: leftPct, width: widthPct, height: heightPct }
+            coords: { top: topPct, left: leftPct, width: widthPct, height: heightPct },
+            provenance: ["user_box"],
+            enabled: true
           });
 
           renderQueue();
@@ -2165,6 +2221,7 @@
         redCtx.drawImage(img, 0, 0);
         redCtx.fillStyle = '#000000';
         for (const p of data.pii) {
+          if (p.enabled === false) continue; // FREE WILL: User excluded this field, keep visible!
           const rx = (p.coords.left / 100) * redCanvas.width;
           const ry = (p.coords.top / 100) * redCanvas.height;
           const rw = (p.coords.width / 100) * redCanvas.width;
@@ -3108,9 +3165,13 @@ startxref
         },
         redactionManifest: data.pii.map(p => ({
           target_description: p.name.replace(/[0-9]{3}-[0-9]{2}/, "***-**"),
+          layer_provenance: p.provenance ? p.provenance.join(', ') : 'statutory_rule',
+          user_discretion: p.enabled === false ? 'EXCLUDED_KEPT_VISIBLE' : 'INCLUDED_FOR_EXCISION',
           channel_excised: p.channel,
           coordinates: p.coords,
-          oracle_verdict: isRedacted ? "VERIFIED_ZERO_RESIDUAL_BYTES" : "PENDING"
+          oracle_verdict: isRedacted 
+            ? (p.enabled === false ? 'KEPT_INTACT_PER_USER_DISCRETION' : 'VERIFIED_ZERO_RESIDUAL_BYTES') 
+            : 'PENDING'
         })),
         oraclesAudited: [
           { oracle: "O1: Dual Independent Extractors", engine: "Mozilla PDF.js + pypdf", result: "PASS" },
