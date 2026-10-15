@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RedactLocal — Product Hunt 1-Click Launchpad</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-bright: #f0f6fc;
+      --accent: #da552f; /* Product Hunt Orange */
+      --accent-hover: #b83c18;
+      --green: #2ea043;
+      --blue: #58a6ff;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.5;
+    }
+    h1 {
+      font-size: 24px;
+      color: var(--text-bright);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .badge {
+      font-size: 12px;
+      background: rgba(218,85,47,0.15);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .tip {
+      background: rgba(46,160,67,0.08);
+      border: 1px solid rgba(46,160,67,0.25);
+      padding: 14px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .field-row {
+      margin-bottom: 18px;
+    }
+    .field-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .field-label {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-bright);
+    }
+    .field-char-count {
+      font-size: 12px;
+      color: #8b949e;
+    }
+    .field-char-count.valid {
+      color: var(--green);
+    }
+    .field-input-box {
+      display: flex;
+      gap: 8px;
+    }
+    input[type="text"], textarea {
+      flex: 1;
+      background: #090d13;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text-bright);
+      font-family: inherit;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+      line-height: 1.45;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-copy {
+      background: #21262d;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-copy:hover { background: #30363d; }
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .asset-card {
+      background: #090d13;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      text-align: center;
+    }
+    .asset-card img {
+      max-width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .asset-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 4px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--green);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>
+    <span>RedactLocal Product Hunt Launchpad</span>
+    <span class="badge">Maker Suite</span>
+  </h1>
+
+  <div class="tip">
+    🚀 <strong>Ready to launch:</strong> Click <strong>"Open Product Hunt New Post"</strong> to start the wizard, then use the 1-click copy buttons below for each field. All copy has been measured against Product Hunt's strict character limits!
+  </div>
+
+  <div style="margin-bottom: 24px;">
+    <a href="https://www.producthunt.com/posts/new" target="_blank" class="btn" style="font-size: 15px; padding: 12px 24px;">
+      😸 Open Product Hunt Submission Page (New Tab)
+    </a>
+  </div>
+
+  <div class="card">
+    <h2 style="font-size: 17px; margin-top: 0; margin-bottom: 16px; color: var(--text-bright);">1. Product Identity</h2>
+
+    <!-- Name -->
+    <div class="field-row">
+      <div class="field-header">
+        <label class="field-label">Name of Product</label>
+        <span class="field-char-count valid">11 / 40 chars</span>
+      </div>
+      <div class="field-input-box">
+        <input type="text" id="ph-name" value="RedactLocal" readonly>
+        <button class="btn-copy" onclick="copyField('ph-name')">📋 Copy</button>
+      </div>
+    </div>
+
+    <!-- Tagline -->
+    <div class="field-row">
+      <div class="field-header">
+        <label class="field-label">Tagline (Strict 60 Char Limit)</label>
+        <span class="field-char-count valid" id="ph-tagline-count">38 / 60 chars</span>
+      </div>
+      <div class="field-input-box">
+        <input type="text" id="ph-tagline" value="100% offline, air-gapped PDF redactor" readonly>
+        <button class="btn-copy" onclick="copyField('ph-tagline')">📋 Copy</button>
+      </div>
+    </div>
+
+    <!-- URL -->
+    <div class="field-row">
+      <div class="field-header">
+        <label class="field-label">Website URL</label>
+        <span class="field-char-count valid">Primary Link</span>
+      </div>
+      <div class="field-input-box">
+        <input type="text" id="ph-url" value="https://mohdashraf010897.github.io/redactlocal-public/" readonly>
+        <button class="btn-copy" onclick="copyField('ph-url')">📋 Copy</button>
+      </div>
+    </div>
+
+    <!-- Topics -->
+    <div class="field-row">
+      <div class="field-header">
+        <label class="field-label">Topics / Tags</label>
+        <span class="field-char-count valid">5 Topics</span>
+      </div>
+      <div class="field-input-box">
+        <input type="text" id="ph-topics" value="Privacy, Productivity, Developer Tools, Legal Tech, Open Source" readonly>
+        <button class="btn-copy" onclick="copyField('ph-topics')">📋 Copy</button>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="field-row">
+      <div class="field-header">
+        <label class="field-label">Description (Strict 260 Char Limit)</label>
+        <span class="field-char-count valid" id="ph-desc-count">247 / 260 chars</span>
+      </div>
+      <div class="field-input-box">
+        <textarea id="ph-desc" readonly>Surgical bytecode PDF redaction utility engineered for litigation paralegals and CPAs. Runs 100% locally with zero cloud telemetry, fail-closed 7-Oracle verification, on-device semantic NER, and air-gapped cryptographic docket receipts.</textarea>
+        <button class="btn-copy" style="height: auto; align-self: stretch;" onclick="copyField('ph-desc')">📋 Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Maker Comment -->
+  <div class="card">
+    <div class="field-header">
+      <h2 style="font-size: 17px; margin: 0; color: var(--text-bright);">2. Maker First Comment (Post Immediately After Submitting)</h2>
+      <button class="btn-copy" onclick="copyField('ph-comment')">📋 Copy Comment</button>
+    </div>
+    <p style="font-size: 13px; color: #8b949e; margin-top: 4px; margin-bottom: 12px;">
+      On Product Hunt, the Maker Comment drives early upvotes and discussions. Post this right after your launch goes live:
+    </p>
+    <textarea id="ph-comment" style="min-height: 220px;" readonly>Hello Product Hunt! 👋
+
+We built RedactLocal because drawing visual black boxes in Acrobat doesn't delete secrets—it just hides them under a vector overlay that anyone can copy-paste straight into Word or Notepad.
+
+RedactLocal is a 100% offline desktop and web application that surgically excises character glyph operators from raw document streams and verifies the output against seven independent fail-closed oracles.
+
+Key capabilities:
+🔒 100% Offline Air-Gap: Strict zero-network Content Security Policy (connect-src 'none').
+🎯 3-Layer Horizon: 15 statutory formats (PAN, Aadhaar, GSTIN, SSN, IFSC) + On-Device Semantic NER + User Discretion toggles.
+📚 Batch Processing: Process entire trial exhibit bundles or tax batches with offline password unlock.
+💻 Cross-Platform: 1-click downloads for macOS (.dmg, .pkg) and Windows (.msi, .exe).
+
+We are offering our $39 Lifetime Founders Pass for early supporters today!
+Try the free in-browser triage scanner: https://mohdashraf010897.github.io/redactlocal-public/
+
+Would love to answer any questions about our WebAssembly excision engine and oracle verifiers!</textarea>
+  </div>
+
+  <!-- Media Assets -->
+  <div class="card">
+    <h2 style="font-size: 17px; margin-top: 0; margin-bottom: 8px; color: var(--text-bright);">3. Media & Visual Assets</h2>
+    <p style="font-size: 13px; color: #8b949e; margin-bottom: 14px;">
+      Ready-to-upload visual assets located in your repository:
+    </p>
+
+    <div class="asset-grid">
+      <!-- Thumbnail -->
+      <div class="asset-card">
+        <img src="../dist/assets/ph-thumbnail.png" alt="Thumbnail">
+        <div class="asset-name">Square Thumbnail (480x480)</div>
+        <div style="font-size: 11px; color: #8b949e; margin-bottom: 6px;">`dist/assets/ph-thumbnail.png`</div>
+        <a class="btn-copy" style="font-size: 11px; padding: 4px 8px; height: 26px; justify-content: center;" href="../dist/assets/ph-thumbnail.png" download>Download PNG</a>
+      </div>
+
+      <!-- Video Poster -->
+      <div class="asset-card">
+        <img src="../dist/assets/demo-poster.png" alt="Gallery Poster">
+        <div class="asset-name">Gallery Banner (1920x1080)</div>
+        <div style="font-size: 11px; color: #8b949e; margin-bottom: 6px;">`dist/assets/demo-poster.png`</div>
+        <a class="btn-copy" style="font-size: 11px; padding: 4px 8px; height: 26px; justify-content: center;" href="../dist/assets/demo-poster.png" download>Download PNG</a>
+      </div>
+
+      <!-- Demo Video -->
+      <div class="asset-card">
+        <div style="height: 90px; display: flex; align-items: center; justify-content: center; background: #161b22; border-radius: 4px; margin-bottom: 8px; font-size: 28px;">
+          🎬
+        </div>
+        <div class="asset-name">Motion Deck Demo (38.3s)</div>
+        <div style="font-size: 11px; color: #8b949e; margin-bottom: 6px;">`dist/assets/redactlocal-demo.mp4`</div>
+        <a class="btn-copy" style="font-size: 11px; padding: 4px 8px; height: 26px; justify-content: center;" href="../dist/assets/redactlocal-demo.mp4" download>Download MP4</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Copied to clipboard! ✅</div>
+
+  <script>
+    function copyField(id) {
+      const el = document.getElementById(id);
+      navigator.clipboard.writeText(el.value).then(() => {
+        showToast();
+      });
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
