@@ -29,12 +29,13 @@ jobs:
           node-version: 20
 
       - name: Install Tauri CLI
-        run: cargo install tauri-cli --version "^2.0.0" --locked
+        run: npm install -g @tauri-apps/cli
 
       - name: Build Windows Installers (MSI & NSIS)
+        shell: pwsh
         run: |
           cd src-tauri
-          cargo tauri build
+          npx tauri build
 
       - name: Upload Windows MSI & NSIS Installers
         uses: actions/upload-artifact@v4
