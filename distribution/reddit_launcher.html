@@ -149,29 +149,28 @@ Free leak scanner & desktop app: https://mohdashraf010897.github.io/redactlocal-
     </div>
   </div>
 
-  <!-- Subreddit 3: r/privacy -->
+  <!-- Subreddit 3: r/SideProject -->
   <div class="card">
     <div class="card-header">
-      <h2>3. Target: r/privacy (Open Source & Air-Gapped Software)</h2>
-      <span style="font-size: 12px; color: #8b949e;">~1.6M members · Extreme privacy advocacy</span>
+      <h2>3. Target: r/SideProject (Showcase for New Tools)</h2>
+      <span style="font-size: 12px; color: #8b949e;">~180k members · Welcomes new apps & founders</span>
     </div>
-    <div class="post-title">Title: RedactLocal – 100% offline, zero-network PDF redaction with 7-oracle verification</div>
-    <pre id="text-privacy">Hi r/privacy,
+    <div class="post-title">Title: I built RedactLocal – 100% offline, air-gapped PDF redaction in the browser (zero telemetry, native desktop apps)</div>
+    <pre id="text-sideproject">Hey r/SideProject,
 
-Most online PDF redaction tools require uploading your sensitive contracts, tax returns, and medical records to remote servers. Desktop tools like Acrobat often just paint black rectangles over text while leaving the raw text stream fully searchable and extractable.
+I built RedactLocal (https://mohdashraf010897.github.io/redactlocal-public/) because drawing visual black rectangles in Acrobat or Preview repeatedly leaks SSNs and bank numbers in court filings. The underlying `Tj`/`TJ` text operators remain untouched in decompressed content streams, meaning anyone can copy-paste the secrets right off the page.
 
-We built RedactLocal (https://mohdashraf010897.github.io/redactlocal-public/) to solve this:
+RedactLocal solves this 100% offline:
+1. Surgical Bytecode Eradication: WebAssembly (MuPDF.js) decompresses xref streams and replaces character glyph operators with whitespace.
+2. 7-Oracle Verification: Seven independent inspectors verify 0 residual target glyphs survive across ASCII, UTF-16, and Octal streams.
+3. Air-Gapped Privacy: Strict `connect-src 'none'` CSP in browser. Zero cloud uploads, zero telemetry.
+4. Native Desktop Apps: 1-click downloads for macOS (.dmg, .pkg) and Windows (.msi, .exe).
 
-1. 100% Offline: Enforces a strict `connect-src 'none'` Content Security Policy in the browser. Zero network calls, zero telemetry.
-2. True Bytecode Excision: MuPDF.js WebAssembly parses xref streams, surgically replaces character operators with whitespace, and burns out underlying raster image pixels.
-3. 7-Oracle Verification: Proves zero residual target glyphs remain across ASCII, UTF-16, and Octal streams.
-4. Native Desktop Apps: Available as 1-click DMG and MSI installers built from open-source code.
-
-Code & Web App: https://mohdashraf010897.github.io/redactlocal-public/
-Would love your thoughts on our air-gapped architecture!</pre>
+Web app & source: https://mohdashraf010897.github.io/redactlocal-public/
+Would love your feedback on the UI and redaction pipeline!</pre>
     <div class="btn-group">
-      <a id="btn-link-privacy" class="btn" target="_blank" href="#">🚀 Open Pre-Filled Post on r/privacy</a>
-      <button class="btn-copy" onclick="copyText('text-privacy')">📋 Copy Text</button>
+      <a id="btn-link-sideproject" class="btn" target="_blank" href="#">🚀 Open Pre-Filled Post on r/SideProject</a>
+      <button class="btn-copy" onclick="copyText('text-sideproject')">📋 Copy Text</button>
     </div>
   </div>
 
@@ -193,10 +192,10 @@ Would love your thoughts on our air-gapped architecture!</pre>
       'text-tax'
     );
 
-    document.getElementById('btn-link-privacy').href = buildRedditUrl(
-      'privacy',
-      'RedactLocal – 100% offline, zero-network PDF redaction with 7-oracle verification',
-      'text-privacy'
+    document.getElementById('btn-link-sideproject').href = buildRedditUrl(
+      'SideProject',
+      'I built RedactLocal – 100% offline, air-gapped PDF redaction in the browser (zero telemetry, native desktop apps)',
+      'text-sideproject'
     );
 
     function copyText(id) {
