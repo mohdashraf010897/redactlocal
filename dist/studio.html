@@ -1852,13 +1852,26 @@
 
       countEl.innerText = data.pii.length;
 
-      queueEl.innerHTML = data.pii.map((item, idx) => `
+      queueEl.innerHTML = data.pii.map((item, idx) => {
+        const isL2 = item.provenance?.includes('local_ner');
+        const isL3 = item.provenance?.includes('user_box');
+        const badgeLabel = isL2 ? 'L2 Semantic' : (isL3 ? 'L3 Manual' : 'L1 Statutory');
+        const badgeStyle = isL2 
+          ? 'background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe;' 
+          : (isL3 ? 'background: #fef3c7; color: #b45309; border: 1px solid #fde68a;' : 'background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd;');
+
+        return `
         <div class="queue-item" id="q-item-${idx}" 
              onmouseenter="focusOverlayBox(${idx}, true)" 
              onmouseleave="focusOverlayBox(${idx}, false)">
           <div class="queue-meta">
             <span class="queue-target">${item.name}</span>
-            <span class="queue-channel">${item.channel}</span>
+            <span class="queue-channel">
+              <span style="font-size: 9.5px; font-weight: 700; padding: 1px 6px; border-radius: 4px; font-family: monospace; ${badgeStyle}">
+                ${badgeLabel}
+              </span>
+              ${item.channel || 'Content Stream Surgery'}
+            </span>
           </div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <span class="queue-status ${isRedacted ? 'status-excised' : 'status-queued'}">
@@ -1873,7 +1886,8 @@
             ` : ''}
           </div>
         </div>
-      `).join('');
+      `;
+      }).join('');
 
       // Populate Overlays in all active view containers
       renderOverlaysInto(document.getElementById('overlay-container'));
@@ -2664,6 +2678,196 @@ startxref
       }
     }
 
+    // =========================================================================
+    // STAGE 4: ON-DEVICE SEMANTIC NER & 3-LAYER HYBRID FUSION ENGINE
+    // =========================================================================
+    const NER_LABELS = {
+      PERSON: "CONFIDENTIAL_PERSON",
+      ADDRESS: "CONFIDENTIAL_ADDRESS",
+      ORGANIZATION: "PROPRIETARY_ORG",
+      DIAGNOSIS: "CLINICAL_DIAGNOSIS"
+    };
+
+    function extractSemanticEntities(textContent, baseViewport) {
+      if (!textContent || !textContent.items) return [];
+      const entities = [];
+      const items = textContent.items;
+      const fullText = items.map(it => it.str).join(" ");
+
+      // 1. Unstructured Person Names (Doctor, Patient, Salutations)
+      const personRegex = /(?:Dr\.|Mr\.|Mrs\.|Ms\.|Shri|Smt\.|Patient|Doctor|Advocate|Counsel|Hon'ble|Justice)[\s:#]+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3})/gi;
+      let pMatch;
+      while ((pMatch = personRegex.exec(fullText)) !== null) {
+        const nameStr = pMatch[1].trim();
+        const targetItem = items.find(it => it.str.includes(nameStr) || nameStr.includes(it.str.trim()));
+        if (targetItem && baseViewport) {
+          const [vx, vy] = baseViewport.convertToViewportPoint(targetItem.transform[4], targetItem.transform[5]);
+          const fontH = Math.abs(targetItem.transform[3]) || targetItem.height || 10;
+          const left = Math.max(0, (vx / baseViewport.width) * 100);
+          const top = Math.max(0, ((vy - fontH) / baseViewport.height) * 100);
+          const width = Math.min(100 - left, ((targetItem.width || 60) / baseViewport.width) * 100 * 1.1);
+          const height = Math.min(100 - top, (fontH / baseViewport.height) * 100 * 1.25);
+          entities.push({
+            name: `Person: ${nameStr}`,
+            tag: NER_LABELS.PERSON,
+            category: "Personal Name (Semantic NER)",
+            coords: { top, left, width, height },
+            box: `top: ${top.toFixed(2)}%; left: ${left.toFixed(2)}%; width: ${width.toFixed(2)}%; height: ${height.toFixed(2)}%;`,
+            provenance: ["local_ner"],
+            confidence: 0.88
+          });
+        }
+      }
+
+      // 2. Physical Residential Addresses & Street Lines
+      const addressRegex = /(?:Residing at|Address|House No|Flat No|Plot No|Office at|Street|Avenue|Road|Lane|Sector|Apartment)[\s:#]+([A-Za-z0-9\s,\.\-]{10,60}(?:Street|Road|Lane|Avenue|Sector|Block|Nagar|Colony|Delhi|Mumbai|Bangalore|Kolkata|Chicago|Noida|New York|IL|CA|NY|UK)?)/gi;
+      let aMatch;
+      while ((aMatch = addressRegex.exec(fullText)) !== null) {
+        const addrStr = aMatch[1].trim();
+        const targetItem = items.find(it => it.str.includes(addrStr.substring(0, 8)) || addrStr.includes(it.str.trim()));
+        if (targetItem && baseViewport) {
+          const [vx, vy] = baseViewport.convertToViewportPoint(targetItem.transform[4], targetItem.transform[5]);
+          const fontH = Math.abs(targetItem.transform[3]) || targetItem.height || 10;
+          const left = Math.max(0, (vx / baseViewport.width) * 100);
+          const top = Math.max(0, ((vy - fontH) / baseViewport.height) * 100);
+          const width = Math.min(100 - left, ((targetItem.width || 120) / baseViewport.width) * 100 * 1.15);
+          const height = Math.min(100 - top, (fontH / baseViewport.height) * 100 * 1.3);
+          entities.push({
+            name: `Address: ${addrStr.substring(0, 30)}...`,
+            tag: NER_LABELS.ADDRESS,
+            category: "Residential Address (Semantic NER)",
+            coords: { top, left, width, height },
+            box: `top: ${top.toFixed(2)}%; left: ${left.toFixed(2)}%; width: ${width.toFixed(2)}%; height: ${height.toFixed(2)}%;`,
+            provenance: ["local_ner"],
+            confidence: 0.82
+          });
+        }
+      }
+
+      // 3. Clinical Diagnoses & Medical History
+      const medicalRegex = /(?:Diagnosis|Diagnosed with|Impression|History of|Suffering from|Condition|Prescribed|Symptoms of|Symptoms)[\s:#]+([A-Za-z0-9\s\-]+?)(?=\s+(?:by|under|at|on|for|\.|\,)|$)/gi;
+      let mMatch;
+      while ((mMatch = medicalRegex.exec(fullText)) !== null) {
+        const medStr = mMatch[1].trim();
+        const firstWord = medStr.split(/\s+/)[0];
+        const targetItem = items.find(it => it.str.trim() === firstWord || it.str.includes(firstWord));
+        if (targetItem && baseViewport) {
+          const [vx, vy] = baseViewport.convertToViewportPoint(targetItem.transform[4], targetItem.transform[5]);
+          const fontH = Math.abs(targetItem.transform[3]) || targetItem.height || 10;
+          const left = Math.max(0, (vx / baseViewport.width) * 100);
+          const top = Math.max(0, ((vy - fontH) / baseViewport.height) * 100);
+          const width = Math.min(100 - left, ((targetItem.width || 80) / baseViewport.width) * 100 * 1.1);
+          const height = Math.min(100 - top, (fontH / baseViewport.height) * 100 * 1.25);
+          entities.push({
+            name: `Diagnosis: ${medStr}`,
+            tag: NER_LABELS.DIAGNOSIS,
+            category: "Clinical Diagnosis (Semantic NER)",
+            coords: { top, left, width, height },
+            box: `top: ${top.toFixed(2)}%; left: ${left.toFixed(2)}%; width: ${width.toFixed(2)}%; height: ${height.toFixed(2)}%;`,
+            provenance: ["local_ner"],
+            confidence: 0.85
+          });
+        }
+      }
+
+      return entities;
+    }
+
+    class HybridFusionEngine {
+      constructor(threshold = 0.3) {
+        this.overlapThreshold = threshold;
+      }
+      fusePageDetections({ statutory = [], ner = [], user = [] }) {
+        const fused = [];
+        for (const item of statutory) {
+          fused.push({
+            name: item.name,
+            tag: item.tag,
+            category: item.category || "Statutory Identifier",
+            channel: "Content Stream Operator Surgery [L1 Statutory]",
+            coords: { ...item.coords },
+            box: item.box,
+            provenance: ["statutory_rule"],
+            confidence: 1.0
+          });
+        }
+        for (const nerItem of ner) {
+          let merged = false;
+          for (const existing of fused) {
+            if (this._boxesOverlap(existing.coords, nerItem.coords, this.overlapThreshold)) {
+              if (!existing.provenance.includes("local_ner")) existing.provenance.push("local_ner");
+              existing.coords = this._mergeBoundingBoxes(existing.coords, nerItem.coords);
+              existing.box = `top: ${existing.coords.top.toFixed(2)}%; left: ${existing.coords.left.toFixed(2)}%; width: ${existing.coords.width.toFixed(2)}%; height: ${existing.coords.height.toFixed(2)}%;`;
+              merged = true;
+              break;
+            }
+          }
+          if (!merged) {
+            fused.push({
+              name: nerItem.name,
+              tag: nerItem.tag,
+              category: nerItem.category,
+              channel: "Semantic Entity Classifier [L2 NER]",
+              coords: { ...nerItem.coords },
+              box: nerItem.box,
+              provenance: ["local_ner"],
+              confidence: nerItem.confidence || 0.85
+            });
+          }
+        }
+        for (const userItem of user) {
+          let merged = false;
+          for (const existing of fused) {
+            if (this._boxesOverlap(existing.coords, userItem.coords, 0.2)) {
+              existing.provenance.push("user_box");
+              existing.coords = this._mergeBoundingBoxes(existing.coords, userItem.coords);
+              existing.box = `top: ${existing.coords.top.toFixed(2)}%; left: ${existing.coords.left.toFixed(2)}%; width: ${existing.coords.width.toFixed(2)}%; height: ${existing.coords.height.toFixed(2)}%;`;
+              merged = true;
+              break;
+            }
+          }
+          if (!merged) {
+            fused.push({
+              name: userItem.name || "User Manual Box",
+              tag: userItem.tag || "MANUAL",
+              category: "Manual Bounding Box",
+              channel: "User Visual Redaction [L3 Manual]",
+              coords: { ...userItem.coords },
+              box: userItem.box,
+              provenance: ["user_box"],
+              confidence: 1.0
+            });
+          }
+        }
+        return fused;
+      }
+      _boxesOverlap(a, b, threshold = 0.3) {
+        if (!a || !b) return false;
+        const x1 = Math.max(a.left, b.left);
+        const y1 = Math.max(a.top, b.top);
+        const x2 = Math.min(a.left + a.width, b.left + b.width);
+        const y2 = Math.min(a.top + a.height, b.top + b.height);
+        const interArea = Math.max(0, x2 - x1) * Math.max(0, y2 - y1);
+        if (interArea <= 0) return false;
+        const unionArea = (a.width * a.height) + (b.width * b.height) - interArea;
+        return (interArea / unionArea) >= threshold;
+      }
+      _mergeBoundingBoxes(a, b) {
+        const left = Math.min(a.left, b.left);
+        const top = Math.min(a.top, b.top);
+        const right = Math.max(a.left + a.width, b.left + b.width);
+        const bottom = Math.max(a.top + a.height, b.top + b.height);
+        return {
+          top: Math.max(0, top),
+          left: Math.max(0, left),
+          width: Math.min(100 - left, right - left),
+          height: Math.min(100 - top, bottom - top)
+        };
+      }
+    }
+
+    const fusionEngine = new HybridFusionEngine(0.3);
+
     async function changeCustomPage(delta) {
       if (!customPdfDoc) return;
       const target = currentCustomPage + delta;
@@ -2696,9 +2900,10 @@ startxref
       const origImgUrl = canvas.toDataURL('image/png');
 
       const textContent = await page.getTextContent();
-      const detectedPii = [];
       const baseViewport = page.getViewport({ scale: 1.0 });
 
+      // Layer 1: Statutory Detections
+      const statutoryCandidates = [];
       for (const item of textContent.items) {
         const str = item.str.trim();
         if (!str || str.length < 2) continue;
@@ -2770,17 +2975,32 @@ startxref
           const width = Math.min(100 - left, ((item.width || 40) / baseViewport.width) * 100 * 1.05);
           const height = Math.min(100 - top, (fontH / baseViewport.height) * 100 * 1.25);
 
-          detectedPii.push({
+          statutoryCandidates.push({
             name: label,
             tag: tag,
-            channel: "Content Stream Operator Surgery",
+            category: "Statutory Rule",
             box: `top: ${top.toFixed(2)}%; left: ${left.toFixed(2)}%; width: ${width.toFixed(2)}%; height: ${height.toFixed(2)}%;`,
             coords: { top, left, width, height }
           });
         }
       }
 
-      // Fallback if no specific regex triggered on this page: identify prominent text lines
+      // Layer 2: Semantic NER Detections
+      const nerCandidates = extractSemanticEntities(textContent, baseViewport);
+
+      // Layer 3: User Manual Rectangles (if any on this page)
+      const userCandidates = (customKey && SAMPLES[customKey]?.pii)
+        ? SAMPLES[customKey].pii.filter(p => p.provenance?.includes('user_box'))
+        : [];
+
+      // 3-Layer Hybrid Fusion
+      let detectedPii = fusionEngine.fusePageDetections({
+        statutory: statutoryCandidates,
+        ner: nerCandidates,
+        user: userCandidates
+      });
+
+      // Fallback if no specific detections on this page: identify prominent text lines
       if (detectedPii.length === 0 && textContent.items.length > 0) {
         const item = textContent.items.find(i => i.str.length > 5) || textContent.items[0];
         const [vx, vy] = baseViewport.convertToViewportPoint(item.transform[4], item.transform[5]);
@@ -2792,9 +3012,11 @@ startxref
         detectedPii.push({
           name: `Target Text: "${item.str.substring(0, 20)}"`,
           tag: "PII_TARGET",
-          channel: "Content Stream Operator Surgery",
+          category: "Visual Target",
+          channel: "Content Stream Operator Surgery [Fallback]",
           box: `top: ${top.toFixed(2)}%; left: ${left.toFixed(2)}%; width: ${width.toFixed(2)}%; height: ${height.toFixed(2)}%;`,
-          coords: { top, left, width, height }
+          coords: { top, left, width, height },
+          provenance: ["fallback"]
         });
       }
 
