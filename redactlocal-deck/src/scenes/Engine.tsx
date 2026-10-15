@@ -48,14 +48,14 @@ export const Engine: React.FC = () => {
           flexDirection: "column",
           gap: 12,
         }}>
-          <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(59, 130, 246, 0.15)", color: C.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 800, fontFamily: MONO }}>
-            01
+          <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(59, 130, 246, 0.15)", color: C.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, fontWeight: 800, fontFamily: MONO }}>
+            L1
           </div>
           <div style={{ fontSize: TYPE.body - 4, fontWeight: 700, color: C.ink, marginTop: 4 }}>
-            Bytecode Excision
+            15 Statutory Formats
           </div>
           <div style={{ fontSize: TYPE.small - 4, color: C.dim, lineHeight: 1.5 }}>
-            Surgically replaces text operators <code style={{ fontFamily: MONO, color: "#38BDF8" }}>Tj</code> and <code style={{ fontFamily: MONO, color: "#38BDF8" }}>TJ</code> with whitespace in decompressed streams.
+            Deterministic precision across <code style={{ fontFamily: MONO, color: "#38BDF8" }}>PAN</code>, <code style={{ fontFamily: MONO, color: "#38BDF8" }}>Aadhaar</code>, <code style={{ fontFamily: MONO, color: "#38BDF8" }}>GSTIN</code>, <code style={{ fontFamily: MONO, color: "#38BDF8" }}>SSN</code>, Passports, IFSC &amp; Cards.
           </div>
         </div>
 
@@ -72,14 +72,14 @@ export const Engine: React.FC = () => {
           flexDirection: "column",
           gap: 12,
         }}>
-          <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(16, 185, 129, 0.15)", color: C.green, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 800, fontFamily: MONO }}>
-            02
+          <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(168, 85, 247, 0.15)", color: "#A855F7", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, fontWeight: 800, fontFamily: MONO }}>
+            L2
           </div>
           <div style={{ fontSize: TYPE.body - 4, fontWeight: 700, color: C.ink, marginTop: 4 }}>
-            Raster Pixel Burnout
+            On-Device Semantic NER
           </div>
           <div style={{ fontSize: TYPE.small - 4, color: C.dim, lineHeight: 1.5 }}>
-            Destroys underlying image XObject pixels so scanned photos and OCR text cannot be recovered.
+            Air-gapped NLP extracts unstructured patient/doctor names, street addresses, and clinical medical terms locally.
           </div>
         </div>
 
@@ -96,14 +96,14 @@ export const Engine: React.FC = () => {
           flexDirection: "column",
           gap: 12,
         }}>
-          <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(245, 158, 11, 0.15)", color: C.amber, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 800, fontFamily: MONO }}>
-            03
+          <div style={{ width: 44, height: 44, borderRadius: 10, background: "rgba(245, 158, 11, 0.15)", color: C.amber, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, fontWeight: 800, fontFamily: MONO }}>
+            L3
           </div>
           <div style={{ fontSize: TYPE.body - 4, fontWeight: 700, color: C.ink, marginTop: 4 }}>
-            XFA & Trailer Purge
+            User Free Will &amp; Discretion
           </div>
           <div style={{ fontSize: TYPE.small - 4, color: C.dim, lineHeight: 1.5 }}>
-            Unlinks 11-stream XML arrays and rewrites the entire xref table with zero <code style={{ fontFamily: MONO, color: "#F59E0B" }}>/Prev</code> revision pointers.
+            Total human control: toggle any auto field on/off, click to draw manual boxes, with zero forced over-redaction.
           </div>
         </div>
 
