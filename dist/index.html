@@ -1327,29 +1327,111 @@
 
   <!-- Pre-Order & Waitlist Modal -->
   <div class="modal-overlay" id="waitlist-modal" onclick="if(event.target === this) closeWaitlistModal()">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width: 520px; width: 90%;">
       <button class="modal-close" onclick="closeWaitlistModal()">&times;</button>
-      <span class="eyebrow">RedactLocal · Founders Club</span>
-      <h2 style="font-size: 22px; font-weight: 800; margin: 8px 0;">Claim $39 Lifetime License</h2>
-      <p style="font-size: 13px; color: var(--artifact-text-secondary); margin-bottom: 16px;">
-        Lock in lifetime access for Mac &amp; Windows before public $49 release. 100% offline, zero subscriptions, unlimited surgical redactions.
-      </p>
-      <form onsubmit="handleWaitlistSubmit(event)" style="display: flex; flex-direction: column; gap: 12px;">
-        <input type="text" id="waitlist-name" placeholder="Your Name or Firm" required style="padding: 10px 14px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; font-size: 14px;" />
-        <input type="email" id="waitlist-email" placeholder="Your Email Address" required style="padding: 10px 14px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; font-size: 14px;" />
-        <select id="waitlist-role" style="padding: 10px 14px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; font-size: 14px; background: #fff;">
-          <option value="legal">Legal (Paralegal / Solo Attorney / Law Firm)</option>
-          <option value="accounting">Tax / CPA / Accounting Firm</option>
-          <option value="healthcare">Healthcare / HIPAA Compliance</option>
-          <option value="individual">Personal Privacy / Security Researcher</option>
-        </select>
-        <button type="submit" class="btn-action btn-action-primary" style="justify-content: center; padding: 12px; font-size: 14px;">
-          Lock In $39 Founders License
-        </button>
-      </form>
-      <div id="waitlist-success" style="display: none; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 13px; text-align: center;">
-        ✓ You're on the list! We saved your reservation in local memory and will invite you to download the native build first.
+      
+      <!-- Step 1: Checkout / Order Form -->
+      <div id="waitlist-form-container">
+        <span class="eyebrow">RedactLocal · Founders Club</span>
+        <h2 style="font-size: 22px; font-weight: 800; margin: 8px 0;">Claim $39 Lifetime License</h2>
+        <p style="font-size: 13px; color: var(--artifact-text-secondary); margin-bottom: 16px;">
+          Lock in lifetime access for Mac &amp; Windows before public $49 release. 100% offline, zero subscriptions, unlimited surgical redactions.
+        </p>
+        <form onsubmit="handleWaitlistSubmit(event)" style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; color: var(--artifact-text-secondary);">Licensee Name / Firm</label>
+            <input type="text" id="waitlist-name" placeholder="e.g. Sarah Jenkins, Esq. or Apex Litigation" required style="width: 100%; box-sizing: border-box; padding: 10px 14px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; font-size: 14px;" />
+          </div>
+          <div>
+            <label style="display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; color: var(--artifact-text-secondary);">Delivery Email Address</label>
+            <input type="email" id="waitlist-email" placeholder="e.g. sarah@apex-litigation.com" required style="width: 100%; box-sizing: border-box; padding: 10px 14px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; font-size: 14px;" />
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div>
+              <label style="display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; color: var(--artifact-text-secondary);">License Tier</label>
+              <select id="waitlist-tier" style="width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; font-size: 13px; background: #fff;">
+                <option value="founder_lifetime" selected>Founders Pass ($39 · 1 Seat)</option>
+                <option value="personal_lifetime">Professional Solo ($49 · 1 Seat)</option>
+                <option value="team_10">Firm Team ($199 · 10 Seats)</option>
+              </select>
+            </div>
+            <div>
+              <label style="display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; color: var(--artifact-text-secondary);">Industry / Sector</label>
+              <select id="waitlist-role" style="width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; font-size: 13px; background: #fff;">
+                <option value="legal">Legal (Paralegal / Solo / Firm)</option>
+                <option value="accounting">Tax / CPA / Accounting Firm</option>
+                <option value="healthcare">Healthcare / HIPAA Compliance</option>
+                <option value="individual">Personal Privacy / Security</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" id="btn-submit-order" class="btn-action btn-action-primary" style="justify-content: center; padding: 13px; font-size: 14px; margin-top: 4px;">
+            <span>🔒 Complete Order &amp; Mint .rlkey License</span>
+          </button>
+          <div style="display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 11px; color: var(--artifact-text-secondary);">
+            <span>🛡️ Ed25519 Cryptographic Certificate</span>
+            <span>•</span>
+            <span>Zero Cloud Telemetry</span>
+            <span>•</span>
+            <span>Instant Offline Delivery</span>
+          </div>
+        </form>
       </div>
+
+      <!-- Step 2: Instant Fulfillment & Keycard View -->
+      <div id="waitlist-fulfillment" style="display: none;">
+        <div style="display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; font-size: 11px; font-weight: 800; font-family: monospace; padding: 3px 10px; border-radius: 9999px; margin-bottom: 10px;">
+          <span>✓</span> <span>ORDER COMPLETED · ED25519 KEY MINTED</span>
+        </div>
+        <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">Your Offline License is Ready!</h2>
+        <p style="font-size: 12.5px; color: var(--artifact-text-secondary); margin-bottom: 14px; line-height: 1.5;">
+          Thank you for joining the Founders Club. Your perpetual digital license has been minted and cryptographically signed.
+        </p>
+
+        <!-- Digital Keycard Display -->
+        <div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 16px; font-size: 12px; margin-bottom: 16px; border: 1px solid #334155;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 8px; margin-bottom: 8px;">
+            <span style="color: #94a3b8;">Order ID:</span>
+            <span style="font-family: monospace; font-weight: 700; color: #38bdf8;" id="f-order-id">RL-ORD-XXXX</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 8px; margin-bottom: 8px;">
+            <span style="color: #94a3b8;">Licensee:</span>
+            <span style="font-weight: 700; color: #f8fafc;" id="f-licensee">Sarah Jenkins, Esq.</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 8px; margin-bottom: 8px;">
+            <span style="color: #94a3b8;">Tier &amp; Seats:</span>
+            <span style="font-weight: 700; color: #34d399;" id="f-tier">Founders Lifetime (1 Seat · Unlimited Pages)</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 8px; margin-bottom: 8px;">
+            <span style="color: #94a3b8;">Signature:</span>
+            <span style="font-family: monospace; font-size: 11px; color: #cbd5e1;" id="f-signature">Verified Ed25519</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #94a3b8;">Entitlement:</span>
+            <span style="color: #cbd5e1;">Air-Gapped (Zero Network Required)</span>
+          </div>
+        </div>
+
+        <!-- Instant Action Buttons -->
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+          <button type="button" onclick="downloadCurrentLicenseFile()" class="btn-action btn-action-primary" style="justify-content: center; padding: 11px; font-size: 13.5px;">
+            <span>📥 Download .rlkey License File</span>
+          </button>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <button type="button" onclick="copyCurrentLicenseJson()" class="btn-action btn-action-secondary" style="justify-content: center; padding: 10px; font-size: 12.5px;">
+              <span id="btn-copy-label">📋 Copy Key JSON</span>
+            </button>
+            <a href="./studio.html" target="_blank" class="btn-action btn-action-secondary" style="justify-content: center; text-decoration: none; padding: 10px; font-size: 12.5px; background: #ecfdf5; color: #065f46; border-color: #a7f3d0;">
+              <span>🚀 Launch Studio Pro</span>
+            </a>
+          </div>
+        </div>
+
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 6px; padding: 10px 12px; font-size: 11.5px; color: var(--artifact-text-secondary); line-height: 1.5;">
+          <strong>How to activate:</strong> In RedactLocal Desktop (macOS/Windows) or Studio, drag and drop the <code>.rlkey</code> file directly onto the window or click <strong>🔑 License</strong> in the header bar.
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -1748,28 +1830,150 @@
       URL.revokeObjectURL(url);
     }
 
+    const AUTHORITY_PRIV_KEY_PKCS8 = "MC4CAQAwBQYDK2VwBCIEIKlfgXqo9W7D284uge6VvVfJruNg0nDvM7pBFURm3QLl";
+    let lastMintedLicense = null;
+
+    async function mintClientLicense({ licensee, email, tier = 'founder_lifetime', seats = 1 }) {
+      const orderId = `RL-ORD-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+      const payload = {
+        v: 1,
+        app: "RedactLocal",
+        order_id: orderId,
+        licensee: licensee || "Founding Member",
+        email: email || "customer@redactlocal.com",
+        tier: tier,
+        seats: Number(seats) || (tier === 'team_10' ? 10 : 1),
+        issued_at: new Date().toISOString(),
+        expires_at: null,
+        features: {
+          max_pages_per_doc: 999999,
+          batch_processing: true,
+          court_receipts: true,
+          custom_regex_presets: true,
+          air_gap_enforced: true
+        }
+      };
+
+      const payloadStr = JSON.stringify(payload);
+      const payloadBytes = new TextEncoder().encode(payloadStr);
+
+      const binStr = atob(AUTHORITY_PRIV_KEY_PKCS8);
+      const privKeyBytes = new Uint8Array(binStr.length);
+      for (let i = 0; i < binStr.length; i++) privKeyBytes[i] = binStr.charCodeAt(i);
+
+      const cryptoKey = await crypto.subtle.importKey(
+        "pkcs8",
+        privKeyBytes,
+        { name: "Ed25519" },
+        false,
+        ["sign"]
+      );
+
+      const sigBuffer = await crypto.subtle.sign("Ed25519", cryptoKey, payloadBytes);
+      const sigBytes = new Uint8Array(sigBuffer);
+      let sigBinary = '';
+      for (let i = 0; i < sigBytes.length; i++) sigBinary += String.fromCharCode(sigBytes[i]);
+      const sigB64 = btoa(sigBinary);
+
+      return { ...payload, sig: sigB64 };
+    }
+
     function openWaitlistModal() {
+      document.getElementById('waitlist-form-container').style.display = 'block';
+      document.getElementById('waitlist-fulfillment').style.display = 'none';
+      const submitBtn = document.getElementById('btn-submit-order');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "🔒 Complete Order & Mint .rlkey License";
+      }
       document.getElementById('waitlist-modal').classList.add('active');
     }
+
     function closeWaitlistModal() {
       document.getElementById('waitlist-modal').classList.remove('active');
     }
-    function handleWaitlistSubmit(e) {
-      e.preventDefault();
-      const name = document.getElementById('waitlist-name').value;
-      const email = document.getElementById('waitlist-email').value;
-      const role = document.getElementById('waitlist-role').value;
-      
-      const leads = JSON.parse(localStorage.getItem('redactlocal_leads') || '[]');
-      leads.push({ name, email, role, date: new Date().toISOString() });
-      localStorage.setItem('redactlocal_leads', JSON.stringify(leads));
 
-      document.getElementById('waitlist-success').style.display = 'block';
-      setTimeout(() => {
-        closeWaitlistModal();
-        document.getElementById('waitlist-success').style.display = 'none';
-        showToast(`Thank you ${name}! You are confirmed for the $39 Founders Lifetime tier.`, 'success');
-      }, 1200);
+    async function handleWaitlistSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('btn-submit-order');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "⏳ Minting Offline Ed25519 Key...";
+
+      const name = document.getElementById('waitlist-name').value.trim();
+      const email = document.getElementById('waitlist-email').value.trim();
+      const tier = document.getElementById('waitlist-tier').value;
+      const role = document.getElementById('waitlist-role').value;
+      const seats = tier === 'team_10' ? 10 : 1;
+
+      try {
+        const licenseCert = await mintClientLicense({ licensee: name, email, tier, seats });
+        lastMintedLicense = licenseCert;
+
+        // Persist to local storage for instant Studio activation
+        localStorage.setItem('redactlocal_license', JSON.stringify(licenseCert));
+
+        // Save lead
+        const leads = JSON.parse(localStorage.getItem('redactlocal_leads') || '[]');
+        leads.push({ name, email, tier, role, order_id: licenseCert.order_id, date: new Date().toISOString() });
+        localStorage.setItem('redactlocal_leads', JSON.stringify(leads));
+
+        // Populate fulfillment view
+        document.getElementById('f-order-id').innerText = licenseCert.order_id;
+        document.getElementById('f-licensee').innerText = `${name} (${email})`;
+        const tierLabels = {
+          founder_lifetime: 'Founders Lifetime Pass (1 Seat · Unlimited Pages)',
+          personal_lifetime: 'Professional Solo (1 Seat · Unlimited Pages)',
+          team_10: 'Firm Team (10 Seats · Unlimited Pages)'
+        };
+        document.getElementById('f-tier').innerText = tierLabels[tier] || tier;
+        document.getElementById('f-signature').innerText = `${licenseCert.sig.substring(0, 24)}... (Ed25519 Valid)`;
+
+        // Switch to fulfillment view
+        document.getElementById('waitlist-form-container').style.display = 'none';
+        document.getElementById('waitlist-fulfillment').style.display = 'block';
+
+        showToast(`✓ Order confirmed! Minted ${tier} license for ${name}`, 'success');
+
+        // Automatically trigger file download of the .rlkey file for convenience
+        downloadCurrentLicenseFile();
+      } catch (err) {
+        console.error("License minting error:", err);
+        showToast("Error minting license: " + err.message, "error");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "🔒 Complete Order & Mint .rlkey License";
+      }
+    }
+
+    function downloadCurrentLicenseFile() {
+      if (!lastMintedLicense) return;
+      const jsonStr = JSON.stringify(lastMintedLicense, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const safeName = (lastMintedLicense.licensee || 'user').toLowerCase().replace(/[^a-z0-9]/g, '_');
+      a.href = url;
+      a.download = `redactlocal_${safeName}.rlkey`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("📥 Downloaded .rlkey license file", "success");
+    }
+
+    function copyCurrentLicenseJson() {
+      if (!lastMintedLicense) return;
+      const jsonStr = JSON.stringify(lastMintedLicense, null, 2);
+      navigator.clipboard.writeText(jsonStr).then(() => {
+        const btnLabel = document.getElementById('btn-copy-label');
+        if (btnLabel) {
+          const orig = btnLabel.innerText;
+          btnLabel.innerText = "✓ Copied Key JSON!";
+          setTimeout(() => { btnLabel.innerText = orig; }, 2000);
+        }
+        showToast("📋 Copied signed license JSON to clipboard", "success");
+      }).catch(err => {
+        showToast("Failed to copy: " + err.message, "error");
+      });
     }
 
     if ('serviceWorker' in navigator) {
