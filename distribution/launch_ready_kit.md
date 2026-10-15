@@ -7,7 +7,8 @@ This kit contains finalized, copy-pasteable assets for executing Steps 8 through
 ## 1. Hacker News "Show HN" Post
 
 **Submission URL:** https://news.ycombinator.com/submit  
-**Title:** `Show HN: RedactLocal – 100% offline, air-gapped PDF redaction with 7-oracle verification`  
+**Title (Primary - 48 chars):** `Show HN: RedactLocal – 100% offline PDF redaction`  
+**Alternative Title (60 chars):** `Show HN: RedactLocal – Air-gapped PDF redaction in browser`  
 **URL:** `https://mohdashraf010897.github.io/redactlocal-public/`  
 
 **Text / First Comment:**
