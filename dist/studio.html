@@ -2706,7 +2706,13 @@ startxref
         let tag = null;
         let label = null;
 
-        if (/\b[A-Z]{5}[0-9]{4}[A-Z]\b/.test(str)) {
+        if (/\b\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}\b/.test(str)) {
+          tag = "GSTIN";
+          label = `GSTIN: ${str}`;
+        } else if (/\b[A-Z]{4}[0-9]{5}[A-Z]\b/.test(str)) {
+          tag = "TAN";
+          label = `TAN: ${str}`;
+        } else if (/\b[A-Z]{5}[0-9]{4}[A-Z]\b/.test(str)) {
           tag = "PAN_CARD";
           label = `PAN: ${str}`;
         } else if (/\b[2-9]\d{3}[\s-]?\d{4}[\s-]?\d{4}\b/.test(str)) {
@@ -2715,9 +2721,18 @@ startxref
         } else if (/\b\d{3}-\d{2}-\d{4}\b/.test(str)) {
           tag = "SSN";
           label = `SSN: ${str}`;
+        } else if (/\b[A-Z][0-9]{7}\b/.test(str)) {
+          tag = "PASSPORT";
+          label = `Passport: ${str}`;
         } else if (/\b[A-Z]{4}0[A-Z0-9]{6}\b/.test(str)) {
           tag = "IFSC_CODE";
           label = `IFSC: ${str}`;
+        } else if (/\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12})\b/.test(str)) {
+          tag = "CREDIT_CARD";
+          label = `Card: ${str.replace(/\d(?=\d{4})/g, '*')}`;
+        } else if (/\b[a-zA-Z0-9.\-_]{2,49}@[a-zA-Z]{2,}\b/.test(str) && /okhdfcbank|okicici|oksbi|okaxis|ybl|paytm|apl|ibl|axl/i.test(str)) {
+          tag = "UPI_VPA";
+          label = `UPI: ${str}`;
         } else if (/(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}\b|\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/.test(str)) {
           tag = "PHONE";
           label = `Phone: ${str}`;
@@ -2727,6 +2742,12 @@ startxref
         } else if (/(?:DOB|Date of Birth|D\.O\.B|Birth Date)[\s:]*([0-3]?\d[-/\.][0-1]?\d[-/\.](?:19|20)?\d{2})/i.test(str)) {
           tag = "DOB";
           label = `DOB: ${str}`;
+        } else if (/(?:PIN|Pincode|Pin Code|Postal Code)[\s:]*([1-9][0-9]{5})\b/i.test(str)) {
+          tag = "PINCODE";
+          label = `PIN: ${str}`;
+        } else if (/(?:UHID|MRN|Policy No|Claim ID|IPD No|OPD No|Member ID)[\s#:]*([A-Z0-9\-/]{5,20})/i.test(str)) {
+          tag = "MEDICAL_POLICY";
+          label = `Policy: ${str}`;
         } else if (/(?:₹|Rs\.?|INR|\$|€|£)\s*[\d,]+(?:\.\d{2})?/.test(str)) {
           tag = "FINANCIAL";
           label = `Amount: ${str}`;
@@ -3204,17 +3225,24 @@ startxref
             const page = await doc.getPage(p);
             const tc = await page.getTextContent();
             const txt = tc.items.map(it => it.str).join(" ");
+            const gstin = txt.match(/\b\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}\b/g) || [];
+            const tan = txt.match(/\b[A-Z]{4}[0-9]{5}[A-Z]\b/g) || [];
             const pan = txt.match(/\b[A-Z]{5}[0-9]{4}[A-Z]\b/g) || [];
             const aadhaar = txt.match(/\b[2-9]\d{3}[\s-]?\d{4}[\s-]?\d{4}\b/g) || [];
             const ssn = txt.match(/\b\d{3}-\d{2}-\d{4}\b/g) || [];
+            const passport = txt.match(/\b[A-Z][0-9]{7}\b/g) || [];
             const ifsc = txt.match(/\b[A-Z]{4}0[A-Z0-9]{6}\b/g) || [];
+            const cards = txt.match(/\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12})\b/g) || [];
+            const upi = txt.match(/\b[a-zA-Z0-9.\-_]{2,49}@(okhdfcbank|okicici|oksbi|okaxis|ybl|paytm|apl|ibl|axl)\b/gi) || [];
             const phone = txt.match(/(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}\b|\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g) || [];
             const emails = txt.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) || [];
             const ids = txt.match(/(?:D026A|BOSC|[A-Z]{2,4}\d{4,12})/g) || [];
             const amounts = txt.match(/(?:₹|Rs\.?|INR|\$|€|£)\s*[\d,]+(?:\.\d{2})?/g) || [];
             const dobs = txt.match(/(?:DOB|Date of Birth|D\.O\.B|Birth Date)[\s:]*([0-3]?\d[-/\.][0-1]?\d[-/\.](?:19|20)?\d{2})/gi) || [];
+            const pincodes = txt.match(/(?:PIN|Pincode|Pin Code|Postal Code)[\s:]*([1-9][0-9]{5})\b/gi) || [];
+            const policies = txt.match(/(?:UHID|MRN|Policy No|Claim ID|IPD No|OPD No|Member ID)[\s#:]*([A-Z0-9\-/]{5,20})/gi) || [];
             const bankAccounts = txt.match(/\b\d{11,18}\b/g) || [];
-            detectedPiiCount += (pan.length + aadhaar.length + ssn.length + ifsc.length + phone.length + emails.length + ids.length + amounts.length + dobs.length + bankAccounts.length);
+            detectedPiiCount += (gstin.length + tan.length + pan.length + aadhaar.length + ssn.length + passport.length + ifsc.length + cards.length + upi.length + phone.length + emails.length + ids.length + amounts.length + dobs.length + pincodes.length + policies.length + bankAccounts.length);
           }
           item.piiCount = detectedPiiCount;
           renderBatchTable();
@@ -3255,17 +3283,24 @@ startxref
                 isScanned = true;
               }
               const txt = tc.items.map(it => it.str).join(" ");
+              const gstin = txt.match(/\b\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}\b/g) || [];
+              const tan = txt.match(/\b[A-Z]{4}[0-9]{5}[A-Z]\b/g) || [];
               const pan = txt.match(/\b[A-Z]{5}[0-9]{4}[A-Z]\b/g) || [];
               const aadhaar = txt.match(/\b[2-9]\d{3}[\s-]?\d{4}[\s-]?\d{4}\b/g) || [];
               const ssn = txt.match(/\b\d{3}-\d{2}-\d{4}\b/g) || [];
+              const passport = txt.match(/\b[A-Z][0-9]{7}\b/g) || [];
               const ifsc = txt.match(/\b[A-Z]{4}0[A-Z0-9]{6}\b/g) || [];
+              const cards = txt.match(/\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12})\b/g) || [];
+              const upi = txt.match(/\b[a-zA-Z0-9.\-_]{2,49}@(okhdfcbank|okicici|oksbi|okaxis|ybl|paytm|apl|ibl|axl)\b/gi) || [];
               const phone = txt.match(/(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}\b|\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g) || [];
               const emails = txt.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) || [];
               const ids = txt.match(/(?:D026A|BOSC|[A-Z]{2,4}\d{4,12})/g) || [];
               const amounts = txt.match(/(?:₹|Rs\.?|INR|\$|€|£)\s*[\d,]+(?:\.\d{2})?/g) || [];
               const dobs = txt.match(/(?:DOB|Date of Birth|D\.O\.B|Birth Date)[\s:]*([0-3]?\d[-/\.][0-1]?\d[-/\.](?:19|20)?\d{2})/gi) || [];
+              const pincodes = txt.match(/(?:PIN|Pincode|Pin Code|Postal Code)[\s:]*([1-9][0-9]{5})\b/gi) || [];
+              const policies = txt.match(/(?:UHID|MRN|Policy No|Claim ID|IPD No|OPD No|Member ID)[\s#:]*([A-Z0-9\-/]{5,20})/gi) || [];
               const bankAccounts = txt.match(/\b\d{11,18}\b/g) || [];
-              detectedPiiCount += (pan.length + aadhaar.length + ssn.length + ifsc.length + phone.length + emails.length + ids.length + amounts.length + dobs.length + bankAccounts.length);
+              detectedPiiCount += (gstin.length + tan.length + pan.length + aadhaar.length + ssn.length + passport.length + ifsc.length + cards.length + upi.length + phone.length + emails.length + ids.length + amounts.length + dobs.length + pincodes.length + policies.length + bankAccounts.length);
             }
           }
         } catch (e) {
@@ -3432,12 +3467,20 @@ startxref
                 if (!str || str.length < 2) continue;
                 if (
                   /\b[A-Z]{5}[0-9]{4}[A-Z]\b/.test(str) ||
+                  /\b\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}\b/.test(str) ||
+                  /\b[A-Z]{4}[0-9]{5}[A-Z]\b/.test(str) ||
+                  /\b[A-Z]{5}[0-9]{4}[A-Z]\b/.test(str) ||
                   /\b[2-9]\d{3}[\s-]?\d{4}[\s-]?\d{4}\b/.test(str) ||
                   /\b\d{3}-\d{2}-\d{4}\b/.test(str) ||
+                  /\b[A-Z][0-9]{7}\b/.test(str) ||
                   /\b[A-Z]{4}0[A-Z0-9]{6}\b/.test(str) ||
+                  /\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12})\b/.test(str) ||
+                  (/\b[a-zA-Z0-9.\-_]{2,49}@[a-zA-Z]{2,}\b/.test(str) && /okhdfcbank|okicici|oksbi|okaxis|ybl|paytm|apl|ibl|axl/i.test(str)) ||
                   /(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}\b|\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/.test(str) ||
                   /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/.test(str) ||
                   /(?:DOB|Date of Birth|D\.O\.B|Birth Date)[\s:]*([0-3]?\d[-/\.][0-1]?\d[-/\.](?:19|20)?\d{2})/i.test(str) ||
+                  /(?:PIN|Pincode|Pin Code|Postal Code)[\s:]*([1-9][0-9]{5})\b/i.test(str) ||
+                  /(?:UHID|MRN|Policy No|Claim ID|IPD No|OPD No|Member ID)[\s#:]*([A-Z0-9\-/]{5,20})/i.test(str) ||
                   /(?:₹|Rs\.?|INR|\$|€|£)\s*[\d,]+(?:\.\d{2})?/.test(str) ||
                   /\b\d{11,18}\b/.test(str) ||
                   /(?:D026A|BOSC|[A-Z]{2,4}\d{4,12})/.test(str) ||
