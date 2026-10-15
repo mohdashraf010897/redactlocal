@@ -1375,6 +1375,38 @@
       </div>
     </div>
 
+    <!-- Password Modal for Encrypted PDFs -->
+    <div class="receipt-modal" id="password-modal">
+      <div class="receipt-card">
+        <button class="receipt-close" onclick="closePasswordModal()">&times;</button>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <div style="background: #f59e0b; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800;">🔒</div>
+          <h2 style="font-size: 18px; font-weight: 800;" id="password-modal-title">Encrypted Document</h2>
+        </div>
+        <p style="font-size: 13px; color: var(--artifact-text-secondary); margin-bottom: 16px;" id="password-modal-desc">
+          This document is protected with a password. Enter the password below to decrypt and redact 100% offline in local memory:
+        </p>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 12px; font-weight: 700; margin-bottom: 6px; color: var(--artifact-text-primary);">Document Password</label>
+          <div style="position: relative;">
+            <input type="password" id="pdf-password-input" placeholder="Enter password to decrypt..." style="width: 100%; height: 38px; padding: 0 40px 0 12px; font-size: 13px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; box-sizing: border-box; background: var(--artifact-background); color: var(--artifact-text-primary);" onkeydown="if(event.key==='Enter') submitPdfPassword()" />
+            <button type="button" onclick="togglePasswordVisibility()" style="position: absolute; right: 8px; top: 8px; background: transparent; border: none; cursor: pointer; font-size: 14px; color: var(--artifact-text-secondary);" title="Show/Hide Password">👁️</button>
+          </div>
+          <div id="password-error-msg" style="color: #ef4444; font-size: 11px; margin-top: 4px; display: none;">⚠ Incorrect password. Please try again.</div>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-primary" style="margin-top: 0;" onclick="submitPdfPassword()">
+            <span>🔓 Decrypt &amp; Load Offline</span>
+          </button>
+          <button class="btn-secondary" style="margin-top: 0;" onclick="closePasswordModal()">
+            <span>Cancel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Toast container + theme helper -->
@@ -2529,6 +2561,46 @@ startxref
     let customPagesCount = 1;
     let customKey = null;
 
+    let pendingPasswordCallback = null;
+
+    function openPasswordModal(filename, callback) {
+      pendingPasswordCallback = callback;
+      document.getElementById('password-modal-title').innerText = `Password Required: ${filename}`;
+      document.getElementById('pdf-password-input').value = '';
+      document.getElementById('password-error-msg').style.display = 'none';
+      document.getElementById('pdf-password-input').style.borderColor = 'var(--artifact-border-dark)';
+      document.getElementById('password-modal').classList.add('active');
+      setTimeout(() => document.getElementById('pdf-password-input').focus(), 100);
+    }
+
+    function closePasswordModal() {
+      document.getElementById('password-modal').classList.remove('active');
+      if (pendingPasswordCallback) {
+        pendingPasswordCallback(null);
+        pendingPasswordCallback = null;
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('pdf-password-input');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    async function submitPdfPassword() {
+      const pwd = document.getElementById('pdf-password-input').value;
+      if (!pwd) {
+        document.getElementById('password-error-msg').innerText = "Please enter a password.";
+        document.getElementById('password-error-msg').style.display = 'block';
+        return;
+      }
+      if (pendingPasswordCallback) {
+        const cb = pendingPasswordCallback;
+        pendingPasswordCallback = null;
+        document.getElementById('password-modal').classList.remove('active');
+        await cb(pwd);
+      }
+    }
+
     async function handleCustomPdf(file) {
       if (!file || (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf')) {
         alert("Please select a valid PDF file.");
@@ -2539,7 +2611,7 @@ startxref
       await loadCustomPdfData(bytes, file.name);
     }
 
-    async function loadCustomPdfData(bytes, filename) {
+    async function loadCustomPdfData(bytes, filename, password = "") {
       customPdfBytes = bytes;
       customPdfName = filename;
       
@@ -2553,7 +2625,7 @@ startxref
       }
 
       try {
-        const loadingTask = pdfjs.getDocument({ data: bytes.slice(0) });
+        const loadingTask = pdfjs.getDocument({ data: bytes.slice(0), password: password });
         customPdfDoc = await loadingTask.promise;
         customPagesCount = customPdfDoc.numPages;
         currentCustomPage = 1;
@@ -2580,8 +2652,15 @@ startxref
       } catch (err) {
         console.error("PDF parse error:", err);
         const isPw = err.name === 'PasswordException' || (err.message && err.message.toLowerCase().includes('password'));
-        const userMsg = isPw ? `"${filename}" is encrypted with a password. Please decrypt it before loading.` : `Error parsing PDF "${filename}": ${err.message}`;
-        showToast(userMsg, 'error');
+        if (isPw) {
+          openPasswordModal(filename, async (enteredPwd) => {
+            if (enteredPwd !== null) {
+              await loadCustomPdfData(bytes, filename, enteredPwd);
+            }
+          });
+          return;
+        }
+        showToast(`Error parsing PDF "${filename}": ${err.message}`, 'error');
       }
     }
 
@@ -2627,25 +2706,37 @@ startxref
         let tag = null;
         let label = null;
 
-        if (/\b\d{3}-\d{2}-\d{4}\b/.test(str)) {
+        if (/\b[A-Z]{5}[0-9]{4}[A-Z]\b/.test(str)) {
+          tag = "PAN_CARD";
+          label = `PAN: ${str}`;
+        } else if (/\b[2-9]\d{3}[\s-]?\d{4}[\s-]?\d{4}\b/.test(str)) {
+          tag = "AADHAAR";
+          label = `Aadhaar: ${str}`;
+        } else if (/\b\d{3}-\d{2}-\d{4}\b/.test(str)) {
           tag = "SSN";
           label = `SSN: ${str}`;
-        } else if (/\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/.test(str)) {
+        } else if (/\b[A-Z]{4}0[A-Z0-9]{6}\b/.test(str)) {
+          tag = "IFSC_CODE";
+          label = `IFSC: ${str}`;
+        } else if (/(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}\b|\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/.test(str)) {
           tag = "PHONE";
           label = `Phone: ${str}`;
         } else if (/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/.test(str)) {
           tag = "EMAIL";
           label = `Email: ${str}`;
+        } else if (/(?:DOB|Date of Birth|D\.O\.B|Birth Date)[\s:]*([0-3]?\d[-/\.][0-1]?\d[-/\.](?:19|20)?\d{2})/i.test(str)) {
+          tag = "DOB";
+          label = `DOB: ${str}`;
+        } else if (/(?:₹|Rs\.?|INR|\$|€|£)\s*[\d,]+(?:\.\d{2})?/.test(str)) {
+          tag = "FINANCIAL";
+          label = `Amount: ${str}`;
+        } else if (/\b\d{11,18}\b/.test(str)) {
+          tag = "BANK_ACCOUNT";
+          label = `Account: ${str}`;
         } else if (/(?:D026A|BOSC|[A-Z]{2,4}\d{4,12})/.test(str)) {
           tag = "IDENTIFIER";
           label = `ID: ${str}`;
-        } else if (/\b\d{12}\b/.test(str)) {
-          tag = "BANK_REF";
-          label = `Bank Ref: ${str}`;
-        } else if (/(?:₹|\$)\s*\d+/.test(str)) {
-          tag = "FINANCIAL";
-          label = `Amount: ${str}`;
-        } else if (/(?:Name|Father|Student|Account|Roll|Receipt)[\s:]+[A-Za-z0-9]+/i.test(str)) {
+        } else if (/(?:Name|Father|Mother|Student|Account|Roll|Receipt|Beneficiary|Patient|Policy|Claim|Enrollment)[\s:]+[A-Za-z0-9\s]+/i.test(str)) {
           tag = "CONFIDENTIAL";
           label = `Field: ${str}`;
         }
@@ -3074,9 +3165,15 @@ startxref
             </span>
           </td>
           <td style="text-align: right;">
-            <button class="sub-toggle-btn" style="padding: 3px 8px; font-size: 11px;" onclick="viewBatchItemInStudio(${idx})" title="Open in visual editor">
-              Inspect 🔍
-            </button>
+            ${item.isEncrypted ? `
+              <button class="sub-toggle-btn" style="padding: 3px 8px; font-size: 11px; background: #fef3c7; color: #92400e; border-color: #fde68a; font-weight: 700;" onclick="unlockBatchItem(${idx})" title="Unlock with password">
+                Unlock 🔑
+              </button>
+            ` : `
+              <button class="sub-toggle-btn" style="padding: 3px 8px; font-size: 11px;" onclick="viewBatchItemInStudio(${idx})" title="Open in visual editor">
+                Inspect 🔍
+              </button>
+            `}
           </td>
         </tr>
       `;
@@ -3086,6 +3183,46 @@ startxref
       document.getElementById('btn-batch-zip').style.display = anyClean ? 'inline-block' : 'none';
       document.getElementById('btn-batch-csv').style.display = anyClean ? 'inline-block' : 'none';
       updateBatchCounts();
+    }
+
+    async function unlockBatchItem(idx) {
+      const item = batchQueue[idx];
+      if (!item) return;
+      openPasswordModal(item.name, async (enteredPwd) => {
+        if (!enteredPwd) return;
+        const pdfjs = await getPdfJs();
+        try {
+          const doc = await pdfjs.getDocument({ data: item.origBytes.slice(0), password: enteredPwd }).promise;
+          item.isEncrypted = false;
+          item.password = enteredPwd;
+          item.pages = doc.numPages;
+          item.status = 'QUEUED';
+          item.selected = true;
+
+          let detectedPiiCount = 0;
+          for (let p = 1; p <= Math.min(doc.numPages, 8); p++) {
+            const page = await doc.getPage(p);
+            const tc = await page.getTextContent();
+            const txt = tc.items.map(it => it.str).join(" ");
+            const pan = txt.match(/\b[A-Z]{5}[0-9]{4}[A-Z]\b/g) || [];
+            const aadhaar = txt.match(/\b[2-9]\d{3}[\s-]?\d{4}[\s-]?\d{4}\b/g) || [];
+            const ssn = txt.match(/\b\d{3}-\d{2}-\d{4}\b/g) || [];
+            const ifsc = txt.match(/\b[A-Z]{4}0[A-Z0-9]{6}\b/g) || [];
+            const phone = txt.match(/(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}\b|\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g) || [];
+            const emails = txt.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) || [];
+            const ids = txt.match(/(?:D026A|BOSC|[A-Z]{2,4}\d{4,12})/g) || [];
+            const amounts = txt.match(/(?:₹|Rs\.?|INR|\$|€|£)\s*[\d,]+(?:\.\d{2})?/g) || [];
+            const dobs = txt.match(/(?:DOB|Date of Birth|D\.O\.B|Birth Date)[\s:]*([0-3]?\d[-/\.][0-1]?\d[-/\.](?:19|20)?\d{2})/gi) || [];
+            const bankAccounts = txt.match(/\b\d{11,18}\b/g) || [];
+            detectedPiiCount += (pan.length + aadhaar.length + ssn.length + ifsc.length + phone.length + emails.length + ids.length + amounts.length + dobs.length + bankAccounts.length);
+          }
+          item.piiCount = detectedPiiCount;
+          renderBatchTable();
+          showToast(`✓ Decrypted "${item.name}" (${item.pages} pgs, ${item.piiCount} PII fields)`, 'success');
+        } catch (err) {
+          showToast(`Could not unlock "${item.name}": Incorrect password`, 'error');
+        }
+      });
     }
 
     async function handleBatchFileInput(files) {
@@ -3118,12 +3255,17 @@ startxref
                 isScanned = true;
               }
               const txt = tc.items.map(it => it.str).join(" ");
+              const pan = txt.match(/\b[A-Z]{5}[0-9]{4}[A-Z]\b/g) || [];
+              const aadhaar = txt.match(/\b[2-9]\d{3}[\s-]?\d{4}[\s-]?\d{4}\b/g) || [];
               const ssn = txt.match(/\b\d{3}-\d{2}-\d{4}\b/g) || [];
-              const phone = txt.match(/\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g) || [];
+              const ifsc = txt.match(/\b[A-Z]{4}0[A-Z0-9]{6}\b/g) || [];
+              const phone = txt.match(/(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}\b|\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g) || [];
               const emails = txt.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) || [];
               const ids = txt.match(/(?:D026A|BOSC|[A-Z]{2,4}\d{4,12})/g) || [];
-              const amounts = txt.match(/(?:₹|\$)\s*\d+/g) || [];
-              detectedPiiCount += (ssn.length + phone.length + emails.length + ids.length + amounts.length);
+              const amounts = txt.match(/(?:₹|Rs\.?|INR|\$|€|£)\s*[\d,]+(?:\.\d{2})?/g) || [];
+              const dobs = txt.match(/(?:DOB|Date of Birth|D\.O\.B|Birth Date)[\s:]*([0-3]?\d[-/\.][0-1]?\d[-/\.](?:19|20)?\d{2})/gi) || [];
+              const bankAccounts = txt.match(/\b\d{11,18}\b/g) || [];
+              detectedPiiCount += (pan.length + aadhaar.length + ssn.length + ifsc.length + phone.length + emails.length + ids.length + amounts.length + dobs.length + bankAccounts.length);
             }
           }
         } catch (e) {
@@ -3256,7 +3398,10 @@ startxref
         try {
           if (pdfjs && item.origBytes && item.origBytes.length > 500) {
             // Real multi-page surgical redaction:
-            const doc = await pdfjs.getDocument({ data: item.origBytes.slice(0) }).promise;
+            const doc = await pdfjs.getDocument({
+              data: item.origBytes.slice(0),
+              password: item.password || ""
+            }).promise;
             const canvasWidths = [];
             const canvasHeights = [];
             const jpegs = [];
@@ -3286,13 +3431,17 @@ startxref
                 const str = tItem.str.trim();
                 if (!str || str.length < 2) continue;
                 if (
+                  /\b[A-Z]{5}[0-9]{4}[A-Z]\b/.test(str) ||
+                  /\b[2-9]\d{3}[\s-]?\d{4}[\s-]?\d{4}\b/.test(str) ||
                   /\b\d{3}-\d{2}-\d{4}\b/.test(str) ||
-                  /\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/.test(str) ||
+                  /\b[A-Z]{4}0[A-Z0-9]{6}\b/.test(str) ||
+                  /(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}\b|\b(?:\+?1[-.]?)?\(?[2-9]\d{2}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/.test(str) ||
                   /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/.test(str) ||
+                  /(?:DOB|Date of Birth|D\.O\.B|Birth Date)[\s:]*([0-3]?\d[-/\.][0-1]?\d[-/\.](?:19|20)?\d{2})/i.test(str) ||
+                  /(?:₹|Rs\.?|INR|\$|€|£)\s*[\d,]+(?:\.\d{2})?/.test(str) ||
+                  /\b\d{11,18}\b/.test(str) ||
                   /(?:D026A|BOSC|[A-Z]{2,4}\d{4,12})/.test(str) ||
-                  /\b\d{12}\b/.test(str) ||
-                  /(?:₹|\$)\s*\d+/.test(str) ||
-                  /(?:Name|Father|Student|Account|Roll|Receipt)[\s:]+[A-Za-z0-9]+/i.test(str)
+                  /(?:Name|Father|Mother|Student|Account|Roll|Receipt|Beneficiary|Patient|Policy|Claim|Enrollment)[\s:]+[A-Za-z0-9\s]+/i.test(str)
                 ) {
                   const [vx, vy] = viewport.convertToViewportPoint(tItem.transform[4], tItem.transform[5]);
                   const fontH = (Math.abs(tItem.transform[3]) || tItem.height || 10) * scale;
@@ -3407,14 +3556,14 @@ startxref
       const item = batchQueue[idx];
       if (!item) return;
 
-      if (item.isEncrypted) {
-        showToast(`Cannot inspect "${item.name}": file is encrypted with a password.`, 'warn');
+      if (item.isEncrypted && !item.password) {
+        unlockBatchItem(idx);
         return;
       }
 
       if (item.origBytes && item.origBytes.length > 50) {
         try {
-          await loadCustomPdfData(item.origBytes, item.name);
+          await loadCustomPdfData(item.origBytes, item.name, item.password || "");
         } catch (err) {
           console.error("Error inspecting document:", err);
           showToast("Could not open document in studio: " + err.message, "error");
