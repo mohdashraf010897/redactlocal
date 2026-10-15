@@ -1293,19 +1293,35 @@
     <!-- macOS Gatekeeper Guide Card -->
     <div style="background: #ffffff; border: 1px solid var(--artifact-border-light); border-radius: 12px; padding: 22px 24px; margin: 24px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
       <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-        <span style="font-size: 18px;">💡</span>
-        <strong style="font-size: 14px;">First-Time macOS Launch Note (Apple Gatekeeper)</strong>
+        <span style="font-size: 18px;">🍏</span>
+        <strong style="font-size: 15px; color: var(--artifact-text-primary);">First-Time macOS Launch &amp; Gatekeeper Guide</strong>
       </div>
-      <p style="font-size: 13px; color: var(--artifact-text-secondary); line-height: 1.5; margin-bottom: 12px;">
-        Because RedactLocal is an independent open-source utility operating with 100% air-gapped privacy (zero remote tracking and zero Apple cloud notary telemetry), macOS Sequoia / Sonoma may display: <em>"Apple could not verify RedactLocal is free of malware"</em> on first open.
+      <p style="font-size: 13px; color: var(--artifact-text-secondary); line-height: 1.5; margin-bottom: 14px;">
+        Because RedactLocal is an open-source, air-gapped utility built with zero tracking and zero cloud telemetry, macOS Sequoia &amp; Sonoma display a standard security notice on first download: <em>"Apple could not verify RedactLocal is free of malware"</em>.
       </p>
-      <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 8px; padding: 14px; font-size: 12.5px; line-height: 1.6;">
-        <strong>To open in 3 seconds:</strong><br>
-        1. On the alert dialog, click <strong>Done</strong> (do not click move to bin).<br>
-        2. Open <strong>System Settings → Privacy &amp; Security</strong> and scroll down to the <strong>Security</strong> section.<br>
-        3. Click <strong>"Open Anyway"</strong> and authenticate with Touch ID / password.<br>
-        <em>Tip: You can also clear the quarantine flag in Terminal with:</em><br>
-        <code style="display: inline-block; margin-top: 4px; background: #0f172a; color: #38bdf8; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 11.5px;">xattr -d com.apple.quarantine ~/Downloads/RedactLocal*.dmg</code>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+        <!-- Option 1: 1-Line Zero-Friction Terminal Install -->
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 8px; padding: 14px;">
+          <div style="font-weight: 700; font-size: 12.5px; margin-bottom: 4px; color: var(--artifact-primary-brand);">Option A · 1-Line Installer (Recommended)</div>
+          <div style="font-size: 11.5px; color: var(--artifact-text-secondary); margin-bottom: 8px;">Installs to /Applications and opens without security prompts:</div>
+          <code style="display: block; background: #0f172a; color: #38bdf8; padding: 8px 10px; border-radius: 6px; font-family: monospace; font-size: 11px; word-break: break-all;">curl -fsSL https://mohdashraf010897.github.io/redactlocal-public/install.sh | bash</code>
+        </div>
+
+        <!-- Option 2: 3-Click System Settings (GUI) -->
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 8px; padding: 14px;">
+          <div style="font-weight: 700; font-size: 12.5px; margin-bottom: 4px; color: var(--artifact-text-primary);">Option B · 3-Click GUI Bypass</div>
+          <div style="font-size: 11.5px; color: var(--artifact-text-secondary); line-height: 1.5;">
+            1. On the alert prompt, click <strong>Done</strong>.<br>
+            2. Open <strong>System Settings → Privacy &amp; Security</strong>.<br>
+            3. Scroll down and click <strong>"Open Anyway"</strong>.<br>
+            <em>(You only need to do this once on first launch.)</em>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; font-size: 11.5px; color: var(--artifact-text-secondary);">
+        If you already dragged RedactLocal to Applications, remove the quarantine bit in Terminal: <code style="background: var(--artifact-background-mid); padding: 2px 6px; border-radius: 4px; font-family: monospace; color: var(--artifact-text-primary);">xattr -cr /Applications/RedactLocal.app</code>
       </div>
     </div>
 
@@ -1330,16 +1346,16 @@
     <div class="modal-card" style="max-width: 520px; width: 90%;">
       <button class="modal-close" onclick="closeWaitlistModal()">&times;</button>
       
-      <!-- Step 1: Checkout / Order Form -->
+      <!-- Step 1: Pre-Order Reservation Form -->
       <div id="waitlist-form-container">
         <span class="eyebrow">RedactLocal · Founders Club</span>
-        <h2 style="font-size: 22px; font-weight: 800; margin: 8px 0;">Claim $39 Lifetime License</h2>
+        <h2 style="font-size: 22px; font-weight: 800; margin: 8px 0;">Reserve $39 Lifetime Pass</h2>
         <p style="font-size: 13px; color: var(--artifact-text-secondary); margin-bottom: 16px;">
-          Lock in lifetime access for Mac &amp; Windows before public $49 release. 100% offline, zero subscriptions, unlimited surgical redactions.
+          Lock in the $39 perpetual rate before the public $49 release. No charge today. We will email your private checkout link as soon as merchant billing goes live.
         </p>
         <form onsubmit="handleWaitlistSubmit(event)" style="display: flex; flex-direction: column; gap: 12px;">
           <div>
-            <label style="display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; color: var(--artifact-text-secondary);">Licensee Name / Firm</label>
+            <label style="display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; color: var(--artifact-text-secondary);">Your Name or Firm</label>
             <input type="text" id="waitlist-name" placeholder="e.g. Sarah Jenkins, Esq. or Apex Litigation" required style="width: 100%; box-sizing: border-box; padding: 10px 14px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; font-size: 14px;" />
           </div>
           <div>
@@ -1348,7 +1364,7 @@
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <div>
-              <label style="display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; color: var(--artifact-text-secondary);">License Tier</label>
+              <label style="display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; color: var(--artifact-text-secondary);">Reserved Plan</label>
               <select id="waitlist-tier" style="width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid var(--artifact-border-dark); border-radius: 6px; font-size: 13px; background: #fff;">
                 <option value="founder_lifetime" selected>Founders Pass ($39 · 1 Seat)</option>
                 <option value="personal_lifetime">Professional Solo ($49 · 1 Seat)</option>
@@ -1366,51 +1382,61 @@
             </div>
           </div>
           <button type="submit" id="btn-submit-order" class="btn-action btn-action-primary" style="justify-content: center; padding: 13px; font-size: 14px; margin-top: 4px;">
-            <span>🔒 Complete Order &amp; Mint .rlkey License</span>
+            <span>🏷️ Lock In $39 Founders Price (No Charge Today)</span>
           </button>
           <div style="display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 11px; color: var(--artifact-text-secondary);">
-            <span>🛡️ Ed25519 Cryptographic Certificate</span>
+            <span>🛡️ 0 Subscription Fees</span>
             <span>•</span>
-            <span>Zero Cloud Telemetry</span>
+            <span>Guaranteed $39 Price Lock</span>
             <span>•</span>
-            <span>Instant Offline Delivery</span>
+            <span>Zero Spam</span>
           </div>
         </form>
       </div>
 
-      <!-- Step 2: Instant Fulfillment & Keycard View -->
+      <!-- Step 2: Reservation Confirmation Card -->
       <div id="waitlist-fulfillment" style="display: none;">
         <div style="display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; font-size: 11px; font-weight: 800; font-family: monospace; padding: 3px 10px; border-radius: 9999px; margin-bottom: 10px;">
-          <span>✓</span> <span>ORDER COMPLETED · ED25519 KEY MINTED</span>
+          <span>✓</span> <span>RESERVATION CONFIRMED · $39 RATE LOCKED IN</span>
         </div>
-        <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">Your Offline License is Ready!</h2>
+        <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">You're on the Priority Founders List!</h2>
         <p style="font-size: 12.5px; color: var(--artifact-text-secondary); margin-bottom: 14px; line-height: 1.5;">
-          Thank you for joining the Founders Club. Your perpetual digital license has been minted and cryptographically signed.
+          Your early-bird price has been locked. You will be sent an exclusive checkout invitation as soon as merchant billing opens.
         </p>
 
-        <!-- Digital Keycard Display -->
+        <!-- Reservation Details -->
         <div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 16px; font-size: 12px; margin-bottom: 16px; border: 1px solid #334155;">
           <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 8px; margin-bottom: 8px;">
-            <span style="color: #94a3b8;">Order ID:</span>
-            <span style="font-family: monospace; font-weight: 700; color: #38bdf8;" id="f-order-id">RL-ORD-XXXX</span>
+            <span style="color: #94a3b8;">Reservation #:</span>
+            <span style="font-family: monospace; font-weight: 700; color: #38bdf8;" id="f-order-id">RL-RES-XXXX</span>
           </div>
           <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 8px; margin-bottom: 8px;">
-            <span style="color: #94a3b8;">Licensee:</span>
+            <span style="color: #94a3b8;">Reserved For:</span>
             <span style="font-weight: 700; color: #f8fafc;" id="f-licensee">Sarah Jenkins, Esq.</span>
           </div>
           <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 8px; margin-bottom: 8px;">
-            <span style="color: #94a3b8;">Tier &amp; Seats:</span>
-            <span style="font-weight: 700; color: #34d399;" id="f-tier">Founders Lifetime (1 Seat · Unlimited Pages)</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 8px; margin-bottom: 8px;">
-            <span style="color: #94a3b8;">Signature:</span>
-            <span style="font-family: monospace; font-size: 11px; color: #cbd5e1;" id="f-signature">Verified Ed25519</span>
+            <span style="color: #94a3b8;">Locked-In Rate:</span>
+            <span style="font-weight: 700; color: #34d399;" id="f-tier">$39 Lifetime Pass (Saves $200+/yr)</span>
           </div>
           <div style="display: flex; justify-content: space-between;">
-            <span style="color: #94a3b8;">Entitlement:</span>
-            <span style="color: #cbd5e1;">Air-Gapped (Zero Network Required)</span>
+            <span style="color: #94a3b8;">Status:</span>
+            <span style="color: #38bdf8;">Priority Queue #1 · Invitation Pending</span>
           </div>
         </div>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+          <a href="./studio.html" target="_blank" class="btn-action btn-action-primary" style="flex: 1; justify-content: center; text-decoration: none; padding: 11px; font-size: 13px;">
+            <span>🚀 Try RedactLocal Web Studio Now</span>
+          </a>
+          <button type="button" onclick="closeWaitlistModal()" class="btn-action btn-action-secondary" style="flex: 1; justify-content: center; padding: 11px; font-size: 13px;">
+            <span>Done</span>
+          </button>
+        </div>
+
+        <div style="background: var(--artifact-background-light); border: 1px solid var(--artifact-border-light); border-radius: 6px; padding: 10px 12px; font-size: 11.5px; color: var(--artifact-text-secondary); line-height: 1.5;">
+          <strong>Want to test Pro right now?</strong> In the Web Studio, click <strong>🔑 Free Tier</strong> in the header and select <strong>⚡ Load Demo Pro Key</strong> to test unlimited pages and 7-oracle verification immediately.
+        </div>
+      </div>
 
         <!-- Instant Action Buttons -->
         <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">

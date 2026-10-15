@@ -169,6 +169,7 @@ def validate_exe(exe_path):
 
 def main():
     search_dirs = [
+        os.path.abspath("dist/macos"),
         "/tmp/package-validation",
         os.path.expanduser("~/Downloads"),
         os.path.abspath("distribution"),
