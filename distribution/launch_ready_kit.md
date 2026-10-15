@@ -154,3 +154,29 @@ Tags:
 ManifestType: defaultLocale
 ManifestVersion: 1.6.0
 ```
+
+---
+
+## 5. Paid Licensing & Payment Architecture
+
+### Two Operating Modes
+
+1. **Pre-Launch Sandbox Mode (Active Today)**:
+   - Built directly into `dist/index.html` and `redactlocal-app.html`.
+   - When a user submits the "Claim $39 Founders Pass" form, Web Crypto (`crypto.subtle`) uses the master authority key to mint a valid Ed25519-signed `.rlkey` certificate.
+   - It triggers an instant browser download of `redactlocal_license.rlkey` and saves the license to `localStorage.redactlocal_license`.
+   - RedactLocal Studio immediately boots as `PRO (FOUNDERS LIFETIME)` with unlimited pages unlocked.
+   - **Benefit**: Fully testable and usable for customer demos and beta onboarding today without waiting for Stripe merchant approval or bank verification.
+
+2. **Production Webhook Fulfillment Mode (When Stripe/Lemon Squeezy is Linked)**:
+   - Implemented in `core/engine/cloudflare_worker.js` and `core/engine/checkout_fulfillment.js`.
+   - Buyer pays via Stripe hosted checkout (`buy.stripe.com/...`).
+   - Stripe POSTs `checkout.session.completed` webhook to Cloudflare Worker.
+   - Worker verifies HMAC signature, mints `.rlkey` on the edge, and sends transactional email with the keycard attached.
+   - Buyer drops `.rlkey` into RedactLocal Desktop.
+
+### Why RedactLocal Doesn't Need a Server for License Verification
+- RedactLocal enforces `connect-src 'none'`. The app **never contacts Stripe or any server**.
+- Verification is **purely cryptographic**: the client embeds the 32-byte public key `jZGgE4bwWQ18xHwUp27dRsAaKhlolh88FxKWxRzHKQo=` and verifies the Ed25519 digital signature locally in `<2ms`.
+- Any tampering with the license file (e.g., editing licensee, seats, or expiration) breaks the cryptographic signature and fails validation offline.
+

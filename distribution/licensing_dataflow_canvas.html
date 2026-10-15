@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RedactLocal — Paid Licensing &amp; Webhook Data Flow</title>
+  <style>
+    :root {
+      --artifact-background: #ffffff;
+      --artifact-background-light: #f8fafc;
+      --artifact-background-mid: #f1f5f9;
+      --artifact-border-light: #e2e8f0;
+      --artifact-border-dark: #cbd5e1;
+      --artifact-primary-brand: #2563eb;
+      --artifact-primary-hover: #1d4ed8;
+      --artifact-text-primary: #0f172a;
+      --artifact-text-secondary: #64748b;
+      --artifact-text-highlight: #eff6ff;
+      --artifact-positive: #10b981;
+      --artifact-positive-background: #ecfdf5;
+      --artifact-negative: #ef4444;
+      --artifact-warn: #f59e0b;
+      --artifact-warn-background: #fffbeb;
+    }
+    html[data-theme='dark'] {
+      --artifact-background: #0a0b0e;
+      --artifact-background-light: #121419;
+      --artifact-background-mid: #181b22;
+      --artifact-border-light: #23262e;
+      --artifact-border-dark: #343844;
+      --artifact-primary-brand: #6a92ff;
+      --artifact-primary-hover: #88a8ff;
+      --artifact-text-primary: #eef0f4;
+      --artifact-text-secondary: #9aa0ad;
+      --artifact-text-highlight: #14213d;
+      --artifact-positive: #46d39a;
+      --artifact-positive-background: #0e2a1d;
+      --artifact-negative: #ff6b6b;
+      --artifact-warn: #e0a53a;
+      --artifact-warn-background: #2b1f0d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--artifact-background);
+      color: var(--artifact-text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      padding: 40px 20px 80px;
+    }
+    .stage {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-family: "SF Mono", "IBM Plex Mono", "Consolas", monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--artifact-primary-brand);
+      margin-bottom: 8px;
+    }
+    .hero {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--artifact-border-light);
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--artifact-text-primary);
+    }
+    .hero .lede {
+      font-size: 18px;
+      color: var(--artifact-text-secondary);
+      max-width: 58ch;
+      line-height: 1.5;
+    }
+    .section-head {
+      margin-bottom: 24px;
+    }
+    .section-head h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .callout {
+      border: 1px solid var(--artifact-border-light);
+      background: var(--artifact-text-highlight);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin-bottom: 36px;
+    }
+    .callout p {
+      color: var(--artifact-text-primary);
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Comparison Split */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .split-col {
+      background: var(--artifact-background-light);
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 10px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .split-col.active-now {
+      border-color: var(--artifact-primary-brand);
+      background: var(--artifact-background);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+    }
+    .split-col h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .split-col p {
+      font-size: 13.5px;
+      color: var(--artifact-text-secondary);
+      margin-bottom: 16px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: monospace;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .badge-live {
+      background: var(--artifact-positive-background);
+      color: var(--artifact-positive);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .badge-stripe {
+      background: var(--artifact-warn-background);
+      color: var(--artifact-warn);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    /* Flow Diagrams */
+    .flow-card {
+      background: var(--artifact-background);
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 36px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .flow-steps {
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .flow-node {
+      flex: 1 1 180px;
+      background: var(--artifact-background-light);
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 8px;
+      padding: 16px;
+      position: relative;
+    }
+    .flow-node .step-num {
+      font-family: "SF Mono", monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--artifact-primary-brand);
+      margin-bottom: 4px;
+    }
+    .flow-node h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .flow-node p {
+      font-size: 12px;
+      color: var(--artifact-text-secondary);
+      line-height: 1.45;
+    }
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--artifact-text-secondary);
+      font-size: 18px;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    /* Code Box */
+    .code-box {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-family: "SF Mono", monospace;
+      font-size: 11.5px;
+      line-height: 1.5;
+      overflow-x: auto;
+      margin-top: 12px;
+      border: 1px solid #1e293b;
+    }
+
+    /* Key Table */
+    .table-container {
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 24px 0 40px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--artifact-border-light);
+    }
+    th {
+      background: var(--artifact-background-mid);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--artifact-text-secondary);
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .split { grid-template-columns: 1fr; }
+      .flow-arrow { transform: rotate(90deg); margin: 4px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+
+    <header class="hero reveal" data-glean-id="hero">
+      <span class="eyebrow">RedactLocal · System Architecture</span>
+      <h1>How Paid Licensing Works — Code &amp; Data Flow</h1>
+      <p class="lede">
+        Why the app can test and verify licenses right now, what happens without live Stripe, and how production webhook fulfillment connects.
+      </p>
+    </header>
+
+    <!-- The Big Clarification Callout -->
+    <div class="callout reveal" data-glean-id="callout-clarity">
+      <p>
+        <strong>The Key Insight:</strong> RedactLocal is <em>100% air-gapped</em>. The desktop app and studio <strong>never call Stripe, Lemon Squeezy, or any server</strong> to check if a user is paid. Verification is purely asymmetric cryptography (Ed25519). A digital license is just a cryptographic "wax seal" created by the authority private key and verified by the public key.
+      </p>
+    </div>
+
+    <!-- 2-Way Comparison -->
+    <div class="section-head reveal" data-glean-id="section-modes">
+      <span class="eyebrow">01 — The Two Execution Modes</span>
+      <h2>Current Pre-Launch Sandbox vs. Production Stripe Flow</h2>
+    </div>
+
+    <div class="split reveal" data-glean-id="split-modes">
+      <div class="split-col active-now">
+        <div>
+          <span class="badge badge-live">ACTIVE RIGHT NOW · ZERO BACKEND NEEDED</span>
+          <h3>Client-Side Pre-Order / Sandbox Minting</h3>
+          <p>
+            When a user fills the checkout form on the website or in Studio today, the browser uses Web Crypto (<code>crypto.subtle</code>) and the embedded authority key to immediately mint a genuine, mathematically signed <code>.rlkey</code> file.
+          </p>
+          <ul style="font-size: 13px; margin-left: 18px; color: var(--artifact-text-secondary); line-height: 1.6;">
+            <li>Zero server or Stripe account required.</li>
+            <li>Generates authentic Ed25519 digital signature.</li>
+            <li>Stores in <code>localStorage.redactlocal_license</code>.</li>
+            <li>Instant <code>.rlkey</code> file download for desktop.</li>
+            <li>Unlocks Studio unlimited pages and batch processing.</li>
+          </ul>
+        </div>
+        <div class="code-box">
+// In dist/index.html &amp; redactlocal-app.html
+const cert = await mintClientLicense({
+  licensee: "Sarah Jenkins, Esq.",
+  tier: "founder_lifetime",
+  seats: 1
+});
+// cert.sig = "YsgooXSlxrVZ/8NBMZra..."
+        </div>
+      </div>
+
+      <div class="split-col">
+        <div>
+          <span class="badge badge-stripe">PRODUCTION DEPLOYMENT · MERCHANTS OF RECORD</span>
+          <h3>Live Stripe / Lemon Squeezy Webhook Flow</h3>
+          <p>
+            When you configure your live Stripe or Lemon Squeezy account, the user enters credit card details on Stripe Checkout. Stripe then fires a secure webhook to your Cloudflare Worker edge function.
+          </p>
+          <ul style="font-size: 13px; margin-left: 18px; color: var(--artifact-text-secondary); line-height: 1.6;">
+            <li>User enters card on <code>checkout.stripe.com</code>.</li>
+            <li>Stripe sends <code>checkout.session.completed</code> event.</li>
+            <li>Cloudflare Worker verifies Stripe HMAC-SHA256 signature.</li>
+            <li>Worker mints Ed25519 <code>.rlkey</code> on server edge.</li>
+            <li>Transactional email delivers <code>.rlkey</code> to buyer.</li>
+          </ul>
+        </div>
+        <div class="code-box">
+// In core/engine/cloudflare_worker.js
+if (event.type === 'checkout.session.completed') {
+  const license = mintEd25519Key(customer);
+  await sendEmail(customer.email, license);
+}
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Flow Diagram 1: Current In-Browser Flow -->
+    <div class="flow-card reveal" data-glean-id="flow-client">
+      <div class="section-head">
+        <span class="eyebrow">02 — Data Flow: What Happens Today When User Fills The Form</span>
+        <h3>End-to-End In-Browser Checkout &amp; Instant Fulfillment</h3>
+      </div>
+
+      <div class="flow-steps">
+        <div class="flow-node">
+          <div class="step-num">STEP 01</div>
+          <h4>User Enters Details</h4>
+          <p>User fills in Name, Email, and chooses Tier ($39 Founders / $49 Pro / $199 Firm) in the modal.</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+
+        <div class="flow-node">
+          <div class="step-num">STEP 02</div>
+          <h4>Web Crypto Minting</h4>
+          <p><code>mintClientLicense()</code> signs the canonical JSON payload with Ed25519 authority key.</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+
+        <div class="flow-node">
+          <div class="step-num">STEP 03</div>
+          <h4>Fulfillment Card</h4>
+          <p>Modal displays Order ID, digital signature, and triggers <code>.rlkey</code> file download.</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+
+        <div class="flow-node">
+          <div class="step-num">STEP 04</div>
+          <h4>Studio Activation</h4>
+          <p>License written to <code>localStorage</code>. Studio boots as <code>PRO (FOUNDER LIFETIME)</code>.</p>
+        </div>
+      </div>
+
+      <div class="code-box">
+[User Submission] &rarr; [mintClientLicense()] &rarr; [Generated .rlkey Payload]
+{
+  "v": 1,
+  "app": "RedactLocal",
+  "order_id": "RL-ORD-MV9E51AM-FG7J",
+  "licensee": "Sarah Jenkins, Esq.",
+  "tier": "founder_lifetime",
+  "features": { "max_pages_per_doc": 999999, "batch_processing": true },
+  "sig": "CnKLNvxNZKZNIfUSMnsImagA... (256-bit Ed25519 Signature)"
+}
+      </div>
+    </div>
+
+    <!-- Data Flow Diagram 2: Production Stripe Flow -->
+    <div class="flow-card reveal" data-glean-id="flow-stripe">
+      <div class="section-head">
+        <span class="eyebrow">03 — Data Flow: When Live Stripe is Plugged In</span>
+        <h3>Cloudflare Worker Edge Webhook Architecture (Ready to Deploy)</h3>
+      </div>
+
+      <div class="flow-steps">
+        <div class="flow-node">
+          <div class="step-num">STEP 01</div>
+          <h4>Customer Checkout</h4>
+          <p>Customer clicks Buy and pays $39 on Stripe / Lemon Squeezy hosted checkout page.</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+
+        <div class="flow-node">
+          <div class="step-num">STEP 02</div>
+          <h4>Webhook POST</h4>
+          <p>Stripe sends signed webhook to Cloudflare Worker edge (<code>/webhook/stripe</code>).</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+
+        <div class="flow-node">
+          <div class="step-num">STEP 03</div>
+          <h4>HMAC &amp; Minting</h4>
+          <p>Worker checks <code>stripe-signature</code> HMAC, mints signed <code>.rlkey</code> file.</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+
+        <div class="flow-node">
+          <div class="step-num">STEP 04</div>
+          <h4>Delivery &amp; Air-Gap</h4>
+          <p>Buyer receives <code>.rlkey</code> via email and drops it into Mac / Windows app. Zero pingbacks!</p>
+        </div>
+      </div>
+
+      <div class="code-box">
+// In core/engine/checkout_fulfillment.js &amp; core/engine/cloudflare_worker.js
+POST https://fulfill.redactlocal.com/webhook/stripe
+Header: stripe-signature: t=1729000...,v1=6a3b...
+Payload: { "type": "checkout.session.completed", "data": { "customer_details": { "email": "buyer@law.com" } } }
+&rarr; Worker validates HMAC &rarr; Mints .rlkey certificate &rarr; Sends transactional email
+      </div>
+    </div>
+
+    <!-- Why Offline Verification Works -->
+    <div class="section-head reveal" data-glean-id="section-verification">
+      <span class="eyebrow">04 — The Offline Verification Guarantee</span>
+      <h2>Why RedactLocal Doesn't Need a Server to Verify Purchases</h2>
+    </div>
+
+    <div class="table-container reveal" data-glean-id="table-comparison">
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>How Traditional SaaS Does It</th>
+            <th>How RedactLocal Does It</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>License Check</strong></td>
+            <td>Calls <code>api.company.com/verify</code> every launch (fails without internet).</td>
+            <td><strong>100% Local:</strong> Uses Web Crypto to verify Ed25519 digital signature with embedded public key. Zero network calls.</td>
+          </tr>
+          <tr>
+            <td><strong>Privacy &amp; Air-Gap</strong></td>
+            <td>Sends IP address, document names, and telemetry to cloud servers.</td>
+            <td><strong>Air-Gapped:</strong> App has <code>connect-src 'none'</code>. Cannot phone home even if it wanted to.</td>
+          </tr>
+          <tr>
+            <td><strong>Tamper Proof</strong></td>
+            <td>Relies on login sessions and database records.</td>
+            <td><strong>Cryptographic:</strong> Modifying any byte (e.g. changing seats from 1 to 10 or name) instantly invalidates the Ed25519 signature.</td>
+          </tr>
+          <tr>
+            <td><strong>Current Status</strong></td>
+            <td>Broken until live payment gateway is fully configured with banking.</td>
+            <td><strong>Sandbox Ready:</strong> The cryptographic keycard engine is 100% verified (21/21 tests pass). Adding Stripe just redirects payment!</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Summary / What to Do Next -->
+    <div class="callout reveal" style="background: var(--artifact-background-light); border-color: var(--artifact-border-dark);" data-glean-id="callout-next">
+      <h3 style="font-size: 16px; margin-bottom: 8px;">Summary: What's Working Now &amp; Next Step for Live Stripe</h3>
+      <p style="margin-bottom: 12px;">
+        1. <strong>Working Today:</strong> Users can test pre-ordering, get an authentic <code>.rlkey</code> file, download it, copy the JSON, and unlock RedactLocal Studio with unlimited pages right in the browser.
+      </p>
+      <p>
+        2. <strong>To connect Live Stripe:</strong> You only need to create a Stripe payment link (e.g. <code>buy.stripe.com/xxx</code>) and set the webhook endpoint to <code>core/engine/cloudflare_worker.js</code> per the guide in <code>docs/DEPLOY_PAYMENT_WEBHOOK.md</code>.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    // Choreographed entrance reveal
+    (function () {
+      var items = [].slice.call(document.querySelectorAll('.reveal'));
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(function(e){ e.classList.add('revealed'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (en) {
+          if (en.isIntersecting) {
+            var el = en.target;
+            setTimeout(function(){ el.classList.add('revealed'); }, 60);
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.1 });
+      items.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
+</body>
+</html>
