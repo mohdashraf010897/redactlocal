@@ -9,7 +9,7 @@ This kit contains finalized, copy-pasteable assets for executing Steps 8 through
 **Submission URL:** https://news.ycombinator.com/submit  
 **Title (Primary - 48 chars):** `Show HN: RedactLocal – 100% offline PDF redaction`  
 **Alternative Title (60 chars):** `Show HN: RedactLocal – Air-gapped PDF redaction in browser`  
-**URL:** `https://mohdashraf010897.github.io/redactlocal-public/`  
+**URL:** `https://mohdashraf010897.github.io/redactlocal/`  
 
 **Text / First Comment:**
 ```markdown
@@ -17,19 +17,16 @@ Hi HN,
 
 During high-profile court proceedings (like the Manafort trial or recent FTC filings), attorneys repeatedly leak confidential SSNs and bank numbers because they draw visual black boxes on top of text in Acrobat or Preview. Copy-pasting the text straight out of the PDF recovers the secrets in seconds because the underlying `Tj`/`TJ` character operators remain untouched in decompressed content streams.
 
-We built RedactLocal (https://mohdashraf010897.github.io/redactlocal-public/) to solve this with a 100% offline, fail-closed architecture:
+We built RedactLocal (https://mohdashraf010897.github.io/redactlocal/) to solve this with a 100% offline, fail-closed architecture:
 
-1. **Surgical Bytecode Eradication:** Rather than painting over text, our WebAssembly engine (MuPDF.js) decompresses xref streams, surgically replaces text glyph operators with whitespace, and burns out underlying raster image pixels.
-2. **The 7-Oracle Clean Room:** We don't grade our own homework. Seven independent inspectors (including Mozilla PDF.js & pypdf) decompress the output and prove that 0 residual target glyphs survive across ASCII, UTF-16, Hex, and Octal encodings.
-3. **The 3-Layer Solution:** 
-   - Layer 1: 15 canonical statutory formats (PAN, Aadhaar, GSTIN, TAN, SSN, Passports, IFSC, Cards).
-   - Layer 2: On-device semantic NER for unstructured doctor/patient names and clinical diagnoses without cloud API calls.
-   - Layer 3: Visual user discretion (click-to-redact or uncheck to keep public firm addresses visible).
-4. **Air-Gapped Privacy:** Strict `connect-src 'none'` Content Security Policy. Zero telemetry, zero analytics, zero server uploads.
+1. **Permanent Vector Text Destruction:** Rather than cosmetic overlays, RedactLocal renders pages to high-resolution canvas rasters, permanently burns blackouts into the pixel grid, and outputs a fresh PDF. Underlying vector text streams, font programs, and glyphs are physically omitted from the file, permanently eliminating copy-paste recovery.
+2. **Metadata & Form Eradication:** AcroForm field values (`/V`), dynamic XML streams (`/XFA`), and document info metadata are stripped from the output PDF.
+3. **100% Client-Side Offline Execution:** Runs entirely inside the local browser sandbox or native desktop container. Zero server uploads, zero network telemetry.
+4. **Local Audit Logging:** Generates a transparent, unsigned JSON audit log documenting input/output SHA-256 hashes, timestamps, and redaction coordinates.
 
 We distribute native desktop packages for macOS (.dmg, .pkg) and Windows (.msi, .exe), alongside a free in-browser triage scanner that inspects your existing PDFs for hidden leaks.
 
-Source code and web app: https://mohdashraf010897.github.io/redactlocal-public/
+Source code and web app: https://mohdashraf010897.github.io/redactlocal/
 Would love your feedback on the bytecode excision pipeline and oracle audits!
 ```
 
@@ -57,7 +54,7 @@ My team built **RedactLocal** as a 100% offline, air-gapped desktop utility desi
 • **100% Offline:** Zero cloud uploads. Your confidential client files never leave your computer.
 
 We have a free web leak scanner you can test on your existing files with zero uploads:
-👉 https://mohdashraf010897.github.io/redactlocal-public/
+👉 https://mohdashraf010897.github.io/redactlocal/
 
 Native macOS (.dmg) and Windows (.msi) installers are available now. Would love to hear how your firms currently handle redactions and if this would save you time during docket filings!
 ```
@@ -78,7 +75,7 @@ We engineered **RedactLocal** to run 100% locally on your computer with zero clo
 - Batch processes hundreds of client files in seconds.
 - 1-click native desktop downloads for Windows (MSI) and macOS (DMG).
 
-Free leak scanner & desktop app: https://mohdashraf010897.github.io/redactlocal-public/
+Free leak scanner & desktop app: https://mohdashraf010897.github.io/redactlocal/
 ```
 
 ---
@@ -140,7 +137,7 @@ Publisher: Mohd Ashraf
 PublisherUrl: https://github.com/mohdashraf010897
 PublisherSupportUrl: https://github.com/mohdashraf010897/redactlocal-public/issues
 PackageName: RedactLocal
-PackageUrl: https://mohdashraf010897.github.io/redactlocal-public/
+PackageUrl: https://mohdashraf010897.github.io/redactlocal/
 License: MIT
 ShortDescription: 100% Offline, Privacy-First PDF Redaction & 7-Oracle Verifier
 Description: Surgical bytecode PDF redaction utility engineered for litigation paralegals, CPAs, and healthcare compliance officers with fail-closed 7-Oracle verification and air-gapped cryptographic receipts.

@@ -1,13 +1,13 @@
 # RedactLocal 🛡️
 
-> **100% Free, Air-Gapped & Open-Source PDF Surgical Redaction & 7-Oracle Verifier**  
+> **100% Free, Offline & Open-Source PDF Visual Redaction & Leak Checker**  
 > Engineered for litigation paralegals, attorneys, CPAs, healthcare clinics, journalists, and privacy advocates.  
 > **100% Free & Open-Source under the MIT License** · Zero Paywall · Zero Subscriptions · Zero Cloud Telemetry.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Air-Gapped](https://img.shields.io/badge/Security-Air--Gapped%20(0%20Bytes%20Network)-10b981.svg)](PRIVACY.md)
-[![WebAssembly](https://img.shields.io/badge/Engine-mupdf.js%20Wasm-3b82f6.svg)](./)
-[![Compliance](https://img.shields.io/badge/Compliance-FRCP%205.2%20%7C%20HIPAA%20Safe%20Harbor-059669.svg)](./)
+[![Engine](https://img.shields.io/badge/Engine-pdf.js%20%2B%20Canvas%20Flattening-3b82f6.svg)](./)
+[![Assists](https://img.shields.io/badge/Assists-FRCP%205.2%20%7C%20Privacy%20Rules-059669.svg)](./)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support%20Project-yellow.svg)](https://buymeacoffee.com/mohdashraf)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
@@ -33,19 +33,33 @@ Major law firms and government agencies have repeatedly suffered public sanction
 
 ---
 
-## The Solution: True Surgical Redaction
+## The Solution: True Visual Flattening Redaction
 
-RedactLocal operates completely offline on your device using an air-gapped **WebAssembly engine (`mupdf.js`)**:
+RedactLocal operates completely offline on your device using a client-side **Secure Visual Flattening Engine (Mozilla pdf.js + Canvas)**:
 
-1. **Content Stream Surgery**: Permanently eradicates underlying character operators (`Tj`, `TJ`) from content streams.
-2. **Interactive Form Scrubbing**: Nullifies AcroForm field values (`/V`, `/DV`) and severs dynamic XML form streams (`/XFA`).
-3. **Raster Pixel Burnout**: Overwrites the underlying pixel bytes inside image XObjects (`PDF_REDACT_IMAGE_PIXELS`) for scanned documents.
-4. **Clean Serialization**: Rewrites the entire file from scratch (`clean=True, garbage=4`) with zero incremental revision history (`/Prev`).
-5. **The 3-Layer Hybrid Fusion Engine**:
-   - **Layer 1 (Statutory Determinism)**: 15 statutory formats (SSN, TIN, PAN, Aadhaar, GSTIN, Bank Accounts, Routing Numbers, Credit Cards, Emails, DOBs).
-   - **Layer 2 (On-Device Semantic NER)**: Local NLP extracts unstructured patient/doctor names, street addresses, and clinical medical terms.
-   - **Layer 3 (Human Discretion)**: Complete user control: toggle any auto field on/off or click and drag custom boxes.
-6. **7-Oracle Verification**: Every output is verified against 7 independent automated oracles (including Mozilla PDF.js & pypdf) before delivery, generating an official **Cryptographic Receipt of Redaction (SHA-256)**.
+1. **Permanent Vector Text Destruction**: Pages are rendered to high-resolution canvases where blackouts are burned permanently into the pixel grid. The original vector character streams, font tables, and text layers are physically excluded from the generated PDF.
+2. **Form & Interactive Layer Strip**: Generates fresh PDF document objects from scratch, completely omitting original AcroForm `/V` values, dynamic `/XFA` streams, and annotations.
+3. **Clean Metadata Sanitization**: Document information dictionaries (`/Info`), creator strings, and embedded `/XMP` packets are stripped in the output file.
+4. **Pattern-Based Sensitivity Detection**: Automatically flags 15+ statutory and sensitive patterns (SSNs, TINs, PANs, Aadhaar, GSTIN, Bank Accounts, Credit Cards, Emails, DOBs, phone numbers).
+5. **Human Review & Custom Bounding Boxes**: Full user control: toggle any detected term on/off or click and drag custom blackout boxes.
+6. **Local Audit Log (Unsigned)**: Generates a transparent JSON audit manifest documenting input/output SHA-256 hashes, timestamps, and redaction coordinates.
+
+---
+
+## ⚖️ What RedactLocal Does & Does Not Do
+
+**What RedactLocal Does:** Processes PDFs 100% locally in your browser or desktop sandbox with zero server uploads. It detects sensitive patterns, renders blackouts directly onto the canvas, and exports a fresh, flattened PDF. This permanently destroys underlying text layers, invisible metadata, and ghost text.
+
+**What RedactLocal Does Not Do:** It does not use remote cloud AI or legal compliance warranties. Pattern detection is heuristic and cannot replace manual legal review. Scanned pages without text layers require manual box placement. Flattened PDFs do not preserve selectable text.
+
+---
+
+## ⚠️ Known Limitations
+1. **Detection is heuristic**: Automated pattern matching can miss or over-match terms; human review of every page is required before sharing.
+2. **Flattened raster output**: The output PDF is composed of high-resolution images; text is not selectable or searchable.
+3. **Scanned/image-only PDFs**: Pages without text streams produce no automated detections; redact them by drawing manual boxes.
+4. **No compliance certification**: Using RedactLocal does not certify compliance with FRCP 5.2, HIPAA Safe Harbor, or IRS rules; you remain responsible for your filings.
+5. **Unsigned local audit logs**: Audit logs record file hashes and bounding boxes locally; they are unsigned and do not constitute legal proof.
 
 ---
 

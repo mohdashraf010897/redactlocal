@@ -2,7 +2,23 @@
 
 All notable changes to RedactLocal are documented in this file following [Keep a Changelog](https://keepachangelog.com/).
 
-## [1.0.2] - 2026-10-15
+## [1.0.2] - 2026-10-16
+
+### Security & Integrity Hardening
+- **Fail-Closed Processing**: Any unhandled error during batch or single-document redaction now marks the document `FAILED`, sets output to `null`, and prevents unredacted bytes from being exported.
+- **Dynamic PDF Serialization**: Replaced static PDF xref tables with dynamically calculated cross-reference byte offsets and exact `startxref` pointers.
+- **Multi-Page Export in Studio**: Single-document studio now exports all pages of multi-page custom documents with their respective blackout boxes burned in.
+- **Removed Artificial Page Caps**: Removed 10-page batch and 8-page ingest processing caps; files process all document pages.
+- **Transparent Audit Logs**: Replaced simulated oracle animations and fake ed25519 signatures with honest, unsigned local audit manifests (`AUDIT_MANIFEST.json`).
+
+### Truth in Claims & Documentation
+- **Honest Engine Specification**: Accurately documented the redaction pipeline as client-side visual flattening (Mozilla `pdf.js` + Canvas rasterization) with permanent vector text destruction.
+- **Explicit Disclosures & Limitations**: Added clear "What RedactLocal Does & Does Not Do" disclosure blocks and 5 Known Limitations across README, landing page, and Studio About modal.
+- **Automated Claims Conformance**: Introduced `scripts/claims_conformance.mjs` wired into `npm test` and GitHub Actions CI to prevent drift in product claims.
+
+---
+
+### Previous Updates (1.0.2 Draft)
 
 ### Added
 - **3-Layer Hybrid Detection & Fusion Engine**:

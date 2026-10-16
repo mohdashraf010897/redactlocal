@@ -9,7 +9,11 @@ const studioUrl = `file://${studioPath}`;
 
 async function runStudioTests() {
   console.log('Starting Studio UX & Batch verification tests...');
-  const browser = await chromium.launch({ channel: 'chrome', headless: true });
+  const browser = await chromium.launch({ 
+    channel: 'chrome', 
+    headless: true,
+    args: ['--allow-file-access-from-files']
+  });
   const context = await browser.newContext({ viewport: { width: 1400, height: 950 } });
   const page = await context.newPage();
 
@@ -82,7 +86,10 @@ async function runStudioTests() {
 
     // Run batch redaction
     await page.click('#btn-run-batch');
-    await page.waitForTimeout(1200); // Allow batch pipeline
+    await page.waitForFunction(() => {
+      const pFill = document.getElementById('batch-progress-fill');
+      return pFill && pFill.style.transform === 'scaleX(1)';
+    }, { timeout: 15000 });
     const completedItems = await page.$$eval('#batch-table-body tr', rows => 
       rows.filter(r => r.innerText.includes('100% CLEAN')).length
     );

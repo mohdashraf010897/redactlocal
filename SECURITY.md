@@ -9,9 +9,10 @@
 ## Security Architecture & Invariants
 
 RedactLocal enforces strict fail-closed security invariants:
-1. **Zero Network Transmission (`connect-src 'none'`)**: Verified air-gapped processing on all builds.
-2. **True Stream Excision**: Eradication of underlying PDF bytecodes (operators `Tj`, `TJ`, `Do`), AcroForm `/V` widget values, `/XFA` datasets, and `/Prev` cross-reference pointers.
-3. **7-Oracle Independent Verification**: Dual-parser verification by Mozilla PDF.js and pypdf with zero residual leaks allowed.
+1. **Zero Network Transmission**: Processing is 100% local to the client browser or desktop sandbox; zero files, telemetry, or analytics are transmitted over the network.
+2. **Permanent Vector Text Destruction (Visual Flattening)**: Pages are rendered to high-resolution canvases where blackouts are burned permanently into the pixel grid. The original vector character streams, font tables, AcroForms, and `/Info` metadata are physically excluded from the output PDF.
+3. **Fail-Closed Processing**: Any unhandled error during single or batch redaction immediately fails closed, marking the file FAILED and blocking the emission of unredacted bytes.
+4. **Mandatory Human Verification**: Automated regex and statutory pattern matching is heuristic and cannot replace manual human review of all document pages before filing.
 
 ## Reporting a Vulnerability
 

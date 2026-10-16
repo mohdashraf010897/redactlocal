@@ -1,0 +1,34 @@
+name: RedactLocal Integrity & Claims Verification
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+concurrency:
+  group: "verify-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  verify-claims-and-integrity:
+    name: Claims Conformance & Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Verify Claims Conformance
+        run: node scripts/claims_conformance.mjs
+
+      - name: Verify Studio File Synchronization
+        run: |
+          cmp redactlocal-app.html dist/studio.html || (echo "Error: redactlocal-app.html and dist/studio.html have drifted!" && exit 1)
+          echo "✓ Studio files are 100% byte-synchronized."

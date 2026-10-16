@@ -1,11 +1,13 @@
 {
   "name": "redactlocal",
   "version": "1.0.0",
-  "description": "100% Offline, Air-Gapped PDF Surgical Redaction & 7-Oracle Verification Engine",
+  "description": "100% Offline, Air-Gapped PDF Visual Redaction & Privacy Triage Studio",
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node scripts/test_studio_ux_verification.mjs",
+    "test": "node scripts/claims_conformance.mjs && node scripts/test_studio_ux_verification.mjs",
+    "test:claims": "node scripts/claims_conformance.mjs",
+    "test:studio": "node scripts/test_studio_ux_verification.mjs",
     "validate": "python3 scripts/validate_packages.py",
     "build:macos": "bash scripts/build_macos.sh",
     "build:windows": "bash scripts/build_windows.sh",

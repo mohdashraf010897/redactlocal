@@ -112,15 +112,15 @@ async function runAllUseCases() {
   // -------------------------------------------------------------------------
   // USE CASE 5: Cryptographic Receipt of Redaction Modal
   // -------------------------------------------------------------------------
-  console.log("\n[5/10] Inspecting Cryptographic Receipt of Redaction...");
+  console.log("\n[5/10] Inspecting Redaction Log & Manifest...");
   await page.click('#btn-view-receipt');
   await page.waitForTimeout(200);
 
   const modalActive = await page.locator('#receipt-modal').evaluate(el => el.classList.contains('active'));
   const receiptContent = await page.locator('#receipt-content').innerText();
   assert("Receipt modal active", modalActive);
-  assert("Receipt contains cryptographic proof signature", receiptContent.includes("ed25519:sig:"));
-  assert("Receipt contains dual independent parsers audit", receiptContent.includes("Dual Independent Extractors"));
+  assert("Receipt contains audit log title", receiptContent.includes("RedactLocal Redaction Log & Manifest (Unsigned)"));
+  assert("Receipt contains offline engine descriptor", receiptContent.includes("RedactLocal Offline Engine"));
 
   await page.click('#receipt-modal button:has-text("Done")');
   await page.waitForTimeout(150);
