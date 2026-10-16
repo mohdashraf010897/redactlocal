@@ -49,22 +49,26 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--artifact-border-light);
-      padding: 12px 20px;
+      padding: 10px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
       max-width: 1080px;
-      margin-bottom: 32px;
-      border-radius: 0 0 12px 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      margin: 0 auto 32px;
+      border-radius: 0 0 14px 14px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
       white-space: nowrap !important;
       flex-wrap: nowrap;
       box-sizing: border-box;
+    }
+    html[data-theme='dark'] .nav-bar {
+      background: rgba(10, 11, 14, 0.94);
+      border-bottom-color: var(--artifact-border-light);
     }
     .nav-brand {
       display: flex;
@@ -74,26 +78,30 @@
       color: var(--artifact-text-primary);
       flex-shrink: 0;
       white-space: nowrap !important;
+      padding-right: 22px;
+      border-right: 1px solid var(--artifact-border-light);
+      margin-right: 6px;
     }
     .logo-badge {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       background: #0f172a;
       color: #fff;
-      border-radius: 8px;
+      border-radius: 7px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 13px;
+      letter-spacing: -0.03em;
       flex-shrink: 0;
     }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 20px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 500;
       white-space: nowrap !important;
       flex-shrink: 1;
     }
@@ -111,10 +119,70 @@
       flex-shrink: 0;
       white-space: nowrap !important;
     }
+    .btn-nav-coffee {
+      background: #ffffff;
+      border: 1px solid var(--artifact-border-dark);
+      color: var(--artifact-text-secondary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap !important;
+      transition: all 0.15s ease;
+    }
+    .btn-nav-coffee:hover {
+      background: #fefce8;
+      border-color: #fde047;
+      color: #92400e;
+    }
+    html[data-theme='dark'] .btn-nav-coffee {
+      background: var(--artifact-background-mid);
+      border-color: var(--artifact-border-dark);
+      color: var(--artifact-text-secondary);
+    }
+    html[data-theme='dark'] .btn-nav-coffee:hover {
+      background: #2b1f0d;
+      border-color: #e0a53a;
+      color: #fde047;
+    }
+    .btn-nav-github {
+      background: #ffffff;
+      border: 1px solid var(--artifact-border-dark);
+      color: var(--artifact-text-secondary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap !important;
+      transition: all 0.15s ease;
+    }
+    .btn-nav-github:hover {
+      background: var(--artifact-background-light);
+      border-color: var(--artifact-primary-brand);
+      color: var(--artifact-text-primary);
+    }
+    html[data-theme='dark'] .btn-nav-github {
+      background: var(--artifact-background-mid);
+      border-color: var(--artifact-border-dark);
+      color: var(--artifact-text-secondary);
+    }
+    html[data-theme='dark'] .btn-nav-github:hover {
+      background: var(--artifact-background-light);
+      border-color: var(--artifact-primary-brand);
+      color: var(--artifact-text-primary);
+    }
     .btn-nav-primary {
       background: var(--artifact-primary-brand);
       color: #fff;
-      padding: 7px 14px;
+      padding: 7px 16px;
       border-radius: 6px;
       font-weight: 700;
       font-size: 13px;
@@ -123,10 +191,14 @@
       align-items: center;
       gap: 6px;
       white-space: nowrap !important;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
-      transition: background 0.15s ease;
+      box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);
+      transition: all 0.15s ease;
+      margin-left: 4px;
     }
-    .btn-nav-primary:hover { background: var(--artifact-primary-hover); }
+    .btn-nav-primary:hover {
+      background: var(--artifact-primary-hover);
+      box-shadow: 0 3px 10px rgba(5, 150, 105, 0.35);
+    }
     .btn-nav-secondary {
       background: var(--artifact-background-mid);
       border: 1px solid var(--artifact-border-dark);
@@ -697,8 +769,9 @@
     @media (max-width: 860px) {
       .nav-links { display: none; }
       .nav-bar { padding: 10px 14px; margin-bottom: 20px; }
-      .btn-nav-secondary { display: none; }
-      .btn-nav-primary { padding: 6px 12px; font-size: 12px; }
+      .nav-brand { border-right: none; padding-right: 0; margin-right: 0; }
+      .btn-nav-coffee, .btn-nav-github, .btn-nav-secondary { display: none; }
+      .btn-nav-primary { padding: 6px 12px; font-size: 12px; margin-left: 0; }
     }
 
     @media (max-width: 640px) {
@@ -784,23 +857,26 @@
     <a href="#" class="nav-brand">
       <div class="logo-badge">RL</div>
       <div>
-        <strong style="font-size: 16px; letter-spacing: -0.02em;">RedactLocal</strong>
-        <span style="font-size: 10px; font-family: monospace; background: #ecfdf5; color: #065f46; padding: 2px 6px; border-radius: 4px; margin-left: 6px; font-weight: 700;">100% OFFLINE</span>
+        <strong style="font-size: 15.5px; letter-spacing: -0.02em;">RedactLocal</strong>
+        <span style="font-size: 9.5px; font-family: monospace; background: #ecfdf5; color: #065f46; padding: 2px 6px; border-radius: 4px; margin-left: 6px; font-weight: 700; letter-spacing: 0.04em;">100% OFFLINE</span>
       </div>
     </a>
     <div class="nav-links">
-      <a href="#showcase" class="nav-link" onclick="switchShowcaseTab('scanner')">Online Scanner</a>
+      <a href="#showcase" class="nav-link" onclick="switchShowcaseTab('scanner')">Scanner</a>
       <a href="#showcase" class="nav-link" onclick="switchShowcaseTab('video')">Demo Video</a>
       <a href="#why-it-works" class="nav-link">Why It Works</a>
       <a href="#oracles" class="nav-link">7 Oracles</a>
       <a href="#open-source" class="nav-link">Open Source</a>
     </div>
     <div class="nav-actions">
-      <a href="https://buymeacoffee.com/mohdashraf" target="_blank" rel="noopener noreferrer" class="btn-nav-secondary" style="background: #ffdd00 !important; color: #000000 !important; border-color: #eab308 !important; font-weight: 800;">
-        ☕ Buy Me a Coffee
+      <a href="https://buymeacoffee.com/mohdashraf" target="_blank" rel="noopener noreferrer" class="btn-nav-coffee" title="Support developer on Buy Me a Coffee">
+        ☕ <span>Coffee</span>
       </a>
-      <a href="https://github.com/mohdashraf010897/redactlocal" target="_blank" rel="noopener noreferrer" class="btn-nav-secondary" style="font-weight: 700;">
-        ⭐ GitHub
+      <a href="https://github.com/mohdashraf010897/redactlocal" target="_blank" rel="noopener noreferrer" class="btn-nav-github" title="Star on GitHub" aria-label="GitHub Repository">
+        <svg height="14" width="14" viewBox="0 0 16 16" fill="currentColor" style="display: block;">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        <span>GitHub</span>
       </a>
       <a href="#downloads" class="btn-nav-primary">
         🍏 Download App
