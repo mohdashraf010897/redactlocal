@@ -33,3 +33,5 @@ _artifacts/raw/
 *.log
 .env
 .env.*
+out/
+
