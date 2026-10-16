@@ -3,8 +3,40 @@
 
 export const story = {
   product: "RedactLocal",
-  tagline: "100% Offline, Privacy-First PDF Redaction",
-  badge: "AIR-GAPPED VERIFIED · ZERO CLOUD TELEMETRY",
+  tagline: "100% Offline, Air-Gapped PDF Redaction & Verifier",
+  badge: "AIR-GAPPED VERIFIED · ZERO CLOUD TELEMETRY · connect-src 'none'",
+
+  batch: {
+    kicker: "01 — MULTI-DOCUMENT BATCH QUEUE",
+    title: "Process Entire Exhibit Bundles in Seconds",
+    subtitle: "Trial exhibits, subpoena dumps, and tax firm archives redacted simultaneously offline.",
+    profile: "Statutory Profile: FRCP 5.2 Court Standard (SSN, Financial, Minor Names)",
+    items: [
+      { name: "Exhibit_A_JMIs_Fee_Receipt.pdf", pages: "1 pg", pii: "6 fields", status: "✓ 100% CLEAN" },
+      { name: "IRS_Form_W9_Filled_Taxpayer.pdf", pages: "1 pg", pii: "4 fields", status: "✓ 100% CLEAN" },
+      { name: "Corporate_Merger_NDA_Executed.pdf", pages: "4 pgs", pii: "8 fields", status: "✓ 100% CLEAN" },
+      { name: "Memorial_Hospital_Intake_Chart.pdf", pages: "3 pgs", pii: "11 fields", status: "✓ 100% CLEAN" },
+      { name: "US_Court_AO88B_Subpoena.pdf", pages: "2 pgs", pii: "5 fields", status: "✓ 100% CLEAN" },
+    ],
+    exportZip: "📦 Download All (ZIP)",
+    exportCsv: "📊 Compliance Audit CSV",
+    speed: "⚡ 5 files (11 pages) excised in 142ms · 0 bytes transmitted",
+  },
+
+  single: {
+    kicker: "02 — VISUAL VIEWPORT & 3-LAYER SURGERY",
+    title: "Deep Single-Document Inspection & Review",
+    subtitle: "Click 'Inspect 🔍' on any exhibit for live visual inspection and human discretion.",
+    docName: "Corporate_Merger_NDA_Executed.pdf",
+    layers: [
+      { id: "L1", name: "15 Statutory Rules", desc: "SSN, TIN, Routing, Bank AC, Credit Cards" },
+      { id: "L2", name: "On-Device Semantic NER", desc: "Attorneys, Corporate Entities, Addresses" },
+      { id: "L3", name: "Human Discretion Box", desc: "Click to exclude or draw custom redactions" },
+    ],
+    oraclesPass: "✓ 7/7 FAIL-CLOSED ORACLES PASSED",
+    receiptTitle: "Cryptographic Receipt of Redaction",
+    receiptSha: "SHA-256: e3cdc487...ac37460b · Court-Admissible Proof",
+  },
 
   trap: {
     kicker: "THE DANGEROUS REALITY",
@@ -43,10 +75,11 @@ export const story = {
 
   end: {
     headline: "Protect your clients. Protect your firm.",
-    priceTag: "$39 Founders Pass · Lifetime Offline Access",
+    priceTag: "100% Free & Open Source · MIT Licensed",
     vsAcrobat: "vs Adobe Acrobat Pro ($240/yr cloud subscription)",
     ctaMac: "🍏 macOS (.dmg & .pkg) · 🪟 Windows (.msi & .exe)",
-    ctaWeb: "🌐 Free Online Triage Scanner (Zero Uploads)",
-    url: "mohdashraf010897.github.io/redactlocal-public",
+    ctaWeb: "☕ Buy Me a Coffee · ⭐ Star on GitHub",
+    url: "github.com/mohdashraf010897/redactlocal",
   },
 };
+
