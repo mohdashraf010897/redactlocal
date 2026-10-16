@@ -1,0 +1,37 @@
+{
+  "name": "redactlocal",
+  "version": "1.0.0",
+  "description": "100% Offline, Air-Gapped PDF Surgical Redaction & 7-Oracle Verification Engine",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/test_studio_ux_verification.mjs",
+    "validate": "python3 scripts/validate_packages.py",
+    "build:macos": "bash scripts/build_macos.sh",
+    "build:windows": "bash scripts/build_windows.sh",
+    "serve": "npx serve dist",
+    "render:video": "npm run render --prefix redactlocal-deck -- Video out/redactlocal_user_flow.mp4"
+  },
+  "keywords": [
+    "pdf",
+    "redaction",
+    "privacy",
+    "air-gapped",
+    "security",
+    "frcp-5-2",
+    "hipaa",
+    "webassembly",
+    "offline",
+    "open-source"
+  ],
+  "author": "Mohd Ashraf",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohdashraf010897/redactlocal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mohdashraf010897/redactlocal/issues"
+  },
+  "homepage": "https://mohdashraf010897.github.io/redactlocal-public"
+}
