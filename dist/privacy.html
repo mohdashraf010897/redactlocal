@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — RedactLocal</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <meta name="theme-color" content="#059669">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --border: #e2e8f0;
+      --brand: #059669;
+      --text: #0f172a;
+      --text-muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-alt);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      padding: 0 16px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .nav-bar {
+      width: 100%;
+      max-width: 820px;
+      margin: 20px 0 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .logo-badge {
+      width: 28px;
+      height: 28px;
+      background: #0f172a;
+      color: #fff;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .btn-back {
+      color: var(--brand);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-back:hover { text-decoration: underline; }
+    .doc-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      max-width: 820px;
+      width: 100%;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    }
+    h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+    .meta-date { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; font-family: monospace; }
+    h2 { font-size: 19px; font-weight: 700; margin: 30px 0 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    p { margin-bottom: 16px; font-size: 14.5px; color: #334155; }
+    ul { margin: 0 0 20px 24px; font-size: 14px; color: #334155; }
+    li { margin-bottom: 8px; }
+    .highlight-box {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #065f46;
+    }
+    code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: "SF Mono", monospace;
+      font-size: 13px;
+    }
+    @media (max-width: 640px) {
+      .doc-card { padding: 24px 18px; }
+      h1 { font-size: 22px; }
+      h2 { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav-bar">
+    <a href="./" class="nav-brand">
+      <div class="logo-badge">RL</div>
+      <span>RedactLocal</span>
+    </a>
+    <a href="./" class="btn-back">← Back to Main App</a>
+  </nav>
+
+  <main class="doc-card">
+    <h1>RedactLocal Privacy Policy</h1>
+    <div class="meta-date">Last Updated: October 14, 2026 · Effective Immediately</div>
+
+    <div class="highlight-box">
+      <strong>Zero-Upload Guarantee:</strong> RedactLocal operates no tracking servers and makes zero telemetry, crash-reporting, or analytics requests. Document contents, filenames, cryptographic hashes, and redaction coordinates never leave your device.
+    </div>
+
+    <h2>1. Core Privacy Principle: 100% Client-Side Processing</h2>
+    <p>Both the <strong>RedactLocal Desktop Application</strong> and the <strong>Free Web Triage Scanner</strong> execute entirely inside your local device's memory sandbox:</p>
+    <ul>
+      <li><strong>Desktop Application (macOS &amp; Windows)</strong>: Operates inside a strict air-gapped container with network connectivity disabled (<code>connect-src 'none'</code>). All PDF byte manipulation occurs on local CPU cores.</li>
+      <li><strong>Free Web Triage Scanner PWA</strong>: Operates entirely inside your browser tab using WebAssembly and local JavaScript. When you drop a document into the scanner, it is loaded into in-memory ArrayBuffers. <strong>Zero bytes are transmitted over the network.</strong></li>
+    </ul>
+
+    <h2>2. Document Data Handled</h2>
+    <p>RedactLocal processes document data solely to execute requested redaction, leak triage, and court compliance verification:</p>
+    <ul>
+      <li><strong>Document Content</strong>: PDF streams, font character glyph operators, image XObjects, and metadata dictionaries are parsed in memory to eradicate sensitive values.</li>
+      <li><strong>Redaction Coordinates</strong>: Bounding box coordinates and operator indices are stored only in volatile session memory.</li>
+      <li><strong>Offline License Verification</strong>: If you activate an offline license, RedactLocal validates the cryptographic Ed25519 digital signature locally using the Web Crypto API (<code>crypto.subtle.verify</code>). The license key is stored in your local application preferences and is never sent to any activation server.</li>
+      <li><strong>Waitlist Submissions (Optional)</strong>: If you voluntarily submit your email for early Founders Club access, that contact information is stored in local browser storage (<code>localStorage</code>) or transmitted only when you explicitly submit the inquiry.</li>
+    </ul>
+
+    <h2>3. Zero Third-Party Trackers</h2>
+    <p>RedactLocal does not embed Google Analytics, tracking cookies, advertising beacons, Meta pixels, or third-party behavioral SDKs.</p>
+
+    <h2>4. Network Permissions &amp; Offline Cache</h2>
+    <ul>
+      <li><strong>Desktop Shell</strong>: Enforces a strict Content Security Policy (CSP) blocking external HTTP/HTTPS network calls.</li>
+      <li><strong>Service Worker (<code>sw.js</code>)</strong>: Caches static UI assets (HTML, WebAssembly engine, icons) locally on disk so the triage scanner works completely offline in airplane mode.</li>
+    </ul>
+
+    <h2>5. Contact &amp; Verification</h2>
+    <p>To verify our zero-upload claims or inspect our open-source client-side code, visit our public GitHub repository:<br>
+    <a href="https://github.com/mohdashraf010897/redactlocal-public" target="_blank" style="color: var(--brand); font-weight: 600;">https://github.com/mohdashraf010897/redactlocal-public</a></p>
+  </main>
+
+</body>
+</html>

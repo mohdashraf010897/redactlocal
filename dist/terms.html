@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service &amp; License — RedactLocal</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <meta name="theme-color" content="#059669">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --border: #e2e8f0;
+      --brand: #059669;
+      --text: #0f172a;
+      --text-muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-alt);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      padding: 0 16px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .nav-bar {
+      width: 100%;
+      max-width: 820px;
+      margin: 20px 0 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .logo-badge {
+      width: 28px;
+      height: 28px;
+      background: #0f172a;
+      color: #fff;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .btn-back {
+      color: var(--brand);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-back:hover { text-decoration: underline; }
+    .doc-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      max-width: 820px;
+      width: 100%;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    }
+    h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+    .meta-date { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; font-family: monospace; }
+    h2 { font-size: 19px; font-weight: 700; margin: 30px 0 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    p { margin-bottom: 16px; font-size: 14.5px; color: #334155; }
+    ul { margin: 0 0 20px 24px; font-size: 14px; color: #334155; }
+    li { margin-bottom: 8px; }
+    .highlight-box {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #065f46;
+    }
+    @media (max-width: 640px) {
+      .doc-card { padding: 24px 18px; }
+      h1 { font-size: 22px; }
+      h2 { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav-bar">
+    <a href="./" class="nav-brand">
+      <div class="logo-badge">RL</div>
+      <span>RedactLocal</span>
+    </a>
+    <a href="./" class="btn-back">← Back to Main App</a>
+  </nav>
+
+  <main class="doc-card">
+    <h1>Terms of Service &amp; Software License</h1>
+    <div class="meta-date">Last Updated: October 14, 2026 · Perpetual License Terms</div>
+
+    <div class="highlight-box">
+      <strong>Zero Subscriptions:</strong> RedactLocal licenses are perpetual, one-time purchases with zero recurring annual subscriptions and zero internet phone-homes.
+    </div>
+
+    <h2>1. Perpetual License Grant</h2>
+    <p>RedactLocal software is licensed, not sold. When you purchase a license (Founders Pass $39, Professional $49, or Firm Team License), you receive a perpetual, non-exclusive, non-transferable license to install and run RedactLocal on your devices:</p>
+    <ul>
+      <li><strong>No Recurring Fees</strong>: Your license key is valid for perpetual use without monthly or annual renewals.</li>
+      <li><strong>100% Offline Activation</strong>: Validated via asymmetric Ed25519 digital cryptography. No DRM servers, no network calls.</li>
+      <li><strong>Device Allowances</strong>:
+        <ul>
+          <li><strong>Founders / Professional License</strong>: 1 primary user across up to 2 personal devices (e.g. office Mac + portable laptop).</li>
+          <li><strong>Team / Firm License</strong>: Up to 5 legal or accounting seats within a single firm.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>2. Privacy &amp; Excision Warranty</h2>
+    <p>RedactLocal warrants that:</p>
+    <ul>
+      <li>It never transmits your document bytecodes, filenames, or metadata to any remote server.</li>
+      <li>When redaction is executed, targeted character glyph operators (<code>Tj</code>/<code>TJ</code>) are excised from content streams, AcroForm <code>/V</code> values nullified, and underlying raster pixels permanently overwritten rather than masked with opaque black vectors.</li>
+    </ul>
+
+    <h2>3. Statutory Compliance Responsibility</h2>
+    <p>RedactLocal provides deterministic pattern detection (FRCP 5.2, HIPAA Safe Harbor § 164.514, IRS § 7216) and surgical bytecode excision. However, the legal responsibility for final court, tax, or regulatory filing remains with the filing practitioner. Users must review their document queues before final submission.</p>
+
+    <h2>4. 30-Day Money-Back Guarantee</h2>
+    <p>If RedactLocal fails to meet your firm's compliance or workflow standards, contact support within 30 days of purchase for a 100% full refund.</p>
+  </main>
+
+</body>
+</html>
