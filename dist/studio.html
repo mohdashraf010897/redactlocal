@@ -146,15 +146,20 @@
       color: var(--artifact-positive) !important;
     }
     .header-btn-coffee {
-      background: #ffdd00 !important;
-      color: #000000 !important;
-      border: 1px solid #eab308 !important;
-      font-weight: 800 !important;
+      background: transparent !important;
+      color: var(--artifact-text-secondary) !important;
+      border: 1px solid var(--artifact-border-dark) !important;
+      font-weight: 600 !important;
       text-decoration: none !important;
     }
     .header-btn-coffee:hover {
-      background: #facc15 !important;
-      transform: translateY(-1px);
+      background: #fff7d6 !important;
+      border-color: #eab308 !important;
+      color: #854d0e !important;
+    }
+    html[data-theme='dark'] .header-btn-coffee:hover {
+      background: rgba(234, 179, 8, 0.14) !important;
+      color: #facc15 !important;
     }
     .header-badge-opensource {
       background: #ecfdf5 !important;
@@ -1027,7 +1032,7 @@
           </div>
         </div>
         <a href="https://buymeacoffee.com/mohdashraf" target="_blank" rel="noopener noreferrer" class="header-btn header-btn-coffee" id="btn-coffee" title="Support RedactLocal on Buy Me a Coffee">
-          <span>☕ Buy Me a Coffee</span>
+          <span>☕ Coffee</span>
         </a>
         <div class="header-badge header-badge-opensource" id="opensource-badge" onclick="openAboutModal()" title="RedactLocal is 100% Free & Open Source under MIT License - Click for details">
           <span style="color: #10b981; font-size: 9px;">●</span> <span>OPEN SOURCE (MIT)</span>
