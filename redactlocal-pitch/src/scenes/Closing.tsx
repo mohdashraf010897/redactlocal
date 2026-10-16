@@ -60,10 +60,10 @@ export const Closing: React.FC = () => {
               <Icon name="bolt" size={32} />
             </div>
             <div style={{ fontSize: 76, fontWeight: 800, color: C.accent, letterSpacing: "-.03em" }}>
-              $39
+              $0
             </div>
             <div style={{ fontSize: 26, fontWeight: 700, color: C.ink, marginTop: 12 }}>
-              One-Time License
+              100% Free &amp; Open Source
             </div>
           </div>
           <div style={{ fontSize: 20, color: C.dim, fontFamily: MONO, borderTop: "1px solid #DCFCE7", paddingTop: 16 }}>

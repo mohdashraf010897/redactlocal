@@ -60,10 +60,10 @@ export const story = {
   },
 
   closing: {
-    kicker: "The Micro-SaaS Arbitrage",
+    kicker: "Open Source Utility",
     title: "100% Private. Zero Cloud.",
     line: "Built in 3 weeks. Replaces Adobe's $240 tax.",
-    cta: "$39 One-Time · Chrome Web Store",
+    cta: "100% Free · MIT Licensed",
     caption: "Zero server compute, zero database upkeep, and zero third-party cloud leaks.",
   },
 
@@ -104,19 +104,19 @@ export const story = {
   },
 
   economics: {
-    kicker: "The Micro-SaaS Arbitrage",
+    kicker: "Open Source Utility",
     title: "Built in 3 weeks. $0 server costs.",
     metrics: [
-      { num: "$39", label: "One-Time License", sub: "Replaces $240/yr Adobe tax", icon: "bolt" as IconName },
+      { num: "$0", label: "Free & Open Source", sub: "Replaces $240/yr Adobe tax", icon: "bolt" as IconName },
       { num: "$0", label: "Monthly Server Cost", sub: "100% client-side WebAssembly", icon: "shield" as IconName },
       { num: "3 Wks", label: "MVP Build Time", sub: "1 solo dev with modern tools", icon: "tool" as IconName },
     ],
-    caption: "95%+ gross margins with zero database, zero server maintenance, and zero cloud APIs.",
+    caption: "100% client-side execution with zero database, zero server maintenance, and zero cloud APIs.",
   },
 
   end: {
-    line: "The fastest, cleanest micro-SaaS to build.",
-    cta: "$39 One-Time · Replaces Adobe's $240 Tax",
+    line: "The cleanest open-source privacy utility.",
+    cta: "100% Free · Replaces Adobe's $240 Tax",
   },
 };
 

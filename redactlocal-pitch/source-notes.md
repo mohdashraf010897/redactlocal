@@ -12,7 +12,7 @@ A 100% client-side PDF redaction utility that permanently deletes sensitive text
 ## Real numbers
 - **$239.88/year:** Adobe Acrobat Pro current required subscription ($19.99/mo). [reverse-engineerable-opportunities.md:46]
 - **$0:** Server infrastructure and cloud compute cost (100% client-side WebAssembly/Web Workers). [reverse-engineerable-opportunities.md:55]
-- **$39:** Proposed one-time purchase price. [reverse-engineerable-opportunities.md:57]
+- **$0:** 100% Free & Open Source under MIT License. [reverse-engineerable-opportunities.md:57]
 - **2 to 3 weeks:** Estimated MVP build time for one experienced TypeScript developer. [reverse-engineerable-opportunities.md:54]
 - **1/10:** Ongoing maintenance risk score (PDF 1.7/2.0 specifications are frozen and universal). [reverse-engineerable-opportunities.md:56]
 

@@ -1,9 +1,9 @@
 # RedactLocal Outreach & Distribution Campaign Pack
 
 **Product:** RedactLocal  
-**Website / Web Hub:** [https://mohdashraf010897.github.io/redactlocal-public/](https://mohdashraf010897.github.io/redactlocal-public/)  
+**Website / Web Hub:** [https://mohdashraf010897.github.io/redactlocal/](https://mohdashraf010897.github.io/redactlocal/)  
 **Core Value Proposition:** 100% offline, client-side PDF surgical redaction & forensic leak audit utility running on WebAssembly.  
-**Pricing:** $49 one-time lifetime license ($39 early Founders Pass) vs. Adobe Acrobat Pro's $240/year recurring subscription.  
+**License:** 100% Free & Open Source under MIT License (voluntary Buy Me a Coffee developer tips) vs. Adobe Acrobat Pro's $240/year recurring subscription.  
 **Core Target Personas:**
 1. Litigation Paralegals & Legal Assistants (e-filing deadlines, court compliance)
 2. Solo & Boutique Attorneys (malpractice mitigation, cost containment)
@@ -70,7 +70,7 @@ Even without any tool, do this before your next filing:
 
 The leak checker is completely free, no sign-ups, no email gates, no watermarks, no ads.
 
-For those who regularly do surgical redactions and don't want to pay Adobe's $240/year subscription tax, there's also an offline studio utility (RedactLocal Studio) with a one-time lifetime license ($39 early founder pass), but the leak scanner is 100% free for the community.
+For those who regularly do surgical redactions and don't want to pay Adobe's $240/year subscription tax, there's also the full offline RedactLocal Studio (Web & Desktop)—100% Free and Open Source under the MIT License, with optional voluntary support via Buy Me a Coffee.
 
 Hope this saves someone from an emergency motion to seal or a nasty bench conference with a federal judge! Let me know if you run into weird PDF edge cases; happy to help inspect them.
 ```
@@ -129,7 +129,7 @@ To help fellow professionals audit sanitized returns before they leave your offi
 3. **Incremental Revision History:** Verifies that prior versions (`/Prev` xref tables containing old unredacted entries) were not quietly saved at the end of the file.
 4. **Metadata & XMP:** Audits author names, firm metadata, printer paths, and software version tags.
 
-Feel free to bookmark it and run your sanitized client packets through it before hitting send. If you need true surgical redaction that permanently excises bytecode without paying Adobe $240/yr/seat, RedactLocal has a full offline studio version ($39 lifetime founders pass), but the leak auditor is free forever for the profession.
+Feel free to bookmark it and run your sanitized client packets through it before hitting send. If you need true surgical redaction that permanently excises bytecode without paying Adobe $240/yr/seat, RedactLocal has a full offline studio version (100% Free &amp; Open Source under the MIT License), and both the auditor and studio are free forever for the profession.
 
 Drop questions below on PDF parsing or XFA internals if you are wrestling with stubborn tax PDF templates!
 ```
@@ -189,12 +189,12 @@ RedactLocal runs entirely on-device with zero network requests (`connect-src 'no
    - *Oracle 6 (Metadata & XMP Audit):* Strips `/Info`, `/Metadata`, and `/PieceInfo`.
    - *Oracle 7 (Fault-Injection Invariant):* Injects deliberate leaks into verification harnesses to enforce fail-closed behavior.
 
-6. **Offline Ed25519 Licensing:**
-   Rather than phone-home DRM, licenses are issued as standalone `.rlkey` files containing an Ed25519 digital signature. The client validates the signature in <1ms using `crypto.subtle.verify` against our embedded public key. The app remains 100% functional offline forever.
+6. **100% Free &amp; Open Source (MIT):**
+   Rather than phone-home DRM or proprietary license keys, RedactLocal is 100% free software under the MIT License. The app remains 100% functional offline forever without accounts or paywalls.
 
-### Live Demo & Free Tool
+### Live Demo &amp; Free Tool
 You can test the free forensic leak checker right in your browser (no signup, no upload):
-[https://mohdashraf010897.github.io/redactlocal-public/](https://mohdashraf010897.github.io/redactlocal-public/)
+[https://mohdashraf010897.github.io/redactlocal/](https://mohdashraf010897.github.io/redactlocal/)
 
 Try turning off your Wi-Fi, dropping in a PDF with a black box drawn in Preview or Word, and watching the extractor pull out the hidden text.
 
@@ -288,11 +288,11 @@ Founder, RedactLocal
 
 ---
 
-### Touch 3: The Founders Lifetime Offer (Day 8)
+### Touch 3: Free & Open-Source Air-Gapped Redaction (Day 8)
 
 **Subject Lines:**
 - *Subject A:* Ending the $240/yr Adobe subscription tax for [Firm Name]
-- *Subject B:* RedactLocal Founders Pass ($39 one-time vs $240/yr)
+- *Subject B:* Free, air-gapped PDF redaction for [Firm Name] (Open Source)
 - *Subject C:* Final note: permanent offline PDF redaction for your team
 
 **Email Body:**
@@ -303,22 +303,21 @@ Closing the loop here.
 
 If you are tired of paying Adobe $240 per year per seat just so your team can safely redact court filings and client disclosures, there is a better way.
 
-We are currently releasing the **RedactLocal Founders Pass**:
-- **$39 one-time lifetime license** (standard pricing will be $49/lifetime).
-- **Zero subscriptions.** No monthly or annual recurring fees ever.
+We have released **RedactLocal** as 100% Free & Open Source software under the MIT License:
+- **Zero subscriptions & Zero paywalls:** Unlimited pages, unlimited documents, forever free.
 - **100% Air-Gapped Privacy:** Runs entirely on-device via WebAssembly and native desktop shell. No client data ever touches a server.
 - **Full Surgical Studio:** Text search redaction, manual rectangle masking, batch processing, and 7-oracle forensic verification.
-- **Offline Ed25519 Key:** Tamper-evident digital license that works without calling home.
+- **Audit Certificates:** Download cryptographic SHA-256 court compliance receipts for every file.
 
 If you'd like to equip your team with a permanent, mathematically secure redaction tool:
-👉 Check out the Studio and Founders Pass: https://mohdashraf010897.github.io/redactlocal-public/
+👉 Check out the Studio and downloads: https://mohdashraf010897.github.io/redactlocal/
 
 Thanks for your time, [First Name], and here's to stress-free e-filings!
 
 Best regards,
 
 Mohd Ashraf
-Founder, RedactLocal
+Creator, RedactLocal
 ```
 
 ---
@@ -328,7 +327,7 @@ Founder, RedactLocal
 ### Objection 1: "Why not just use Adobe Acrobat Pro?"
 **Direct Counter:**
 > "Three reasons: Cost, Cloud Exposure, and Incremental Saves.
-> 1. **Cost:** Acrobat Pro costs $240 per user every single year. For a 5-person firm, that is $1,200/year indefinitely. RedactLocal is a one-time $49 lifetime license ($39 Founders Pass).
+> 1. **Cost:** Acrobat Pro costs $240 per user every single year. For a 5-person firm, that is $1,200/year indefinitely. RedactLocal is 100% Free and Open Source under the MIT License.
 > 2. **Cloud Sync Risks:** Modern Acrobat continuously pushes users toward Adobe Document Cloud storage and cloud AI features. Uploading confidential litigation exhibits, sealed medical records, or tax returns to third-party cloud infrastructure introduces HIPAA, GDPR, and attorney-client privilege liabilities. RedactLocal is 100% air-gapped; it literally cannot connect to the internet.
 > 3. **The Incremental Save Trap:** When Acrobat saves a PDF, it defaults to appending incremental edits to preserve edit history. If an attorney doesn't execute the multi-step 'Sanitize Document' command, the previous unredacted text stream remains in the file. RedactLocal deflates and rebuilds the cross-reference table from scratch with single-pass serialization (`clean=True, garbage=4`)."
 
@@ -373,12 +372,12 @@ Founder, RedactLocal
 
 ---
 
-### Objection 6: "What happens if I lose my license key or switch computers?"
+### Objection 6: "Do I need an account or license key to use RedactLocal?"
 **Direct Counter:**
-> "RedactLocal uses offline **Ed25519 public-key cryptography**.
-> When you purchase a license, you receive a digital signature certificate file (`.rlkey`) and license code. 
-> - There is no online activation server, no machine-locking DRM, and no risk of being locked out if our company ever disappears.
-> - You can store your `.rlkey` file on an encrypted flash drive or password manager and activate it across all your personal workstations. The app verifies the cryptographic signature offline in less than 1 millisecond using the browser's native Web Crypto API."
+> "No license keys, no accounts, and no activation servers whatsoever.
+> RedactLocal is 100% Free and Open Source under the MIT License.
+> - You can install it on as many workstations, laptops, or offline air-gapped computers as you wish.
+> - The software runs 100% locally with zero internet dependencies and zero phone-home DRM. If you find it valuable, you can voluntarily support the project via Buy Me a Coffee (https://buymeacoffee.com/mohdashraf)."
 
 ---
 
@@ -390,7 +389,7 @@ Founder, RedactLocal
 | **Phase 1: Day 1** | Twitter / X & LinkedIn Organic | 15-second screen recording showing WiFi off + Manafort PDF leak detection | >50 shares, high engagement among legal tech practitioners |
 | **Phase 2: Day 2** | `r/paralegal` | Section 1 Reddit post | >50 upvotes, organic word-of-mouth recommendations |
 | **Phase 2: Day 3** | `r/tax` & `r/accounting` | Section 2 Reddit post | High engagement regarding W-9/1040 AcroForm security risks |
-| **Phase 3: Days 4–12** | Cold Outbound Email (Solo Firms) | Section 4 3-Touch Sequence | 35%+ open rate, 8%+ reply rate, 20+ Founders Pass purchases |
+| **Phase 3: Days 4–12** | Cold Outbound Email (Solo Firms) | Section 4 3-Touch Sequence | 35%+ open rate, 8%+ reply rate, firm adoption & community feedback |
 | **Phase 4: Ongoing** | Legal Tech Bar Associations & Newsletters | Objection & FAQ Playbook (Section 5) | CLE guest articles, paralegal association tool directory listings |
 
 ---

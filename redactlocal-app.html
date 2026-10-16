@@ -2990,12 +2990,6 @@ startxref
       const target = currentCustomPage + delta;
       if (target < 1 || target > customPagesCount) return;
 
-      if (!isLicensePro() && target > 3) {
-        showToast("⚠️ Free Tier is limited to 3 pages per document. Upgrade to Founders Lifetime ($39) for unlimited multi-page processing.", "warn");
-        openLicenseModal();
-        return;
-      }
-
       currentCustomPage = target;
       document.getElementById('page-indicator').innerText = `Page ${currentCustomPage} of ${customPagesCount}`;
       await renderCustomPage(currentCustomPage);

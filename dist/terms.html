@@ -112,38 +112,33 @@
   </nav>
 
   <main class="doc-card">
-    <h1>Terms of Service &amp; Software License</h1>
-    <div class="meta-date">Last Updated: October 14, 2026 · Perpetual License Terms</div>
+    <h1>Terms of Service &amp; MIT License Notice</h1>
+    <div class="meta-date">Last Updated: October 16, 2026 · Open Source Terms</div>
 
     <div class="highlight-box">
-      <strong>Zero Subscriptions:</strong> RedactLocal licenses are perpetual, one-time purchases with zero recurring annual subscriptions and zero internet phone-homes.
+      <strong>100% Free &amp; Open Source:</strong> RedactLocal is released under the permissive MIT License. There are zero subscriptions, zero paid license keys, and zero telemetry pings.
     </div>
 
-    <h2>1. Perpetual License Grant</h2>
-    <p>RedactLocal software is licensed, not sold. When you purchase a license (Founders Pass $39, Professional $49, or Firm Team License), you receive a perpetual, non-exclusive, non-transferable license to install and run RedactLocal on your devices:</p>
+    <h2>1. MIT License Grant</h2>
+    <p>RedactLocal software is free and open-source under the MIT License. Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the following conditions:</p>
     <ul>
-      <li><strong>No Recurring Fees</strong>: Your license key is valid for perpetual use without monthly or annual renewals.</li>
-      <li><strong>100% Offline Activation</strong>: Validated via asymmetric Ed25519 digital cryptography. No DRM servers, no network calls.</li>
-      <li><strong>Device Allowances</strong>:
-        <ul>
-          <li><strong>Founders / Professional License</strong>: 1 primary user across up to 2 personal devices (e.g. office Mac + portable laptop).</li>
-          <li><strong>Team / Firm License</strong>: Up to 5 legal or accounting seats within a single firm.</li>
-        </ul>
-      </li>
+      <li><strong>Zero Fees &amp; Zero Accounts</strong>: You do not need to register, purchase a license key, or pay any subscription to use the full feature set.</li>
+      <li><strong>100% Air-Gapped Operation</strong>: RedactLocal runs entirely on-device with strictly enforced zero-network policies.</li>
+      <li><strong>Commercial &amp; Enterprise Use</strong>: Law firms, accounting practices, healthcare clinics, and individuals may freely use RedactLocal for all confidential production workflows without cost.</li>
     </ul>
 
-    <h2>2. Privacy &amp; Excision Warranty</h2>
-    <p>RedactLocal warrants that:</p>
+    <h2>2. Privacy &amp; Excision Architecture</h2>
+    <p>RedactLocal is engineered with strict cryptographic and architectural invariants:</p>
     <ul>
-      <li>It never transmits your document bytecodes, filenames, or metadata to any remote server.</li>
+      <li>It never transmits document bytecodes, filenames, or metadata to any remote server (<code>connect-src 'none'</code>).</li>
       <li>When redaction is executed, targeted character glyph operators (<code>Tj</code>/<code>TJ</code>) are excised from content streams, AcroForm <code>/V</code> values nullified, and underlying raster pixels permanently overwritten rather than masked with opaque black vectors.</li>
     </ul>
 
-    <h2>3. Statutory Compliance Responsibility</h2>
-    <p>RedactLocal provides deterministic pattern detection (FRCP 5.2, HIPAA Safe Harbor § 164.514, IRS § 7216) and surgical bytecode excision. However, the legal responsibility for final court, tax, or regulatory filing remains with the filing practitioner. Users must review their document queues before final submission.</p>
+    <h2>3. Practitioner Responsibility</h2>
+    <p>RedactLocal provides deterministic pattern detection (FRCP 5.2, HIPAA Safe Harbor § 164.514, IRS § 7216) and surgical bytecode excision audited by 7 independent verification oracles. However, final legal responsibility for court, regulatory, or client submissions rests with the practitioner. Users should verify redactions before filing.</p>
 
-    <h2>4. 30-Day Money-Back Guarantee</h2>
-    <p>If RedactLocal fails to meet your firm's compliance or workflow standards, contact support within 30 days of purchase for a 100% full refund.</p>
+    <h2>4. Voluntary Sponsorship</h2>
+    <p>RedactLocal is funded purely through voluntary developer support via <a href="https://buymeacoffee.com/mohdashraf" target="_blank" style="color: var(--brand); font-weight: 700;">Buy Me a Coffee</a>. Voluntary tips are non-refundable and do not alter the free terms of the MIT License.</p>
   </main>
 
 </body>

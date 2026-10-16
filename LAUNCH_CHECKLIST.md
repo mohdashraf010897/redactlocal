@@ -26,14 +26,14 @@ Use this interactive checklist to execute the launch sequence in order and track
   - Post in **r/paralegal**, **r/tax**, and **r/sysadmin**:
   - *Topic:* "Why drawing black rectangles in Acrobat gets lawyers sanctioned (and how we built an air-gapped offline tool for FRCP 5.2 compliance)."
 - [ ] **10. Product Hunt Launch**
-  - Submit RedactLocal with the 38s Motion Deck video, screenshots, and the $39 Founders Pass deal.
+  - Submit RedactLocal as 100% Free & Open Source (MIT) with the 38s Motion Deck video, screenshots, and live Web Studio link.
 
 ---
 
-### Phase 3: Commercial & Enterprise Distribution (Weeks 2–4)
-- [ ] **11. Connect Payment Gateway Webhook**
-  - Link Lemon Squeezy or Stripe checkout to `core/engine/cloudflare_worker.js` to automatically mint and email `.rlkey` offline licenses.
+### Phase 3: Open-Source Community & Package Distribution (Weeks 2–4)
+- [ ] **11. Maintain Open-Source Sponsorships**
+  - Monitor Buy Me a Coffee (`https://buymeacoffee.com/mohdashraf`) and GitHub Sponsors for community developer support.
 - [ ] **12. Submit to Windows Package Managers (Winget & Chocolatey)**
   - Submit `RedactLocal_1.0.0_x64_en-US.msi` to `microsoft/winget-pkgs` for one-command enterprise installation: `winget install RedactLocal`.
 - [ ] **13. Direct Outreach to Boutique Law Firms & CPA Practices**
-  - Offer 5-seat firm trial bundles to targeted litigation firms facing court exhibit deadlines.
+  - Share the free, open-source air-gapped utility with litigation firms facing e-filing deadlines and HIPAA compliance checks.

@@ -15,7 +15,7 @@
 | 3 | legal | Legal & HR Contracts · Court_Exhibit_Ex04.pdf · SSN: 942-01-4491 | User opens legal filing in browser. RedactLocal sidebar opens; 1-click "Auto-Detect PII" highlights SSN & private email. Clicks "Purge Stream" $\to$ permanent glyph deletion. | handoff: Browser window | 230 f (7.7 s) |
 | 4 | finance | Financial Statements & Invoices · Wire_Invoice_9082.pdf · Routing & Account | Browser navigates to bank wire invoice. RedactLocal flags routing code `021000021` and account `849201`. Clicks "Sanitize Statement" $\to$ clean blacked-out byte streams. Zero data sent online. | handoff: Browser window | 230 f (7.7 s) |
 | 5 | medical | Healthcare & Medical Intake · Patient_Record_441.pdf · HIPAA Safe | Browser displays medical intake form. Patient MRN and diagnosis notes detected. RedactLocal confirms "0 Bytes Transferred · 100% Local WASM". Clicks "Sanitize & Comply". | handoff: Browser window | 230 f (7.7 s) |
-| 6 | closing | **RedactLocal** · 100% Private. Zero Cloud. · $39 One-Time · Replaces Adobe's $240 Tax | Browser window scales into clean product showcase. Download confirmation with SHA-256 audit hash. Call to action pill. | dip | 170 f (5.7 s) |
+| 6 | closing | **RedactLocal** · 100% Private. Zero Cloud. · 100% Free &amp; Open Source · Replaces Adobe's $240 Tax | Browser window scales into clean product showcase. Download confirmation with SHA-256 audit hash. Call to action pill. | dip | 170 f (5.7 s) |
 
 ## Continuity & Handoff Object
 The hero object is the **Browser Window** (`BrowserWindow`).
@@ -29,5 +29,5 @@ The hero object is the **Browser Window** (`BrowserWindow`).
 ## Real Numbers & Cited Sources
 - **$239.88/year:** Adobe Acrobat Pro current price [source-notes.md:14]
 - **$0:** Server infrastructure cost (runs 100% client-side in browser WebAssembly/Web Workers) [source-notes.md:15]
-- **$39:** Proposed one-time purchase price [source-notes.md:16]
+- **$0:** 100% Free & Open Source under MIT License [source-notes.md:16]
 - **2 to 3 weeks:** MVP build time [source-notes.md:17]

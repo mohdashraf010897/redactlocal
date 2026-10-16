@@ -277,7 +277,7 @@
       <p>
         <strong>Partially YES, and partially NO.</strong><br>
         • <strong>What is 100% REAL:</strong> The native macOS app compiles, runs, and renders. Mozilla PDF.js stream decompression, regex PII detection, visual canvas excision, offline Ed25519 license verification, 30-document Python/Node test corpus, and installer packages (.dmg, .pkg, .msi, .exe) are 100% real code on disk.<br>
-        • <strong>Where the Hallucination Was:</strong> In the browser UI (<code>studio.html</code>), the app claims it is running <em>"mupdf.js WebAssembly 10-step bytecode operator surgery"</em>. In reality, the browser UI renders pages via <strong>Mozilla PDF.js</strong> and outputs custom PDFs by <strong>flattening the redacted canvas into high-res JPEG streams inside a minimal PDF wrapper</strong> (while MuPDF runs in the Python/Node test lab). And for licensing, we had client-side key generation that bypassed the paywall.
+        • <strong>Where the Hallucination Was:</strong> In the browser UI (<code>studio.html</code>), the app claims it is running <em>"mupdf.js WebAssembly 10-step bytecode operator surgery"</em>. In reality, the browser UI renders pages via <strong>Mozilla PDF.js</strong> and outputs custom PDFs by <strong>flattening the redacted canvas into high-res JPEG streams inside a minimal PDF wrapper</strong> (while MuPDF runs in the Python/Node test lab). And for licensing, we eliminated all paywalls and transitioned 100% to Free &amp; Open Source under the MIT License.
       </p>
     </div>
 
@@ -354,35 +354,34 @@
         </div>
       </div>
 
-      <!-- Layer 3: Licensing & Payments -->
+      <!-- Layer 3: Open Source & Community Support -->
       <div class="arch-layer">
-        <span class="layer-tag tag-cloud">LAYER 3 · COMMERCE &amp; LICENSING</span>
-        <h3 style="font-size: 16px; margin-top: 4px;">What Is Real vs. What Needs Setup</h3>
+        <span class="layer-tag tag-cloud">LAYER 3 · OPEN SOURCE &amp; COMMUNITY</span>
+        <h3 style="font-size: 16px; margin-top: 4px;">100% Free &amp; Open Source Architecture</h3>
 
         <div class="arch-grid">
           <div class="arch-box">
-            <h4>Offline License Verifier <span class="status-pill status-real">REAL</span></h4>
+            <h4>Permissive MIT License <span class="status-pill status-real">100% FREE</span></h4>
             <p>
-              <code>core/engine/license_verifier.js</code> &amp; in-app Web Crypto:
-              Embeds public key <code>jZGgE4bwWQ18...</code>.
-              Verifies Ed25519 digital signatures offline in <code>&lt;2ms</code>. Modifying any byte causes instant fail-closed rejection.
+              Zero paywalls, zero license keys, zero page restrictions, and zero phone-home DRM.
+              Unconditionally unlocked for litigation firms, clinics, CPAs, and individuals worldwide.
             </p>
           </div>
 
           <div class="arch-box">
-            <h4>Cloudflare Edge Webhook <span class="status-pill status-real">CODE READY (NOT DEPLOYED)</span></h4>
+            <h4>Voluntary Sponsorship <span class="status-pill status-ready">LIVE &amp; ACTIVE</span></h4>
             <p>
-              <code>core/engine/cloudflare_worker.js</code>: Complete serverless webhook worker.
-              Listens for Stripe/Lemon Squeezy <code>checkout.session.completed</code>, validates HMAC-SHA256, mints <code>.rlkey</code> file.
-              <strong>Needs:</strong> Deploying to Cloudflare + setting Stripe secrets.
+              Funded purely by voluntary community donations via <strong>Buy Me a Coffee</strong>:
+              <a href="https://buymeacoffee.com/mohdashraf" target="_blank" style="color: var(--artifact-primary-brand);">buymeacoffee.com/mohdashraf</a>.
+              100% optional: all features remain fully unlocked for everyone ($0 cost).
             </p>
           </div>
 
           <div class="arch-box">
-            <h4>Stripe Account / Merchant Gateway <span class="status-pill status-deferred">PENDING ACCOUNT</span></h4>
+            <h4>Zero-Network Isolation <span class="status-pill status-real">AIR-GAPPED</span></h4>
             <p>
-              You have not created a live Stripe Payment Link or connected bank accounts.
-              The website currently operates in <strong>Pre-Order Price Reservation mode</strong> (capturing leads and locking $39 rate without billing).
+              Both Desktop and Web Studio enforce <code>connect-src 'none'</code>.
+              Zero telemetry pings, zero payment processors, and zero remote dependencies.
             </p>
           </div>
         </div>
@@ -427,14 +426,14 @@
             <td>MuPDF runs in <strong>Node.js and Python test scripts</strong> (<code>redaction-test-lab/</code>). It is <em>not</em> running inside the browser Web Worker yet due to Wasm Emscripten bundling complexity.</td>
           </tr>
           <tr>
-            <td><strong>Offline License Verification</strong></td>
+            <td><strong>Open Source Community Model</strong></td>
             <td><span class="status-pill status-real">100% REAL</span></td>
-            <td>Web Crypto <code>crypto.subtle.verify('Ed25519', ...)</code> runs offline in browser &amp; desktop. Genuine mathematical asymmetric cryptography.</td>
+            <td>MIT License. All restrictions, paywalls, and page limits eradicated across Studio and Desktop.</td>
           </tr>
           <tr>
-            <td><strong>Stripe Payment Gateway</strong></td>
-            <td><span class="status-pill status-deferred">NOT CONFIGURED</span></td>
-            <td>Webhook code exists in <code>cloudflare_worker.js</code>. Live Stripe payment links (e.g. <code>buy.stripe.com/xxx</code>) are not created yet because you haven't set up Stripe.</td>
+            <td><strong>Buy Me a Coffee Sponsorship</strong></td>
+            <td><span class="status-pill status-real">LIVE &amp; ACTIVE</span></td>
+            <td>Creator profile active at <code>buymeacoffee.com/mohdashraf</code>. Integrated with header buttons and modal in Studio and Landing Page.</td>
           </tr>
           <tr>
             <td><strong>Apple Developer Notarization</strong></td>

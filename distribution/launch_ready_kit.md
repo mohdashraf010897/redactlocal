@@ -103,8 +103,8 @@ Key features:
 📚 Batch Processing: Process entire trial exhibit bundles or tax batches with password unlock.
 💻 Cross-Platform: 1-click downloads for macOS (.dmg) and Windows (.msi).
 
-We're offering our $39 Lifetime Founders Pass for early supporters today!
-Try the free in-browser triage scanner: https://mohdashraf010897.github.io/redactlocal-public/
+RedactLocal is 100% Free &amp; Open Source under the MIT License!
+Try the free in-browser triage scanner: https://mohdashraf010897.github.io/redactlocal/
 ```
 
 ---
@@ -157,26 +157,12 @@ ManifestVersion: 1.6.0
 
 ---
 
-## 5. Paid Licensing & Payment Architecture
+## 5. 100% Free & Open Source (MIT) Architecture
 
-### Two Operating Modes
+RedactLocal is distributed as free, open-source software under the MIT License with voluntary developer sponsorship via [Buy Me a Coffee](https://buymeacoffee.com/mohdashraf).
 
-1. **Pre-Launch Sandbox Mode (Active Today)**:
-   - Built directly into `dist/index.html` and `redactlocal-app.html`.
-   - When a user submits the "Claim $39 Founders Pass" form, Web Crypto (`crypto.subtle`) uses the master authority key to mint a valid Ed25519-signed `.rlkey` certificate.
-   - It triggers an instant browser download of `redactlocal_license.rlkey` and saves the license to `localStorage.redactlocal_license`.
-   - RedactLocal Studio immediately boots as `PRO (FOUNDERS LIFETIME)` with unlimited pages unlocked.
-   - **Benefit**: Fully testable and usable for customer demos and beta onboarding today without waiting for Stripe merchant approval or bank verification.
-
-2. **Production Webhook Fulfillment Mode (When Stripe/Lemon Squeezy is Linked)**:
-   - Implemented in `core/engine/cloudflare_worker.js` and `core/engine/checkout_fulfillment.js`.
-   - Buyer pays via Stripe hosted checkout (`buy.stripe.com/...`).
-   - Stripe POSTs `checkout.session.completed` webhook to Cloudflare Worker.
-   - Worker verifies HMAC signature, mints `.rlkey` on the edge, and sends transactional email with the keycard attached.
-   - Buyer drops `.rlkey` into RedactLocal Desktop.
-
-### Why RedactLocal Doesn't Need a Server for License Verification
-- RedactLocal enforces `connect-src 'none'`. The app **never contacts Stripe or any server**.
-- Verification is **purely cryptographic**: the client embeds the 32-byte public key `jZGgE4bwWQ18xHwUp27dRsAaKhlolh88FxKWxRzHKQo=` and verifies the Ed25519 digital signature locally in `<2ms`.
-- Any tampering with the license file (e.g., editing licensee, seats, or expiration) breaks the cryptographic signature and fails validation offline.
+### Key Architectural Invariants
+- **Zero Paywalls & Zero DRM**: All capabilities—including multi-file batch queues, 15 statutory patterns, on-device semantic NER, manual redactions, and 7-Oracle verification—are permanently unlocked for all users.
+- **100% Air-Gapped Enforcement**: RedactLocal enforces `connect-src 'none'`. The app never contacts any server, telemetry service, or analytics ping.
+- **Commercial & Enterprise Freedom**: Law firms, medical practices, accountants, and solo practitioners may freely use RedactLocal in production without subscriptions or seat licenses.
 

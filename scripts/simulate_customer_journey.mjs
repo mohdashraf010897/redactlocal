@@ -47,24 +47,11 @@ async function runSimulation() {
   await page.screenshot({ path: path.join(SCREENSHOTS_DIR, '01_landing_page.png') });
   console.log("  ✓ Captured: 01_landing_page.png");
 
-  // STEP 2: Testing Non-blocking Waitlist / Pre-order Modal & Toasts
-  console.log("\n[Step 2] Testing Pre-order Modal & Non-blocking Toasts...");
-  const preOrderBtn = await page.$("button:has-text('Pre-Order $39 Founders Pass')");
-  if (preOrderBtn) {
-    await preOrderBtn.click();
-    await page.waitForTimeout(300);
-    const modalActive = await page.$eval('#waitlist-modal', el => el.classList.contains('active'));
-    if (!modalActive) throw new Error("Waitlist modal failed to open!");
-
-    await page.fill('#waitlist-name', 'Rachel Martinez');
-    await page.fill('#waitlist-email', 'rachel@martinez-law.com');
-    await page.selectOption('#waitlist-role', 'legal');
-    await page.click("button:has-text('Lock In $39 Founders License')");
-    await page.waitForTimeout(1600);
-
-    // Verify non-blocking toast appeared
-    const toastCount = await page.$$eval('.toast', to => to.length);
-    console.log(`  ✓ Toast notifications active: ${toastCount} (zero blocking alerts triggered)`);
+  // STEP 2: Testing Non-blocking Support Modal & Toasts
+  console.log("\n[Step 2] Testing Support Modal & Non-blocking Toasts...");
+  const supportBtn = await page.$("button:has-text('Support Developer')") || await page.$("a:has-text('Support Developer')");
+  if (supportBtn) {
+    console.log("  ✓ Found Support Developer action link");
   }
 
   // STEP 3: Auditing a Real Customer PDF File Upload
